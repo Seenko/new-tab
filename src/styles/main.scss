@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@/styles/__fonts.scss';
+@import '@/styles/__typography.scss';
+
+html {
+  @apply select-none;
+}
+
+body {
+  font-size: 100%;
+}
+
+html, body {
+  @apply bg-gray-100 text-gray-800;
+  @apply dark:bg-gray-800 dark:text-gray-100;
+}
+
+html, body, #app {
+  @apply min-h-screen overflow-x-hidden;
+}

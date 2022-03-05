@@ -1,0 +1,12 @@
+* {
+  @apply font-sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-serif;
+}
+
+hr {
+  @apply w-full;
+  @apply border-t-0 border-b border-gray-300 dark:border-gray-700;
+}
