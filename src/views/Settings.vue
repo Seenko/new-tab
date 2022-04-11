@@ -38,7 +38,9 @@ const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
 const getManifestVersion = async () => {
-  fetch(new URL('/manifest.json', import.meta.url).href)
+  // Making this non-static so Vite won't try to transform at build.
+  let manifestLocation = '/manifest.json'
+  fetch(new URL(manifestLocation, import.meta.url).href)
     .then(res => res.json())
     .then(({ version, manifest_version }) => manifestVersion.value = `v${version} (m${manifest_version}) (${isRunningAsExtension ? 'EXT' : 'DEBUG'})`)
 }

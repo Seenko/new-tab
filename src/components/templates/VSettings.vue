@@ -101,7 +101,7 @@
             <v-text-input
               placeholder="Image URL (Remote or dataURL)"
               :value="backgroundImage"
-              @change="$emit('set-background-image', $event!.target!.value)"
+              @change="$emit('set-background-image', ($event.target as HTMLInputElement).value)"
             />
           </div>
           <div
