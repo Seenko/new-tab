@@ -1,30 +1,39 @@
 <template>
   <v-home
-    :show-clock-seconds="showClockSeconds"
-    :show-quick-access="showQuickAccess"
+    :show-clock-seconds="settings.getShowClockSeconds"
+    :show-quick-access="settings.getShowQuickAccess"
     :quick-access-entries="quickAccessEntries"
   />
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { getBrowserInstance } from '@/utils/browser'
+import { getBrowserInstance, isRunningAsExtension } from '@/utils/browser'
 
 import { quickAccessEntry } from '@/types/quickAccessEntry'
 
-import { useSettingsState } from '@/store/settings'
-import { useQuickAccessState } from '@/store/quickAccess'
+import { useSettingsStore } from '@/store/settings'
+import { useQuickAccessStore } from '@/store/quickAccess'
 
 import VHome from '@/components/templates/VHome.vue'
 
-const settings = useSettingsState()
-const showClockSeconds = computed(() => settings.value.showClockSeconds)
-const showQuickAccess = computed(() => settings.value.showQuickAccess)
+const settings = useSettingsStore()
+const quickAccess = useQuickAccessStore()
 
 const topSitesArray = ref<quickAccessEntry[]>()
 
 const quickAccessEntries = computed(() => {
-  return (topSitesArray.value && topSitesArray.value.length) ? topSitesArray.value : useQuickAccessState().value
+  if (settings.getAutoQuickAccessEntries) {
+    if (topSitesArray.value && topSitesArray.value.length) {
+      return topSitesArray.value
+    } else {
+      console.log('No top sites found! Probably because it\'s not running as extension.')
+      console.log(`Running as extension? ${isRunningAsExtension ? 'Yes' : 'No'}`)
+      return []
+    }
+  } else {
+    return quickAccess.getQuickAccessEntries
+  }
 })
 
 onMounted(() => {

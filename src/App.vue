@@ -1,7 +1,13 @@
 <template>
-  <div class="layout">
+  <div
+    class="layout"
+    :style="{
+      backgroundColor: settings.getBackgroundColor,
+      backgroundImage: `url(${settings.getBackgroundImage})`
+    }"
+  >
     <v-header
-      :show-greeting="showGreeting"
+      :show-greeting="settings.getShowGreeting"
       :now="now"
     />
     <main>
@@ -12,24 +18,21 @@
       </router-view>
     </main>
     <v-footer
-      :show-network-status="showNetworkStatus"
+      :show-network-status="settings.getShowNetworkStatus"
       :is-online="isOnline"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useNow, useOnline } from '@vueuse/core'
 
-import { useSettingsState } from '@/store/settings'
+import { useSettingsStore } from '@/store/settings'
 
 import VHeader from '@/components/organisms/VHeader.vue'
 import VFooter from '@/components/organisms/VFooter.vue'
 
-const settings = useSettingsState()
-const showGreeting = computed(() => settings.value.showGreeting)
-const showNetworkStatus = computed(() => settings.value.showNetworkStatus)
+const settings = useSettingsStore()
 
 const now = useNow()
 
@@ -39,6 +42,7 @@ const isOnline = useOnline()
 <style lang="scss" scoped>
 .layout {
   @apply min-h-screen flex flex-col overflow-hidden;
+  @apply bg-no-repeat	bg-center	bg-cover;
 
   main {
     @apply flex flex-col grow;
