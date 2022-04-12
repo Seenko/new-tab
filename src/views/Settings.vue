@@ -9,6 +9,7 @@
     :background-color="settings.getBackgroundColor"
     :background-image="settings.getBackgroundImage"
     :version="manifestVersion"
+    :is-running-as-extension="isRunningAsExtension"
     @toggle-dark="toggleDark()"
     @toggle-show-greeting="settings.toggleShowGreeting()"
     @toggle-show-clock-seconds="settings.toggleShowClockSeconds()"

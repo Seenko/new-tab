@@ -24,16 +24,15 @@ const topSitesArray = ref<quickAccessEntry[]>()
 
 const quickAccessEntries = computed(() => {
   if (settings.getAutoQuickAccessEntries) {
-    if (topSitesArray.value && topSitesArray.value.length) {
-      return topSitesArray.value
-    } else {
-      console.log('No top sites found! Probably because it\'s not running as extension.')
-      console.log(`Running as extension? ${isRunningAsExtension ? 'Yes' : 'No'}`)
-      return []
+    if (isRunningAsExtension) {
+      return (topSitesArray.value && topSitesArray.value.length) ? topSitesArray.value : []
     }
-  } else {
-    return quickAccess.getQuickAccessEntries
+
+    // When not running as an extension, we can't get the top sites from the browser instance
+    return []
   }
+  
+  return quickAccess.getQuickAccessEntries
 })
 
 onMounted(() => {

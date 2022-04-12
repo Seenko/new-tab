@@ -5,7 +5,7 @@
         v-if="$route.name !== 'settings'"
         :to="{ name: 'settings' }"
       >
-        <v-button>
+        <v-button tabindex="-1">
           ⚙️
         </v-button>
       </router-link>

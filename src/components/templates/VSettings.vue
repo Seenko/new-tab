@@ -5,7 +5,7 @@
       <router-link
         :to="{ name: 'home' }"
       >
-        <v-button>
+        <v-button tabindex="-1">
           ❌
         </v-button>
       </router-link>
@@ -48,12 +48,23 @@
         class="setting setting--descriptive setting--sub"
       >
         <div>
-          <label for="autoQuickAccessEntries">Automatic Entries</label>
+          <label for="autoQuickAccessEntries">
+            Automatic Entries
+            <span
+              v-if="!isRunningAsExtension"
+              class="tooltip"
+              aria-label="This feature is only available when running as an extension."
+              tabindex="0"
+            >
+              ⚠️
+            </span>
+          </label>
           <small>Pulls data from the top 5 most visited websites from the browser's history.</small>
         </div>
         <v-toggle
           id="autoQuickAccessEntries"
           :toggled="autoQuickAccessEntries"
+          :disabled="!isRunningAsExtension"
           @click="$emit('toggle-auto-quick-access-entries')"
         />
       </div>
@@ -81,7 +92,7 @@
             <v-color-picker
               id="backgroundColor"
               :color="backgroundColor"
-              @selected-color="$emit('set-background-color', $event)"
+              @input-color="$emit('set-background-color', $event)"
             />
           </div>
           <div
@@ -156,7 +167,8 @@ const props = defineProps({
   showNetworkStatus: Boolean,
   backgroundColor: String,
   backgroundImage: String,
-  version: String
+  version: String,
+  isRunningAsExtension: Boolean
 })
 
 const hasColorAndImageSet = computed(() => {

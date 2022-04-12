@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useStorage, useDark } from '@vueuse/core'
+import { isRunningAsExtension } from '@/utils/browser'
 
 // Vue Use already scaffolds dark mode for us, no need to do it manually
 useDark()
@@ -31,9 +32,6 @@ export const useSettingsStore = defineStore({
     settings: useStorage('settings', defaultSettings)
   }),
   getters: {
-    getSettings(state): Settings {
-      return state.settings
-    },
     getShowGreeting(state): boolean {
       return state.settings.showGreeting
     },
@@ -44,7 +42,7 @@ export const useSettingsStore = defineStore({
       return this.settings.showQuickAccess
     },
     getAutoQuickAccessEntries(): boolean {
-      return this.settings.autoQuickAccessEntries
+      return isRunningAsExtension ? this.settings.autoQuickAccessEntries : false
     },
     getShowNetworkStatus(): boolean {
       return this.settings.showNetworkStatus

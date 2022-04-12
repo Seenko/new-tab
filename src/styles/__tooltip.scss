@@ -1,0 +1,30 @@
+//The good stuff
+.tooltip {
+  @apply cursor-help relative;
+
+  &::before {
+    content: attr(aria-label);
+    @apply bg-gray-600;
+    @apply text-white;
+    @apply absolute rounded p-1 w-52 text-center;
+    @apply bottom-8 -left-2;
+  }
+
+  &::after {
+    @apply absolute border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-gray-600;
+    @apply bottom-6 left-0.5;
+    content: " ";
+  }
+
+  &::before,
+  &::after {
+    @apply opacity-0 pointer-events-none transition-all;
+  }
+
+  &:focus::before,
+  &:focus::after,
+  &:hover::before,
+  &:hover::after {
+    @apply opacity-100;
+  }
+}

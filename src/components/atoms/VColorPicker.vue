@@ -1,15 +1,31 @@
 <template>
   <input
     type="color"
-    v-model="color"
-    @change="$emit('selected-color', color)"
+    v-model="currentColor"
+    @input="$emit('input-color', currentColor)"
+    @change="$emit('selected-color', currentColor)"
   >
 </template>
 
 <script setup lang="ts">
-defineProps({
+import { ref, computed } from 'vue'
+
+const props = defineProps({
   color: String
 })
+
+const color = ref(props.color)
+
+const currentColor = computed({
+  get() {
+    return props.color ? (color.value ? color.value : '#000000') : '#000000'
+  },
+  set(newColor: string) {
+    color.value = newColor
+  }
+})
+
+
 </script>
 
 <style lang="scss" scoped>

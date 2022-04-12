@@ -6,3 +6,9 @@
     <slot />
   </details>
 </template>
+
+<style lang="scss" scoped>
+summary {
+  @apply cursor-pointer;
+}
+</style>
