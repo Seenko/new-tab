@@ -1,6 +1,6 @@
 {
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
+  "name": "Seenko's New Tab",
+  "description": "New Tab extension since I couldn't find a better one for how I want it to behave.",
   "version": "0.1",
   "manifest_version": 2,
   "chrome_url_overrides" : {
