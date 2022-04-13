@@ -313,7 +313,7 @@ const hasColorAndImageSet = computed(() => {
   &__group {
     @apply gap-2;
 
-    &::v-deep > .accordion__content {
+    & > ::v-deep(.accordion__content) {
       @apply w-full flex flex-col gap-4 mt-4;
     }
 

@@ -22,6 +22,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const animationSpeedInMs = 150
+
 const detailsElement = ref()
 const summaryElement = ref()
 const contentElement = ref()
@@ -69,7 +71,7 @@ const doExpand = () => {
 
   currentAnimation.value = detailsElement.value.animate(
     { height: [startHeight, endHeight] },
-    { duration: 400, easing: 'ease-out' }
+    { duration: animationSpeedInMs, easing: 'ease-out' }
   )
 
   currentAnimation.value.onfinish = () => onAnimationFinish(true)
@@ -88,7 +90,7 @@ const doClose = () => {
 
   currentAnimation.value = detailsElement.value.animate(
     { height: [startHeight, endHeight] },
-    { duration: 400, easing: 'ease-out' }
+    { duration: animationSpeedInMs, easing: 'ease-out' }
   )
 
   currentAnimation.value.onfinish = () => onAnimationFinish(false)
