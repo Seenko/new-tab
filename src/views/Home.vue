@@ -1,6 +1,7 @@
 <template>
   <v-home
     :show-clock-seconds="settings.getShowClockSeconds"
+    :show-24-hour-clock="settings.getShow24HourClock"
     :show-quick-access="settings.getShowQuickAccess"
     :quick-access-entries="quickAccessEntries"
   />

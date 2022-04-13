@@ -8,6 +8,7 @@ useDark()
 interface Settings {
   showGreeting: boolean;
   showClockSeconds: boolean;
+  show24HourClock: boolean;
   showQuickAccess: boolean;
   autoQuickAccessEntries: boolean;
   showNetworkStatus: boolean;
@@ -19,6 +20,7 @@ interface Settings {
 const defaultSettings: Settings = {
   showGreeting: true,
   showClockSeconds: false,
+  show24HourClock: false,
   showQuickAccess: true,
   autoQuickAccessEntries: true,
   showNetworkStatus: true,
@@ -37,6 +39,9 @@ export const useSettingsStore = defineStore({
     },
     getShowClockSeconds(): boolean {
       return this.settings.showClockSeconds
+    },
+    getShow24HourClock(): boolean {
+      return this.settings.show24HourClock
     },
     getShowQuickAccess(): boolean {
       return this.settings.showQuickAccess
@@ -63,6 +68,9 @@ export const useSettingsStore = defineStore({
     },
     toggleShowClockSeconds(value?: boolean): boolean {
       return (this.settings.showClockSeconds = typeof value === 'boolean' ? value : !this.settings.showClockSeconds)
+    },
+    toggleShow24HourClock(value?: boolean): boolean {
+      return (this.settings.show24HourClock = typeof value === 'boolean' ? value : !this.settings.show24HourClock)
     },
     toggleShowQuickAccess(value?: boolean): boolean {
       return (this.settings.showQuickAccess = typeof value === 'boolean' ? value : !this.settings.showQuickAccess)

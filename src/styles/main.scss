@@ -15,8 +15,12 @@ body {
 }
 
 html, body {
-  @apply bg-gray-100 text-gray-800;
-  @apply dark:bg-gray-800 dark:text-gray-100;
+  @apply bg-gray-100 text-gray-700;
+  @apply dark:bg-gray-700 dark:text-gray-100;
+
+  @apply bg-gradient-to-br;
+  @apply from-gray-200 to-slate-300;
+  @apply dark:from-gray-800 dark:to-slate-900;
 }
 
 html, body, #app {

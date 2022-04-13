@@ -2,6 +2,7 @@
   <div class="home">
     <v-clock
       :show-seconds="showClockSeconds"
+      :show-24-hour="show24HourClock"
     />
     <div
       v-if="showQuickAccess"
@@ -30,6 +31,7 @@ import VQuickAccessEntry from '@/components/atoms/VQuickAccessEntry.vue'
 
 defineProps({
   showClockSeconds: Boolean,
+  show24HourClock: Boolean,
   showQuickAccess: Boolean,
   quickAccessEntries: Array as PropType<Array<quickAccessEntry>>,
 })

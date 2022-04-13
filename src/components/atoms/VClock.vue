@@ -8,10 +8,12 @@ import { useNow } from '@vueuse/core'
 
 interface Props {
   showSeconds?: boolean
+  show24Hour?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  showSeconds: false
+  showSeconds: false,
+  show24Hour: false
 })
 
 const currentHour = computed(() => {
@@ -20,7 +22,8 @@ const currentHour = computed(() => {
   let options: Intl.DateTimeFormatOptions = {
     hour: 'numeric',
     minute: 'numeric',
-    second: props.showSeconds ? 'numeric' : undefined
+    second: props.showSeconds ? 'numeric' : undefined,
+    hourCycle: props.show24Hour ? 'h24' : 'h12'
   }
 
   return now.value.toLocaleString(undefined, options)
