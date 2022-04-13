@@ -99,6 +99,38 @@
       </v-accordion>
       <v-accordion class="settings__group">
         <template #summary>
+          News
+        </template>
+        <template #content>
+          <v-setting-entry label-id="showNewsArticles">
+            <template #label>
+              Show News Articles
+            </template>
+            <template #control>
+              <v-toggle
+                id="showNewsArticles"
+                :toggled="showNewsArticles"
+                @click="$emit('toggle-show-news-articles')"
+              />
+            </template>
+          </v-setting-entry>
+          <v-setting-entry label-id="newsCatcherApiKey">
+            <template #label>
+              NewsCatcher API Key
+            </template>
+            <template #control>
+              <v-text-input
+                id="newsCatcherApiKey"
+                placeholder="API Key"
+                :value="newsCatcherApiKey"
+                @change="$emit('set-newscatcher-api-key', ($event.target as HTMLInputElement).value)"
+              />
+            </template>
+          </v-setting-entry>
+        </template>
+      </v-accordion>
+      <v-accordion class="settings__group">
+        <template #summary>
           Background
         </template>
         <template #content>
@@ -276,6 +308,8 @@ const props = defineProps({
   show24HourClock: Boolean,
   showQuickAccess: Boolean,
   autoQuickAccessEntries: Boolean,
+  showNewsArticles: Boolean,
+  newsCatcherApiKey: String,
   showNetworkStatus: Boolean,
   backgroundColor: String,
   backgroundImage: String,

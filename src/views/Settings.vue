@@ -6,6 +6,8 @@
     :show-24-hour-clock="settings.getShow24HourClock"
     :show-quick-access="settings.getShowQuickAccess"
     :auto-quick-access-entries="settings.getAutoQuickAccessEntries"
+    :show-news-articles="settings.getShowNewsArticles"
+    :news-catcher-api-key="settings.getNewsCatcherApiKey"
     :show-network-status="settings.getShowNetworkStatus"
     :background-color="settings.getBackgroundColor"
     :background-image="settings.getBackgroundImage"
@@ -17,6 +19,8 @@
     @toggle-show-clock-seconds="settings.toggleShowClockSeconds()"
     @toggle-show-quick-access="settings.toggleShowQuickAccess()"
     @toggle-auto-quick-access-entries="settings.toggleAutoQuickAccessEntries()"
+    @toggle-show-news-articles="settings.toggleShowNewsArticles()"
+    @set-newscatcher-api-key="updateNewsCatcherApiKey($event)"
     @toggle-show-network-status="settings.toggleShowNetworkStatus()"
     @set-background-color="settings.setBackgroundColor($event)"
     @set-background-image="settings.setBackgroundImage($event)"
@@ -30,10 +34,16 @@ import { isRunningAsExtension } from '@/utils/browser'
 
 import { useDark, useToggle } from '@vueuse/core'
 import { useSettingsStore } from '@/store/settings'
+import NewsService from '@/services/news'
 
 import VSettings from '@/components/templates/VSettings.vue'
 
 const settings = useSettingsStore()
+
+const updateNewsCatcherApiKey = (newToken: string) => {
+  settings.setNewsCatcherApiKey(newToken)
+  NewsService.init(newToken)
+}
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)

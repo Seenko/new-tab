@@ -11,6 +11,8 @@ interface Settings {
   show24HourClock: boolean;
   showQuickAccess: boolean;
   autoQuickAccessEntries: boolean;
+  showNewsArticles: boolean;
+  newsCatcherApiKey: string;
   showNetworkStatus: boolean;
   backgroundColor: string;
   backgroundImage: string;
@@ -23,6 +25,8 @@ const defaultSettings: Settings = {
   show24HourClock: false,
   showQuickAccess: true,
   autoQuickAccessEntries: true,
+  showNewsArticles: true,
+  newsCatcherApiKey: '',
   showNetworkStatus: true,
   backgroundColor: '',
   backgroundImage: '',
@@ -48,6 +52,12 @@ export const useSettingsStore = defineStore({
     },
     getAutoQuickAccessEntries(): boolean {
       return isRunningAsExtension ? this.settings.autoQuickAccessEntries : false
+    },
+    getShowNewsArticles(): boolean {
+      return this.settings.showNewsArticles
+    },
+    getNewsCatcherApiKey(): string {
+      return this.settings.newsCatcherApiKey
     },
     getShowNetworkStatus(): boolean {
       return this.settings.showNetworkStatus
@@ -77,6 +87,12 @@ export const useSettingsStore = defineStore({
     },
     toggleAutoQuickAccessEntries(value?: boolean): boolean {
       return (this.settings.autoQuickAccessEntries = typeof value === 'boolean' ? value : !this.settings.autoQuickAccessEntries)
+    },
+    toggleShowNewsArticles(value?: boolean): boolean {
+      return (this.settings.showNewsArticles = typeof value === 'boolean' ? value : !this.settings.showNewsArticles)
+    },
+    setNewsCatcherApiKey(value: string): string {
+      return (this.settings.newsCatcherApiKey = value)
     },
     toggleShowNetworkStatus(value?: boolean): boolean {
       return (this.settings.showNetworkStatus = typeof value === 'boolean' ? value : !this.settings.showNetworkStatus)

@@ -4,6 +4,11 @@
     :show-24-hour-clock="settings.getShow24HourClock"
     :show-quick-access="settings.getShowQuickAccess"
     :quick-access-entries="quickAccessEntries"
+    :show-news-articles="settings.getShowNewsArticles"
+    :can-fetch-articles="news.getCanFetchArticles"
+    :fetching-articles="news.isLoading"
+    :news-articles="news.getArticles"
+    @fetch-news-articles="news.loadNewArticles()"
   />
 </template>
 
@@ -15,11 +20,13 @@ import { quickAccessEntry } from '@/types/quickAccessEntry'
 
 import { useSettingsStore } from '@/store/settings'
 import { useQuickAccessStore } from '@/store/quickAccess'
+import { useNewsStore } from '@/store/news'
 
 import VHome from '@/components/templates/VHome.vue'
 
 const settings = useSettingsStore()
 const quickAccess = useQuickAccessStore()
+const news = useNewsStore()
 
 const topSitesArray = ref<quickAccessEntry[]>()
 
@@ -48,6 +55,10 @@ onMounted(() => {
         }
       }).slice(0, 5)
     })
+  }
+
+  if (news.getCanFetchArticles) {
+    news.loadNewArticles()
   }
 })
 </script>
