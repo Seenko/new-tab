@@ -189,7 +189,6 @@
             <template #label>
               Import
               <span
-                v-if="!isRunningAsExtension"
                 class="tooltip"
                 aria-label="Feature not yet implemented."
                 tabindex="0"
@@ -214,7 +213,6 @@
             <template #label>
               Export
               <span
-                v-if="!isRunningAsExtension"
                 class="tooltip"
                 aria-label="Feature not yet implemented."
                 tabindex="0"
