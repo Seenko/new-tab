@@ -43,7 +43,6 @@ const slots = useSlots()
   @apply shadow-lg dark:shadow-none;
   @apply flex flex-col;
   @apply overflow-y-auto;
-  @apply transform duration-300;
 
   // &--open {
   //   @apply visible;
@@ -55,6 +54,7 @@ const slots = useSlots()
 
   &--left {
     @apply left-0;
+    @apply -translate-x-full;
 
     &.sidebar {
       &--open {
@@ -69,6 +69,7 @@ const slots = useSlots()
 
   &--right {
     @apply right-0;
+    @apply translate-x-full;
 
     &.sidebar {
       &--open {
