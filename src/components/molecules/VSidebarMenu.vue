@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['sidebar', `sidebar--${position}`, `sidebar--${isOpen ? 'open' : 'closed'}`]"
+    :class="['sidebar', `sidebar--${position}`, {'sidebar--animated': isAnimated}, {'sidebar--open': isOpen}]"
   >
     <div
       v-if="slots.header"
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots } from 'vue'
+import { ref, watch, useSlots } from 'vue'
 
 interface Props {
   position?: 'left' | 'right',
@@ -34,6 +34,14 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const slots = useSlots()
+const isAnimated = ref(false)
+
+// Only apply animation if the sidebar has been interacted with,
+// solves a bug with animation playing on page load unnecessarily
+watch(() => props.isOpen, () => {
+  isAnimated.value = true
+})
+
 </script>
 
 <style lang="scss" scoped>
@@ -43,6 +51,10 @@ const slots = useSlots()
   @apply shadow-lg dark:shadow-none;
   @apply flex flex-col;
   @apply overflow-y-auto;
+
+  &--animated {
+    @apply transform duration-300;
+  }
 
   // &--open {
   //   @apply visible;
@@ -60,10 +72,6 @@ const slots = useSlots()
       &--open {
         @apply translate-x-0;
       }
-
-      &--closed {
-        @apply -translate-x-full;
-      }      
     }
   }
 
@@ -74,11 +82,7 @@ const slots = useSlots()
     &.sidebar {
       &--open {
         @apply translate-x-0;
-      }
-
-      &--closed {
-        @apply translate-x-full;
-      }      
+      }     
     }
   }
 
