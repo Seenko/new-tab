@@ -8,6 +8,9 @@
         <p class="article__title">
           {{ title }}
         </p>
+        <small class="article__topic">
+          {{ topic }}
+        </small>
         <!-- <p class="article__summary">
           {{ summary }}
         </p> -->
@@ -38,8 +41,7 @@ defineProps({
 <style lang="scss" scoped>
 .article {
   @apply relative overflow-hidden h-full;
-  @apply bg-black border border-gray-200 dark:border-gray-900;
-  @apply rounded-lg p-5;
+  @apply rounded-lg p-5 bg-black;
   @apply transition-transform;
   @apply flex justify-center items-center;
 
@@ -59,11 +61,15 @@ defineProps({
   }
 
   &__content {
-    @apply relative z-10 text-gray-200;
+    @apply relative z-10 text-gray-200 text-center;
   }
 
   &__title {
-    @apply font-bold text-lg text-center;
+    @apply font-bold text-lg pb-1;
+  }
+
+  &__topic {
+    @apply border-t pt-1;
   }
 
   &__summary {

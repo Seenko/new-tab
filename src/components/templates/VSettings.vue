@@ -106,17 +106,34 @@
             <template #label>
               Show News Articles
             </template>
+            <template #description>
+              Articles powered by NewsCatcher
+            </template>
             <template #control>
               <v-toggle
                 id="showNewsArticles"
                 :toggled="showNewsArticles"
+                :disabled="!newsCatcherApiKey"
                 @click="$emit('toggle-show-news-articles')"
+              />
+            </template>
+          </v-setting-entry>
+          <v-setting-entry label-id="newsSearchTerm">
+            <template #label>
+              Search Term
+            </template>
+            <template #control>
+              <v-text-input
+                id="newsSearchTerm"
+                placeholder="Tesla"
+                :value="newsSearchTerm"
+                @change="$emit('set-news-search-term', ($event.target as HTMLInputElement).value)"
               />
             </template>
           </v-setting-entry>
           <v-setting-entry label-id="newsCatcherApiKey">
             <template #label>
-              NewsCatcher API Key
+              API Key
             </template>
             <template #control>
               <v-text-input
@@ -309,6 +326,7 @@ const props = defineProps({
   showQuickAccess: Boolean,
   autoQuickAccessEntries: Boolean,
   showNewsArticles: Boolean,
+  newsSearchTerm: String,
   newsCatcherApiKey: String,
   showNetworkStatus: Boolean,
   backgroundColor: String,

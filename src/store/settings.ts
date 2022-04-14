@@ -12,6 +12,7 @@ interface Settings {
   showQuickAccess: boolean;
   autoQuickAccessEntries: boolean;
   showNewsArticles: boolean;
+  newsSearchTerm: string;
   newsCatcherApiKey: string;
   showNetworkStatus: boolean;
   backgroundColor: string;
@@ -26,6 +27,7 @@ const defaultSettings: Settings = {
   showQuickAccess: true,
   autoQuickAccessEntries: true,
   showNewsArticles: true,
+  newsSearchTerm: '',
   newsCatcherApiKey: '',
   showNetworkStatus: true,
   backgroundColor: '',
@@ -54,7 +56,10 @@ export const useSettingsStore = defineStore({
       return isRunningAsExtension ? this.settings.autoQuickAccessEntries : false
     },
     getShowNewsArticles(): boolean {
-      return this.settings.showNewsArticles
+      return this.getNewsCatcherApiKey ? this.settings.showNewsArticles : false
+    },
+    getNewsSearchTerm(): string {
+      return this.settings.newsSearchTerm
     },
     getNewsCatcherApiKey(): string {
       return this.settings.newsCatcherApiKey
@@ -90,6 +95,9 @@ export const useSettingsStore = defineStore({
     },
     toggleShowNewsArticles(value?: boolean): boolean {
       return (this.settings.showNewsArticles = typeof value === 'boolean' ? value : !this.settings.showNewsArticles)
+    },
+    setNewsSearchTerm(value: string): string {
+      return (this.settings.newsSearchTerm = value)
     },
     setNewsCatcherApiKey(value: string): string {
       return (this.settings.newsCatcherApiKey = value)

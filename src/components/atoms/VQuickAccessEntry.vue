@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { isRunningAsExtension } from '@/utils/browser'
 
 const props = defineProps({
   icon: String,
@@ -20,7 +21,15 @@ const props = defineProps({
 })
 
 const iconURL = computed(() => {
-  return props.icon ? props.icon : `chrome://favicon/${new URL(props.href as string).origin}`
+  if (props.icon) {
+    return props.icon
+  } else {
+    if (isRunningAsExtension) {
+      return `chrome://favicon/${new URL(props.href as string).origin}`
+    } else {
+      return `https://www.google.com/s2/favicons?domain=${new URL(props.href as string).origin}`
+    }
+  }
 })
 </script>
 

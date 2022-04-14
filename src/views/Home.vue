@@ -8,7 +8,8 @@
     :can-fetch-articles="news.getCanFetchArticles"
     :fetching-articles="news.isLoading"
     :news-articles="news.getArticles"
-    @fetch-news-articles="news.loadNewArticles()"
+    :error-fetching-news="!!news.getError"
+    @fetch-news-articles="doLoadNewArticles()"
   />
 </template>
 
@@ -43,6 +44,12 @@ const quickAccessEntries = computed(() => {
   return quickAccess.getQuickAccessEntries
 })
 
+const doLoadNewArticles = () => {
+  // Just a default search term of "a" should give us some whatever results
+  const searchTerm = settings.getNewsSearchTerm ? settings.getNewsSearchTerm : 'a'
+  news.loadNewArticles(searchTerm, 4)
+}
+
 onMounted(() => {
   const topSites = getBrowserInstance().topSites
 
@@ -58,7 +65,7 @@ onMounted(() => {
   }
 
   if (news.getCanFetchArticles) {
-    news.loadNewArticles()
+    doLoadNewArticles()
   }
 })
 </script>

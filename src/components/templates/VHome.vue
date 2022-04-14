@@ -23,12 +23,13 @@
       v-if="showNewsArticles"
       class="home__newsArticles"
     >
-      <div
-        v-if="canShowArticles"
-        class="newsArticles__collection"
-      >
+      <div class="newsArticles__collection">
+        <v-spinner-mask
+          v-if="fetchingArticles"
+          class="rounded-lg"
+        />
         <v-news-article
-          v-for="article in newsArticles?.slice(0, 5)"
+          v-for="article in newsArticles"
           :title="article.title"
           :summary="article.summary"
           :published_date="new Date(article.published_date)"
@@ -37,24 +38,29 @@
           :media="article.media.toString()"
         />
       </div>
-      <button
+      <v-button
         v-if="canFetchArticles"
         @click="$emit('fetch-news-articles')"
       >
-        Load Articles
-      </button>
-      <div v-if="fetchingArticles">
-        Fetching Articles...
-      </div>
+        Refresh Articles
+      </v-button>
+      <p
+        v-if="errorFetchingNews"
+        class="text-center"
+      >
+        An error happened whilst trying to fetch recent news, please try again later.
+      </p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { PropType, computed } from 'vue'
+import { PropType } from 'vue'
 import { quickAccessEntry } from '@/types/quickAccessEntry';
 import { Article } from '@/services/news/models/Article'
 
+import VButton from '@/components/atoms/VButton.vue'
+import VSpinnerMask from '@/components/molecules/VSpinnerMask.vue'
 import VClock from '@/components/atoms/VClock.vue'
 import VQuickAccessEntry from '@/components/atoms/VQuickAccessEntry.vue'
 import VNewsArticle from '@/components/molecules/VNewsArticle.vue'
@@ -67,11 +73,8 @@ const props = defineProps({
   showNewsArticles: Boolean,
   canFetchArticles: Boolean,
   fetchingArticles: Boolean,
-  newsArticles: Array as PropType<Array<Article>>
-})
-
-const canShowArticles = computed(() => {
-  return props.showNewsArticles && !props.fetchingArticles
+  newsArticles: Array as PropType<Array<Article>>,
+  errorFetchingNews: Boolean
 })
 </script>
 
@@ -92,12 +95,12 @@ const canShowArticles = computed(() => {
   }
 
   &__newsArticles {
-    @apply mt-20 max-w-md;
+    @apply flex flex-col gap-4 mt-20 max-w-md;
   }
 
   .newsArticles {
     &__collection {
-      @apply grid grid-cols-2 gap-4 auto-rows-fr flex-grow;
+      @apply grid grid-cols-2 gap-4 auto-rows-fr flex-grow relative;
     }
   }
 }

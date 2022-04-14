@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useStorage } from '@vueuse/core'
+import { useStorage, useNow, useOnline } from '@vueuse/core'
 
 import { SearchResponse } from '@/services/news/models/SearchResponse'
 
@@ -19,7 +19,8 @@ export const useNewsStore = defineStore({
   id: 'news',
   state: () => ({
     news: useStorage('news', defaultNews),
-    isLoading: false
+    isLoading: false,
+    error: undefined as Error | undefined
   }),
   getters: {
     getArticles(state) {
@@ -29,24 +30,32 @@ export const useNewsStore = defineStore({
       return state.news.lastUpdated
     },
     getCanFetchArticles(state) {
-      return (Date.now() > (state.news.lastUpdated || 0) + (5 * 60 * 1000))
+      const now = useNow()
+      const isOnline = useOnline()
+
+      return isOnline.value && (now.value.getTime() > (state.news.lastUpdated || 0) + (5 * 60 * 1000))
+    },
+    getError(state) {
+      return state.error
     }
   },
   actions: {
-    async loadNewArticles() {
-      if (Date.now() < this.getLastUpdated + (5 * 60 * 1000)) return
+    async loadNewArticles(q: string, page_size: number, page?: number) {
+      if (!this.getCanFetchArticles) return
 
       this.news.lastUpdated = new Date().getTime()
       this.isLoading = true
 
-      const request = await NewsService.getArticles('a', 4)
+      try {
+        const request = await NewsService.getArticles(q, page_size, page)
 
-      if (request.finished) {
         const searchResponse: SearchResponse = request.data.value
 
         if (searchResponse.status === 'ok') {
           this.news.articles = searchResponse.articles
         }
+      } catch (error) {
+        this.error = error as Error
       }
 
       this.isLoading = false
