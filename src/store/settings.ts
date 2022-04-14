@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
-import { useStorage, useDark } from '@vueuse/core'
+import { useStorage } from '@vueuse/core'
 import { isRunningAsExtension } from '@/utils/browser'
 
 // Vue Use already scaffolds dark mode for us, no need to do it manually
-useDark()
 
 interface Settings {
   showGreeting: boolean;
@@ -36,80 +35,51 @@ const defaultSettings: Settings = {
 
 export const useSettingsStore = defineStore({
   id: 'settings',
-  state: () => ({
-    settings: useStorage('settings', defaultSettings)
-  }),
+  state: () => useStorage('settings', defaultSettings),
   getters: {
-    getShowGreeting(state): boolean {
-      return state.settings.showGreeting
-    },
-    getShowClockSeconds(): boolean {
-      return this.settings.showClockSeconds
-    },
-    getShow24HourClock(): boolean {
-      return this.settings.show24HourClock
-    },
-    getShowQuickAccess(): boolean {
-      return this.settings.showQuickAccess
-    },
     getAutoQuickAccessEntries(): boolean {
-      return isRunningAsExtension ? this.settings.autoQuickAccessEntries : false
+      return isRunningAsExtension ? this.autoQuickAccessEntries : false
     },
     getShowNewsArticles(): boolean {
-      return this.getNewsCatcherApiKey ? this.settings.showNewsArticles : false
-    },
-    getNewsSearchTerm(): string {
-      return this.settings.newsSearchTerm
-    },
-    getNewsCatcherApiKey(): string {
-      return this.settings.newsCatcherApiKey
-    },
-    getShowNetworkStatus(): boolean {
-      return this.settings.showNetworkStatus
-    },
-    getBackgroundColor(): string {
-      return this.settings.backgroundColor
-    },
-    getBackgroundImage(): string {
-      return this.settings.backgroundImage
+      return this.newsCatcherApiKey ? this.showNewsArticles : false
     }
   },
   actions: {
     resetSettings() {
-      this.settings = Object.assign({}, defaultSettings)
+      Object.assign(this, defaultSettings)
     },
     toggleShowGreeting(value?: boolean): boolean {
-      return (this.settings.showGreeting = typeof value === 'boolean' ? value : !this.settings.showGreeting)
+      return (this.showGreeting = typeof value === 'boolean' ? value : !this.showGreeting)
     },
     toggleShowClockSeconds(value?: boolean): boolean {
-      return (this.settings.showClockSeconds = typeof value === 'boolean' ? value : !this.settings.showClockSeconds)
+      return (this.showClockSeconds = typeof value === 'boolean' ? value : !this.showClockSeconds)
     },
     toggleShow24HourClock(value?: boolean): boolean {
-      return (this.settings.show24HourClock = typeof value === 'boolean' ? value : !this.settings.show24HourClock)
+      return (this.show24HourClock = typeof value === 'boolean' ? value : !this.show24HourClock)
     },
     toggleShowQuickAccess(value?: boolean): boolean {
-      return (this.settings.showQuickAccess = typeof value === 'boolean' ? value : !this.settings.showQuickAccess)
+      return (this.showQuickAccess = typeof value === 'boolean' ? value : !this.showQuickAccess)
     },
     toggleAutoQuickAccessEntries(value?: boolean): boolean {
-      return (this.settings.autoQuickAccessEntries = typeof value === 'boolean' ? value : !this.settings.autoQuickAccessEntries)
+      return (this.autoQuickAccessEntries = typeof value === 'boolean' ? value : !this.autoQuickAccessEntries)
     },
     toggleShowNewsArticles(value?: boolean): boolean {
-      return (this.settings.showNewsArticles = typeof value === 'boolean' ? value : !this.settings.showNewsArticles)
+      return (this.showNewsArticles = typeof value === 'boolean' ? value : !this.showNewsArticles)
     },
     setNewsSearchTerm(value: string): string {
-      return (this.settings.newsSearchTerm = value)
+      return (this.newsSearchTerm = value)
     },
     setNewsCatcherApiKey(value: string): string {
-      return (this.settings.newsCatcherApiKey = value)
+      return (this.newsCatcherApiKey = value)
     },
     toggleShowNetworkStatus(value?: boolean): boolean {
-      return (this.settings.showNetworkStatus = typeof value === 'boolean' ? value : !this.settings.showNetworkStatus)
+      return (this.showNetworkStatus = typeof value === 'boolean' ? value : !this.showNetworkStatus)
     },
     setBackgroundColor(value: string): string {
-      return (this.settings.backgroundColor = value)
+      return (this.backgroundColor = value)
     },
     setBackgroundImage(value: string): string {
-      return (this.settings.backgroundImage = value)
+      return (this.backgroundImage = value)
     }
   },
 })

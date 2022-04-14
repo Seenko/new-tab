@@ -11,6 +11,7 @@
     "@vueuse/core": "^7.6.2",
     "@vueuse/integrations": "^8.2.5",
     "axios": "^0.26.1",
+    "focus-trap": "^6.7.3",
     "pinia": "^2.0.13",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"

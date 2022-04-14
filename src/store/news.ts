@@ -45,6 +45,7 @@ export const useNewsStore = defineStore({
 
       this.news.lastUpdated = new Date().getTime()
       this.isLoading = true
+      this.error = undefined
 
       try {
         const request = await NewsService.getArticles(q, page_size, page)

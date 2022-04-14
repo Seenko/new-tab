@@ -1,16 +1,18 @@
 <template>
-  <v-home
-    :show-clock-seconds="settings.getShowClockSeconds"
-    :show-24-hour-clock="settings.getShow24HourClock"
-    :show-quick-access="settings.getShowQuickAccess"
-    :quick-access-entries="quickAccessEntries"
-    :show-news-articles="settings.getShowNewsArticles"
-    :can-fetch-articles="news.getCanFetchArticles"
-    :fetching-articles="news.isLoading"
-    :news-articles="news.getArticles"
-    :error-fetching-news="!!news.getError"
-    @fetch-news-articles="doLoadNewArticles()"
-  />
+  <v-main-layout>
+    <v-home
+      :show-clock-seconds="settings.showClockSeconds"
+      :show-24-hour-clock="settings.show24HourClock"
+      :show-quick-access="settings.showQuickAccess"
+      :quick-access-entries="quickAccessEntries"
+      :show-news-articles="settings.getShowNewsArticles"
+      :can-fetch-articles="news.getCanFetchArticles"
+      :fetching-articles="news.isLoading"
+      :news-articles="news.getArticles"
+      :error-fetching-news="!!news.getError"
+      @fetch-news-articles="doLoadNewArticles()"
+    />
+  </v-main-layout>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +25,7 @@ import { useSettingsStore } from '@/store/settings'
 import { useQuickAccessStore } from '@/store/quickAccess'
 import { useNewsStore } from '@/store/news'
 
+import VMainLayout from '@/components/layouts/VMainLayout.vue'
 import VHome from '@/components/templates/VHome.vue'
 
 const settings = useSettingsStore()
@@ -46,7 +49,7 @@ const quickAccessEntries = computed(() => {
 
 const doLoadNewArticles = () => {
   // Just a default search term of "a" should give us some whatever results
-  const searchTerm = settings.getNewsSearchTerm ? settings.getNewsSearchTerm : 'a'
+  const searchTerm = settings.newsSearchTerm ? settings.newsSearchTerm : 'a'
   news.loadNewArticles(searchTerm, 4)
 }
 

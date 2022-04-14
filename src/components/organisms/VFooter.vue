@@ -1,14 +1,9 @@
 <template>
   <footer>
     <div class="flex items-center gap-4">
-      <router-link
-        v-if="$route.name !== 'settings'"
-        :to="{ name: 'settings' }"
-      >
-        <v-button tabindex="-1">
-          ⚙️
-        </v-button>
-      </router-link>
+      <v-button @click="application.toggleIsSettingsPanelOpen()">
+        ⚙️
+      </v-button>
     </div>
     <div>
       <v-connection-status
@@ -20,8 +15,12 @@
 </template>
 
 <script setup lang="ts">
+import { useApplicationStore } from '@/store/application'
+
 import VConnectionStatus from '@/components/atoms/VConnectionStatus.vue'
 import VButton from '@/components/atoms/VButton.vue'
+
+const application = useApplicationStore()
 
 defineProps({
   showNetworkStatus: Boolean,

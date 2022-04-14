@@ -5,7 +5,6 @@ import {
 } from 'vue-router'
 
 import Home from '@/views/Home.vue'
-import Settings from '@/views/Settings.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -13,11 +12,6 @@ const routes: RouteRecordRaw[] = [
     alias: '/index.html',
     name: 'home',
     component: Home
-  },
-  {
-    path: '/settings',
-    name: 'settings',
-    component: Settings
   }
 ]
 
