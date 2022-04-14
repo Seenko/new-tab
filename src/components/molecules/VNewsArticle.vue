@@ -8,8 +8,8 @@
         <p class="article__title">
           {{ title }}
         </p>
-        <small class="article__topic">
-          {{ topic }}
+        <small class="article__author">
+          {{ author }}
         </small>
         <!-- <p class="article__summary">
           {{ summary }}
@@ -32,6 +32,7 @@ defineProps({
   title: String,
   summary: String,
   published_date: Date,
+  author: String,
   link: String,
   topic: String,
   media: String
@@ -68,7 +69,7 @@ defineProps({
     @apply font-bold text-lg pb-1;
   }
 
-  &__topic {
+  &__author {
     @apply border-t pt-1;
   }
 

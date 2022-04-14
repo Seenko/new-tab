@@ -6,9 +6,8 @@
       </v-button>
     </div>
     <div>
-      <v-connection-status
+      <connection-status-widget
         v-if="showNetworkStatus"
-        :is-online="isOnline"
       />
     </div>
   </footer>
@@ -17,14 +16,14 @@
 <script setup lang="ts">
 import { useApplicationStore } from '@/store/application'
 
-import VConnectionStatus from '@/components/atoms/VConnectionStatus.vue'
 import VButton from '@/components/atoms/VButton.vue'
+
+import ConnectionStatusWidget from '@/widgets/ConnectionStatusWidget.vue'
 
 const application = useApplicationStore()
 
 defineProps({
-  showNetworkStatus: Boolean,
-  isOnline: Boolean,
+  showNetworkStatus: Boolean
 })
 </script>
 

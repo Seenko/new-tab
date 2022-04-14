@@ -4,29 +4,25 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useNow } from '@vueuse/core'
 
-interface Props {
-  showSeconds?: boolean
-  show24Hour?: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  showSeconds: false,
-  show24Hour: false
+const props = defineProps({
+  now: {
+    type: Date,
+    required: true
+  },
+  showClockSeconds: Boolean,
+  show24HourClock: Boolean
 })
 
 const currentHour = computed(() => {
-  const now = useNow()
-
   let options: Intl.DateTimeFormatOptions = {
     hour: 'numeric',
     minute: 'numeric',
-    second: props.showSeconds ? 'numeric' : undefined,
-    hourCycle: props.show24Hour ? 'h24' : 'h12'
+    second: props.showClockSeconds ? 'numeric' : undefined,
+    hourCycle: props.show24HourClock ? 'h24' : 'h12'
   }
 
-  return now.value.toLocaleString(undefined, options)
+  return props.now.toLocaleString(undefined, options)
 })
 </script>
 

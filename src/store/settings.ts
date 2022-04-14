@@ -6,6 +6,7 @@ import { isRunningAsExtension } from '@/utils/browser'
 
 interface Settings {
   showGreeting: boolean;
+  showClock: boolean;
   showClockSeconds: boolean;
   show24HourClock: boolean;
   showQuickAccess: boolean;
@@ -21,6 +22,7 @@ interface Settings {
 // These are just arbitrary default values
 const defaultSettings: Settings = {
   showGreeting: true,
+  showClock: true,
   showClockSeconds: false,
   show24HourClock: false,
   showQuickAccess: true,
@@ -50,6 +52,9 @@ export const useSettingsStore = defineStore({
     },
     toggleShowGreeting(value?: boolean): boolean {
       return (this.showGreeting = typeof value === 'boolean' ? value : !this.showGreeting)
+    },
+    toggleShowClock(value?: boolean): boolean {
+      return (this.showClock = typeof value === 'boolean' ? value : !this.showClock)
     },
     toggleShowClockSeconds(value?: boolean): boolean {
       return (this.showClockSeconds = typeof value === 'boolean' ? value : !this.showClockSeconds)

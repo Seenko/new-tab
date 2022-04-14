@@ -1,5 +1,5 @@
 <template>
-  <h1>{{ greeting }}</h1>
+  <h1 class="greeting">{{ greeting }}</h1>
 </template>
 
 <script setup lang="ts">
@@ -21,3 +21,9 @@ const greeting = computed(() => {
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.greeting {
+  @apply text-2xl font-serif;
+}
+</style>

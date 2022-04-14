@@ -3,7 +3,7 @@ export interface Article {
   author: string;
   published_date: Date;
   published_date_precision: string;
-  link: URL;
+  link: string;
   clean_url: string;
   summary: string;
   rights: string;
@@ -12,7 +12,7 @@ export interface Article {
   country: string;
   language: string;
   authors: Array<any>;
-  media: URL;
+  media: string;
   is_opinion: boolean;
   twitter_account: string;
   _score: number;

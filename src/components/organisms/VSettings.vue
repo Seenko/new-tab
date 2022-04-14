@@ -17,6 +17,18 @@
         Clock
       </template>
       <template #content>
+        <v-setting-entry label-id="showClock">
+          <template #label>
+            Show Clock
+          </template>
+          <template #control>
+            <v-toggle
+              id="showClock"
+              :toggled="showClock"
+              @click="$emit('toggle-show-clock')"
+            />
+          </template>
+        </v-setting-entry>
         <v-setting-entry label-id="show24HourClock">
           <template #label>
             Show 24 Hour Clock
@@ -306,6 +318,7 @@ import VSettingEntry from '@/components/molecules/VSettingEntry.vue'
 const props = defineProps({
   isDark: Boolean,
   showGreeting: Boolean,
+  showClock: Boolean,
   showClockSeconds: Boolean,
   show24HourClock: Boolean,
   showQuickAccess: Boolean,
