@@ -118,7 +118,7 @@ const manifestVersion = computed(() => {
   @apply min-h-screen overflow-hidden;
 
   .sidebar {
-    @apply max-w-sm;
+    @apply max-w-sm fixed;
 
     & > ::v-deep(*) {
       @apply p-5;
