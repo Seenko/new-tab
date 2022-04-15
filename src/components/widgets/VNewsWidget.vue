@@ -7,12 +7,15 @@
       />
       <v-news-article
         v-for="article in articles"
+        class="news__article"
         :title="article.title"
-        :summary="article.summary"
-        :published_date="new Date(article.published_date)"
-        :author="article.clean_url"
-        :link="article.link"
-        :media="article.media"
+        :description="article.description"
+        :published_at="new Date(article.published_at)"
+        :author="article.author"
+        :source="article.source"
+        :link="article.url"
+        :media="article.image"
+        :category="article.category"
       />
     </div>
     <v-button
@@ -20,8 +23,14 @@
       class="news__refresh"
       @click="$emit('fetch-news-articles')"
     >
-      Refresh Articles
+      Fetch Articles
     </v-button>
+    <!-- <v-button
+      class="news__shuffle"
+      @click="$emit('shuffle-news-articles')"
+    >
+      Shuffle Articles
+    </v-button> -->
     <p
       v-if="error"
       class="news__error"

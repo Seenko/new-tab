@@ -1,9 +1,9 @@
 import type { Article } from '@/services/news/models/Article'
+import type { SearchRequest } from '@/services/news/models/SearchRequest'
+import type { SearchResponse } from '@/services/news/models/SearchResponse'
 
 import { defineStore } from 'pinia'
 import { useStorage, useNow, useOnline } from '@vueuse/core'
-
-import { SearchResponse } from '@/services/news/models/SearchResponse'
 
 import NewsService from '@/services/news'
 
@@ -29,11 +29,11 @@ export const useNewsStore = defineStore({
       const now = useNow()
       const isOnline = useOnline()
 
-      return isOnline.value && (now.value.getTime() > (state.data.lastUpdated || 0) + (5 * 60 * 1000))
+      return isOnline.value && (now.value.getTime() > (state.data.lastUpdated || 0) + (5 * 60 * 60 * 1000))
     }
   },
   actions: {
-    async loadNewArticles(q: string, page_size: number, page?: number) {
+    async loadNewArticles(searchRequest: SearchRequest) {
       if (!this.getCanFetchArticles) return
 
       this.data.lastUpdated = new Date().getTime()
@@ -41,15 +41,16 @@ export const useNewsStore = defineStore({
       this.error = undefined
 
       try {
-        const request = await NewsService.getArticles(q, page_size, page)
+        const request = await NewsService.getArticles(searchRequest)
 
-        const searchResponse: SearchResponse = request.data.value
+        const searchResponse = request.data.value as SearchResponse
 
-        if (searchResponse.status === 'ok') {
-          this.data.articles = searchResponse.articles
+        if (searchResponse) {
+          this.data.articles = searchResponse.data.filter(article => article.image)
         }
       } catch (error) {
         this.error = error as Error
+        throw error
       }
 
       this.isLoading = false

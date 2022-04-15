@@ -16,4 +16,4 @@ app.mount('#app')
 
 const settings = useSettingsStore()
 
-NewsService.init(settings.newsCatcherApiKey)
+NewsService.init(settings.newsApiKey)

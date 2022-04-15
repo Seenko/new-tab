@@ -27,7 +27,7 @@
         :auto-quick-access-entries="settings.getAutoQuickAccessEntries"
         :show-news-articles="settings.getShowNewsArticles"
         :news-search-term="settings.newsSearchTerm"
-        :news-catcher-api-key="settings.newsCatcherApiKey"
+        :news-api-key="settings.newsApiKey"
         :show-network-status="settings.showNetworkStatus"
         :background-color="settings.backgroundColor"
         :background-image="settings.backgroundImage"
@@ -41,7 +41,7 @@
         @toggle-auto-quick-access-entries="settings.toggleAutoQuickAccessEntries()"
         @toggle-show-news-articles="settings.toggleShowNewsArticles()"
         @set-news-search-term="settings.setNewsSearchTerm($event)"
-        @set-newscatcher-api-key="updateNewsCatcherApiKey($event)"
+        @set-news-api-key="updateNewsApiKey($event)"
         @toggle-show-network-status="settings.toggleShowNetworkStatus()"
         @set-background-color="settings.setBackgroundColor($event)"
         @set-background-image="settings.setBackgroundImage($event)"
@@ -83,7 +83,6 @@ const toggleDarkMode = useToggle(darkMode)
 
 const sidebar = ref()
 const {
-  hasFocus: sidebarHasFocus,
   activate: sidebarFocus,
   deactivate: sidebarUnfocus
 } = useFocusTrap(sidebar)
@@ -98,8 +97,8 @@ onClickOutside(sidebar, () => {
   }
 })
 
-const updateNewsCatcherApiKey = (newToken: string) => {
-  settings.setNewsCatcherApiKey(newToken)
+const updateNewsApiKey = (newToken: string) => {
+  settings.setNewsApiKey(newToken)
   NewsService.init(newToken)
 }
 

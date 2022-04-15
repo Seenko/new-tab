@@ -2,29 +2,47 @@
   <widget>
     <v-news-widget
       :is-loading="news.isLoading"
-      :articles="news.data.articles"
+      :articles="articles"
       :can-fetch-articles="news.getCanFetchArticles"
       :error="news.error"
       @fetch-news-articles="doFetchNewsArticles()"
+      @shuffle-news-articles="doShuffleArticles()"
     />
   </widget>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import shuffle from 'lodash/shuffle'
+import { onMounted, computed, ref } from 'vue'
 import { useNewsStore } from '@/store/news'
 import { useSettingsStore } from '@/store/settings'
 
 import Widget from '@/widgets/Widget.vue'
 import VNewsWidget from '@/components/widgets/VNewsWidget.vue'
+import { SearchRequest } from '@/services/news/models/SearchRequest'
 
 const news = useNewsStore()
 const settings = useSettingsStore()
 
+const shuffledArticles = ref(shuffle(news.data.articles))
+
+const articles = computed(() => {
+  return shuffledArticles.value.slice(0, 4)
+})
+
+const doShuffleArticles = () => {
+  shuffledArticles.value = shuffle(news.data.articles)
+}
+
 const doFetchNewsArticles = () => {
-  // Just a default search term of "a" should give us some whatever results
-  const searchTerm = settings.newsSearchTerm ? settings.newsSearchTerm : 'a'
-  news.loadNewArticles(searchTerm, 4)
+  news.loadNewArticles({
+    keywords: settings.newsSearchTerm,
+    limit: 100,
+    sort: 'popularity',
+    languages: ['en']
+  } as SearchRequest)
+
+  doShuffleArticles()
 }
 
 onMounted(() => {

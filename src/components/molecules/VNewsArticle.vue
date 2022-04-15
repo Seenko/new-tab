@@ -5,20 +5,16 @@
   >
     <article class="article">
       <div class="article__content">
+        <p>{{ category }}</p>
         <p class="article__title">
-          {{ title }}
+          {{ unescape(title) }}
         </p>
-        <small class="article__author">
-          {{ author }}
+        <small class="article__source">
+          {{ unescape(source) }}
         </small>
-        <!-- <p class="article__summary">
-          {{ summary }}
-        </p> -->
-        <!-- <p class="article__published">
-          {{ published_date }}
-        </p> -->
       </div>
       <img
+        v-if="media"
         class="article__image"
         :src="media"
         alt=""
@@ -28,13 +24,16 @@
 </template>
 
 <script setup lang="ts">
+import unescape from 'lodash/unescape'
+
 defineProps({
   title: String,
-  summary: String,
-  published_date: Date,
+  description: String,
+  published_at: Date,
   author: String,
+  source: String,
   link: String,
-  topic: String,
+  category: String,
   media: String
 })
 </script>
@@ -66,15 +65,7 @@ defineProps({
   }
 
   &__title {
-    @apply font-bold text-lg pb-1;
-  }
-
-  &__author {
-    @apply border-t pt-1;
-  }
-
-  &__summary {
-    @apply text-sm;
+    @apply font-bold text-lg max-h-20 text-ellipsis overflow-hidden pb-1;
   }
 }
 </style>

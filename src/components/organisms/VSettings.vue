@@ -108,13 +108,13 @@
             Show News Articles
           </template>
           <template #description>
-            Articles powered by NewsCatcher
+            Articles powered by mediastack
           </template>
           <template #control>
             <v-toggle
               id="showNewsArticles"
               :toggled="showNewsArticles"
-              :disabled="!newsCatcherApiKey"
+              :disabled="!newsApiKey"
               @click="$emit('toggle-show-news-articles')"
             />
           </template>
@@ -132,16 +132,16 @@
             />
           </template>
         </v-setting-entry>
-        <v-setting-entry label-id="newsCatcherApiKey">
+        <v-setting-entry label-id="newsApiKey">
           <template #label>
             API Key
           </template>
           <template #control>
             <v-text-input
-              id="newsCatcherApiKey"
+              id="newsApiKey"
               placeholder="API Key"
-              :value="newsCatcherApiKey"
-              @change="$emit('set-newscatcher-api-key', ($event.target as HTMLInputElement).value)"
+              :value="newsApiKey"
+              @change="$emit('set-news-api-key', ($event.target as HTMLInputElement).value)"
             />
           </template>
         </v-setting-entry>
@@ -325,7 +325,7 @@ const props = defineProps({
   autoQuickAccessEntries: Boolean,
   showNewsArticles: Boolean,
   newsSearchTerm: String,
-  newsCatcherApiKey: String,
+  newsApiKey: String,
   showNetworkStatus: Boolean,
   backgroundColor: String,
   backgroundImage: String,
