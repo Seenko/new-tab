@@ -4,6 +4,7 @@ import type { SearchResponse } from '@/services/news/models/SearchResponse'
 
 import { defineStore } from 'pinia'
 import { useStorage, useNow, useOnline } from '@vueuse/core'
+import { preloadImageURL } from '@/utils/image'
 
 import NewsService from '@/services/news'
 
@@ -46,7 +47,13 @@ export const useNewsStore = defineStore({
         const searchResponse = request.data.value as SearchResponse
 
         if (searchResponse) {
-          this.data.articles = searchResponse.data.filter(article => article.image)
+          const articlesWithImage = searchResponse.data.filter(article => article.image)
+
+          articlesWithImage.forEach(article => {
+            preloadImageURL(article.image)
+          })
+
+          this.data.articles = articlesWithImage
         }
       } catch (error) {
         this.error = error as Error

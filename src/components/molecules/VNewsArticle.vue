@@ -1,13 +1,12 @@
 <template>
-  <a
-    :href="link"
-    target="_blank"
-  >
+  <a :href="link">
     <article class="article">
       <div class="article__content">
-        <p>{{ category }}</p>
+        <p class="article__category">
+          {{ unescape(category) }}
+        </p>
         <p class="article__title">
-          {{ unescape(title) }}
+          {{ truncatedTitle }}
         </p>
         <small class="article__source">
           {{ unescape(source) }}
@@ -25,8 +24,10 @@
 
 <script setup lang="ts">
 import unescape from 'lodash/unescape'
+import truncate from 'lodash/truncate'
+import { computed } from 'vue'
 
-defineProps({
+const props = defineProps({
   title: String,
   description: String,
   published_at: Date,
@@ -35,6 +36,14 @@ defineProps({
   link: String,
   category: String,
   media: String
+})
+
+const truncatedTitle = computed(() => {
+  return truncate(unescape(props.title), {
+    length: 50,
+    separator: /,? +/,
+    omission: '...'
+  })
 })
 </script>
 
@@ -57,15 +66,25 @@ defineProps({
     width: 200%;
     height: 200%;
     @apply absolute z-0 object-cover top-0 left-0 right-0 bottom-0;
-    @apply opacity-70 dark:opacity-30;
+    @apply opacity-50 dark:opacity-30;
   }
 
   &__content {
-    @apply relative z-10 text-gray-200 text-center;
+    @apply relative z-10 text-gray-200;
+    @apply flex flex-col gap-3 w-full h-full;
   }
 
+  // &__category {
+  //   @apply row-span-1;
+  // }
+
   &__title {
-    @apply font-bold text-lg max-h-20 text-ellipsis overflow-hidden pb-1;
+    @apply flex-grow;
+    @apply font-bold text-lg;
   }
+
+  // &__source {
+  //   @apply row-span-1;
+  // }
 }
 </style>

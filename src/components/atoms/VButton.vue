@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 interface Props {
-  variant?: 'default' | 'red',
+  variant?: 'default' | 'icon' | 'red',
   disabled?: boolean,
 }
 
@@ -37,6 +37,10 @@ const props = withDefaults(defineProps<Props>(), {
 
   &--default {
     @apply bg-white dark:bg-gray-800;
+  }
+
+  &--icon {
+    @apply bg-transparent;
   }
 
   &--red {
