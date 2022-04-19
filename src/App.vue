@@ -32,6 +32,8 @@
         :show-news-articles="settings.getShowNewsArticles"
         :news-search-term="settings.newsSearchTerm"
         :news-api-key="settings.newsApiKey"
+        :show-weather="settings.showWeather"
+        :weather-api-key="settings.weatherApiKey"
         :show-network-status="settings.showNetworkStatus"
         :background-color="settings.backgroundColor"
         :background-image="settings.backgroundImage"
@@ -46,6 +48,8 @@
         @toggle-show-news-articles="settings.toggleShowNewsArticles()"
         @set-news-search-term="settings.setNewsSearchTerm($event)"
         @set-news-api-key="updateNewsApiKey($event)"
+        @toggle-show-weather="settings.toggleShowWeather()"
+        @set-weather-api-key="updateWeatherApiKey($event)"
         @toggle-show-network-status="settings.toggleShowNetworkStatus()"
         @set-background-color="settings.setBackgroundColor($event)"
         @set-background-image="settings.setBackgroundImage($event)"
@@ -70,7 +74,9 @@ import { ref, computed, watch } from 'vue'
 import { useDark, useToggle, onClickOutside } from '@vueuse/core'
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
 import { isRunningAsExtension } from '@/utils/browser'
+
 import NewsService from '@/services/news'
+import WeatherService from '@/services/weather'
 
 import { useApplicationStore } from '@/store/application'
 import { useSettingsStore } from '@/store/settings'
@@ -104,6 +110,11 @@ onClickOutside(sidebar, () => {
 const updateNewsApiKey = (newToken: string) => {
   settings.setNewsApiKey(newToken)
   NewsService.init(newToken)
+}
+
+const updateWeatherApiKey = (newToken: string) => {
+  settings.setWeatherApiKey(newToken)
+  WeatherService.init(newToken)
 }
 
 const manifestVersion = computed(() => {

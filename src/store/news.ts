@@ -1,6 +1,6 @@
-import type { Article } from '@/services/news/models/Article'
-import type { SearchRequest } from '@/services/news/models/SearchRequest'
-import type { SearchResponse } from '@/services/news/models/SearchResponse'
+import type { Article } from '@/services/news/types/Article'
+import type { SearchRequest } from '@/services/news/types/SearchRequest'
+import type { SearchResponse } from '@/services/news/types/SearchResponse'
 
 import { defineStore } from 'pinia'
 import { useStorage, useNow, useOnline } from '@vueuse/core'
@@ -57,6 +57,7 @@ export const useNewsStore = defineStore({
         }
       } catch (error) {
         this.error = error as Error
+        this.isLoading = false
         throw error
       }
 

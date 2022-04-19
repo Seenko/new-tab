@@ -5,6 +5,7 @@ import App from '@/App.vue'
 import '@/styles/main.scss'
 
 import NewsService from '@/services/news'
+import WeatherService from '@/services/weather'
 import { useSettingsStore } from '@/store/settings'
 
 const app = createApp(App)
@@ -17,3 +18,4 @@ app.mount('#app')
 const settings = useSettingsStore()
 
 NewsService.init(settings.newsApiKey)
+WeatherService.init(settings.weatherApiKey)

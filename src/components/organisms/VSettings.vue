@@ -139,9 +139,45 @@
           <template #control>
             <v-text-input
               id="newsApiKey"
-              placeholder="API Key"
+              placeholder="News API Key"
               :value="newsApiKey"
               @change="$emit('set-news-api-key', ($event.target as HTMLInputElement).value)"
+            />
+          </template>
+        </v-setting-entry>
+      </template>
+    </v-accordion>
+    <v-accordion class="settings__group">
+      <template #summary>
+        Weather
+      </template>
+      <template #content>
+        <v-setting-entry label-id="showWeather">
+          <template #label>
+            Show Weather
+          </template>
+          <template #description>
+            Weather powered by OpenWeather
+          </template>
+          <template #control>
+            <v-toggle
+              id="showWeather"
+              :toggled="showWeather"
+              :disabled="!weatherApiKey"
+              @click="$emit('toggle-show-weather')"
+            />
+          </template>
+        </v-setting-entry>
+        <v-setting-entry label-id="weatherApiKey">
+          <template #label>
+            API Key
+          </template>
+          <template #control>
+            <v-text-input
+              id="weatherApiKey"
+              placeholder="Weather API Key"
+              :value="weatherApiKey"
+              @change="$emit('set-weather-api-key', ($event.target as HTMLInputElement).value)"
             />
           </template>
         </v-setting-entry>
@@ -326,6 +362,8 @@ const props = defineProps({
   showNewsArticles: Boolean,
   newsSearchTerm: String,
   newsApiKey: String,
+  showWeather: Boolean,
+  weatherApiKey: String,
   showNetworkStatus: Boolean,
   backgroundColor: String,
   backgroundImage: String,

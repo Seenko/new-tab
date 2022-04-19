@@ -1,6 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
-import { useAxios } from '@vueuse/integrations/useAxios'
-import { SearchRequest } from './models/SearchRequest'
+import { SearchRequest } from '@/services/news/types/SearchRequest'
 
 const BASE_URL = import.meta.env.PUBLIC_NEWS_API_ENDPOINT as string
 const BASE_TOKEN = import.meta.env.PUBLIC_NEWS_API_TOKEN as string
@@ -17,22 +16,19 @@ const NewsService = {
       }
     })
   },
-  getArticles: (request: SearchRequest) => {
-    return useAxios('/news', {
-      method: 'GET',
-      params: {
-        sources: request.sources ? request.sources.join(',') : null,
-        categories: request.categories ? request.categories.join(',') : null,
-        countries: request.countries ? request.countries.join(',') : null,
-        languages: request.languages ? request.languages.join(',') : null,
-        keywords: request.keywords,
-        date: request.date ? request.date.map(date => date.toISOString()).join(',') : null,
-        sort: request.sort,
-        limit: request.limit,
-        offset: request.offset
-      }
-    }, instance as AxiosInstance)
-  }
+  getArticles: (request: SearchRequest) => instance!.get('/news', {
+    params: {
+      sources: request.sources ? request.sources.join(',') : null,
+      categories: request.categories ? request.categories.join(',') : null,
+      countries: request.countries ? request.countries.join(',') : null,
+      languages: request.languages ? request.languages.join(',') : null,
+      keywords: request.keywords,
+      date: request.date ? request.date.map(date => date.toISOString()).join(',') : null,
+      sort: request.sort,
+      limit: request.limit,
+      offset: request.offset
+    }
+  })
 }
 
 export default NewsService

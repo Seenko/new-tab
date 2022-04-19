@@ -19,7 +19,7 @@ import { useSettingsStore } from '@/store/settings'
 
 import Widget from '@/widgets/Widget.vue'
 import VNewsWidget from '@/components/widgets/VNewsWidget.vue'
-import { SearchRequest } from '@/services/news/models/SearchRequest'
+import { SearchRequest } from '@/services/news/types/SearchRequest'
 
 const news = useNewsStore()
 const settings = useSettingsStore()

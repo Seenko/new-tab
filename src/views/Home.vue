@@ -5,6 +5,7 @@
       :show-clock="settings.showClock"
       :show-quick-access="settings.showQuickAccess"
       :show-news-articles="settings.getShowNewsArticles"
+      :show-weather="settings.getShowWeather"
     />
   </v-main-layout>
 </template>

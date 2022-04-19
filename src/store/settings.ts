@@ -14,6 +14,8 @@ interface Settings {
   showNewsArticles: boolean;
   newsSearchTerm: string;
   newsApiKey: string;
+  showWeather: boolean;
+  weatherApiKey: string;
   showNetworkStatus: boolean;
   backgroundColor: string;
   backgroundImage: string;
@@ -30,6 +32,8 @@ const defaultSettings: Settings = {
   showNewsArticles: true,
   newsSearchTerm: '',
   newsApiKey: '',
+  showWeather: true,
+  weatherApiKey: '',
   showNetworkStatus: true,
   backgroundColor: '',
   backgroundImage: '',
@@ -44,6 +48,9 @@ export const useSettingsStore = defineStore({
     },
     getShowNewsArticles(): boolean {
       return this.newsApiKey ? this.showNewsArticles : false
+    },
+    getShowWeather(): boolean {
+      return this.weatherApiKey ? this.showWeather : false
     }
   },
   actions: {
@@ -76,6 +83,12 @@ export const useSettingsStore = defineStore({
     },
     setNewsApiKey(value: string): string {
       return (this.newsApiKey = value)
+    },
+    toggleShowWeather(value?: boolean): boolean {
+      return (this.showWeather = typeof value === 'boolean' ? value : !this.showWeather)
+    },
+    setWeatherApiKey(value: string): string {
+      return (this.weatherApiKey = value)
     },
     toggleShowNetworkStatus(value?: boolean): boolean {
       return (this.showNetworkStatus = typeof value === 'boolean' ? value : !this.showNetworkStatus)
