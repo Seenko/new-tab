@@ -15,7 +15,8 @@
     "lodash": "^4.17.21",
     "pinia": "^2.0.13",
     "vue": "^3.2.25",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@types/chrome": "0.0.179",

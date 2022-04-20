@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 import { isRunningAsExtension } from '@/utils/browser'
+import { moveToArrayIndex } from '@/utils/array'
 
 // Vue Use already scaffolds dark mode for us, no need to do it manually
 
@@ -19,6 +20,7 @@ interface Settings {
   showNetworkStatus: boolean;
   backgroundColor: string;
   backgroundImage: string;
+  widgetsOrder: Array<string>;
 }
 
 // These are just arbitrary default values
@@ -37,6 +39,13 @@ const defaultSettings: Settings = {
   showNetworkStatus: true,
   backgroundColor: '',
   backgroundImage: '',
+  widgetsOrder: [
+    'GreetingWidget',
+    'ClockWidget',
+    'QuickAccessWidget',
+    'NewsWidget',
+    'WeatherWidget'
+  ]
 }
 
 export const useSettingsStore = defineStore({
@@ -98,6 +107,10 @@ export const useSettingsStore = defineStore({
     },
     setBackgroundImage(value: string): string {
       return (this.backgroundImage = value)
+    },
+    updateWidgetsOrder(fromPosition: number, toPosition: number): Array<string> {
+      moveToArrayIndex(this.widgetsOrder, fromPosition, toPosition)
+      return this.widgetsOrder
     }
   },
 })
