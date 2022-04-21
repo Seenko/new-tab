@@ -1,5 +1,5 @@
 <template>
-  <widget>
+  <widget v-show="settings.showQuickAccess">
     <v-quick-access-widget
       :entries="quickAccessEntries"
     />

@@ -1,5 +1,5 @@
 <template>
-  <widget>
+  <widget v-show="settings.getShowWeather">
     <v-weather-widget
       :is-loading="weather.isLoading"
       :last-updated="weather.data.lastUpdated"
@@ -20,8 +20,10 @@ import Widget from '@/widgets/Widget.vue'
 import VWeatherWidget from '@/components/widgets/VWeatherWidget.vue'
 
 import { useWeatherStore } from '@/store/weather'
+import { useSettingsStore } from '@/store/settings'
 
 const weather = useWeatherStore()
+const settings = useSettingsStore()
 
 const doFetchWeather = () => {
   navigator.geolocation.getCurrentPosition((position) => {

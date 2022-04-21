@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 import { WeatherRequest } from '@/services/weather/types/WeatherRequest'
+import { WeatherResponse } from '@/services/weather/types/WeatherResponse'
 
 const BASE_URL = import.meta.env.PUBLIC_WEATHER_API_ENDPOINT as string
 const BASE_TOKEN = import.meta.env.PUBLIC_WEATHER_API_TOKEN as string
@@ -16,15 +17,17 @@ const WeatherService = {
       }
     })
   },
-  getWeather: (request: WeatherRequest) => instance!.get('/onecall', {
-    params: {
-      lat: request.lat,
-      lon: request.lon,
-      exclude: request.exclude ? request.exclude.join(',') : '',
-      units: request.units,
-      lang: request.lang
-    }
-  })
+  getWeather: (request: WeatherRequest): Promise<WeatherResponse> => {
+    return instance!.get('/onecall', {
+      params: {
+        lat: request.lat,
+        lon: request.lon,
+        exclude: request.exclude ? request.exclude.join(',') : '',
+        units: request.units,
+        lang: request.lang
+      }
+    }).then(response => response.data)
+  }
 }
 
 export default WeatherService

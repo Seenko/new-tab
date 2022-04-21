@@ -40,9 +40,7 @@ export const useWeatherStore = defineStore({
       this.error = undefined
 
       try {
-        const request = await WeatherService.getWeather(weatherRequest)
-
-        const weatherResponse = request.data as WeatherResponse
+        const weatherResponse = await WeatherService.getWeather(weatherRequest)
 
         if (weatherResponse) {
           this.data.weather = weatherResponse

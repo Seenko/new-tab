@@ -1,5 +1,5 @@
 <template>
-  <widget>
+  <widget v-show="settings.getShowNewsArticles">
     <v-news-widget
       :is-loading="news.isLoading"
       :articles="articles"
@@ -27,15 +27,15 @@ const settings = useSettingsStore()
 const shuffledArticles = ref(shuffle(news.data.articles))
 
 const articles = computed(() => {
-  return shuffledArticles.value.slice(0, 4)
+  return shuffledArticles.value ? shuffledArticles.value.slice(0, 4) : []
 })
 
 const doShuffleArticles = () => {
   shuffledArticles.value = shuffle(news.data.articles)
 }
 
-const doFetchNewsArticles = () => {
-  news.loadNewArticles({
+const doFetchNewsArticles = async () => {
+  await news.loadNewArticles({
     keywords: settings.newsSearchTerm,
     limit: 100,
     sort: 'popularity',

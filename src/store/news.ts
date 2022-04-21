@@ -42,9 +42,7 @@ export const useNewsStore = defineStore({
       this.error = undefined
 
       try {
-        const request = await NewsService.getArticles(searchRequest)
-
-        const searchResponse = request.data.value as SearchResponse
+        const searchResponse = await NewsService.getArticles(searchRequest)
 
         if (searchResponse) {
           const articlesWithImage = searchResponse.data.filter(article => article.image)
