@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
 <style lang="scss" scoped>
 .widget {
   &--editing {
-    @apply border-2 border-dotted border-white/50 rounded-md p-2;
+    @apply border-2 border-dotted border-gray-800/50 dark:border-gray-200/50 rounded-md p-2;
     @apply cursor-move;
     @apply brightness-75;
 

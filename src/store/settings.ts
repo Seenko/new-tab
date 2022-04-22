@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 import { isRunningAsExtension } from '@/utils/browser'
-import { moveToArrayIndex } from '@/utils/array'
-import { Widget, WidgetsGridChange, WidgetsGridChangeAdded, WidgetsGridChangeMoved, WidgetsGridChangeRemoved } from '@/types/widgetsGrid'
 
 // Vue Use already scaffolds dark mode for us, no need to do it manually
 
@@ -21,7 +19,6 @@ interface Settings {
   showNetworkStatus: boolean;
   backgroundColor: string;
   backgroundImage: string;
-  widgets: Array<Array<Array<Widget>>>;
 }
 
 // These are just arbitrary default values
@@ -39,28 +36,7 @@ const defaultSettings: Settings = {
   weatherApiKey: '',
   showNetworkStatus: true,
   backgroundColor: '',
-  backgroundImage: '',
-  widgets: [
-    [[],[],[],[],[]],
-    [[],[],[],[],[]],
-    [[],[],[{
-      name: 'GreetingWidget'
-    },
-    {
-      name: 'ClockWidget'
-    },
-    {
-      name: 'QuickAccessWidget'
-    },
-    {
-      name: 'NewsWidget'
-    },
-    {
-      name: 'WeatherWidget'
-    }],[],[]],
-    [[],[],[],[],[]],
-    [[],[],[],[],[]]
-  ]
+  backgroundImage: ''
 }
 
 export const useSettingsStore = defineStore({
@@ -122,24 +98,6 @@ export const useSettingsStore = defineStore({
     },
     setBackgroundImage(value: string): string {
       return (this.backgroundImage = value)
-    },
-    updateWidgetsPosition(change: WidgetsGridChange): Array<Array<Array<Widget>>> {
-      switch (Object.keys(change.action)[0]) {
-        case 'moved':
-          const movedAction = (change.action as WidgetsGridChangeMoved).moved
-          moveToArrayIndex(this.widgets[change.row][change.column], movedAction.oldIndex, movedAction.newIndex)
-          break;
-        case 'added':
-          const addedAction = (change.action as WidgetsGridChangeAdded).added
-          this.widgets[change.row][change.column].splice(addedAction.newIndex, 0, addedAction.element);
-          break;
-        case 'removed':
-          const removedAction = (change.action as WidgetsGridChangeRemoved).removed
-          this.widgets[change.row][change.column].splice(removedAction.oldIndex, 1);
-          break;
-      }
-
-      return this.widgets
     }
   },
 })
