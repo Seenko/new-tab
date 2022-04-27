@@ -24,6 +24,39 @@
         </draggable>
       </template>
     </v-editable-grid>
+    <div
+      v-if="isEditingWidgets"
+      :class="['home__tray', { 'home__tray--open': isEditingWidgets }]"
+    >
+      <draggable
+        class="tray__widgets"
+        ghost-class="widget--ghost"
+        animation=200
+        item-key="name"
+        :group="{ name: 'widgets', pull: 'clone', put: false }"
+        :list="getWidgetsTrayData()"
+        :disabled="!isEditingWidgets"
+      >
+        <template #item="{ element }">
+          <p class="cursor-pointer">{{ element.name }}</p>
+        </template>
+      </draggable>
+
+      <draggable
+        class="tray__trash"
+        ghost-class="widget--ghost"
+        animation=200
+        item-key="name"
+        :group="{ name: 'widgets', put: true }"
+        :list="getTrashTrayData()"
+        :disabled="!isEditingWidgets"
+      >
+        <template #header>
+          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2zm-7-10.414l3.293-3.293 1.414 1.414-3.293 3.293 3.293 3.293-1.414 1.414-3.293-3.293-3.293 3.293-1.414-1.414 3.293-3.293-3.293-3.293 1.414-1.414 3.293 3.293zm10-8.586h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-8-3h-4v1h4v-1z"/></svg>
+        </template>
+        <template #item>Nothing here</template>
+      </draggable>
+    </div>
   </div>
 </template>
 
@@ -60,6 +93,20 @@ const getComponentForWidget = (element: Widget) => {
   }
 
   return (element && element.name) ? markRaw((widgets as any)[element.name]) : null
+}
+
+const getWidgetsTrayData = (): Array<Widget> => {
+  return JSON.parse(JSON.stringify([
+    { name: 'GreetingWidget' },
+    { name: 'ClockWidget' },
+    { name: 'QuickAccessWidget' },
+    { name: 'NewsWidget' },
+    { name: 'WeatherWidget' }
+  ]))
+}
+
+const getTrashTrayData = (): Array<Widget> => {
+  return JSON.parse(JSON.stringify([]))
 }
 
 const getImmutableData = (data: any): any => {
@@ -99,6 +146,23 @@ const onGridRemove = (removeCell: GridRemove) => {
 
   &__widgets {
     @apply flex flex-col grow gap-8 justify-center items-center;
+  }
+
+  &__tray {
+    @apply bg-gray-200 dark:bg-gray-900 rounded-l-xl shadow overflow-hidden;
+    @apply flex flex-col justify-between max-w-xs w-full;
+
+    .tray {
+      &__widgets {
+        @apply overflow-auto;
+        @apply flex flex-col grow justify-center items-center gap-4;
+      }
+
+      &__trash {
+        @apply bg-red-500 h-24 py-2 overflow-hidden;
+        @apply flex flex-col justify-center items-center;
+      }
+    }
   }
 }
 </style>

@@ -87,12 +87,8 @@ const emit = defineEmits([
   'gridRemove'
 ])
 
-const getCellData = (row: number, column: number): any => {
-  return props.data[row][column]
-}
-
 const canRemoveCell = (row: number, column: number) => {
-  return (getCellData(row, column).length === 0)
+  return props.data.length > 1 || props.data[row].length > 1
 }
 
 const gridAdd = (data: GridAdd) => {
