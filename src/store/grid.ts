@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-import { Widget, WidgetsGridAddNewCell, WidgetsGridChange, WidgetsGridChangeAdded, WidgetsGridChangeMoved, WidgetsGridChangeRemoved, WidgetsGridRemoveCell } from '@/types/widgetsGrid'
+import { Widget, WidgetsGridChange, WidgetsGridChangeAdded, WidgetsGridChangeMoved, WidgetsGridChangeRemoved } from '@/types/widgetsGrid'
+import { GridAdd, GridRemove } from '@/types/grid'
 import { moveToArrayIndex } from '@/utils/array'
 
 const defaultGrid: Array<Array<Array<Widget>>> = [[[
@@ -45,7 +46,7 @@ export const useGridStore = defineStore({
 
       return this.data
     },
-    addNewWidgetsCell(newCell: WidgetsGridAddNewCell) {
+    addNewWidgetsCell(newCell: GridAdd) {
       if (newCell.direction > 0) {
         if (newCell.column === null) {
           // console.log(`Adding new row above row ${newCell.row}`)
@@ -64,7 +65,7 @@ export const useGridStore = defineStore({
         }
       }
     },
-    removeWidgetsCell(removeCell: WidgetsGridRemoveCell) {
+    removeWidgetsCell(removeCell: GridRemove) {
       if (this.data.length === 1 && this.data[0].length === 1) return
 
       if (removeCell.column === null) {

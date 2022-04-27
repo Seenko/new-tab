@@ -11,7 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import { WidgetsGridChange, WidgetsGridAddNewCell, WidgetsGridRemoveCell } from '@/types/widgetsGrid'
+import { WidgetsGridChange } from '@/types/widgetsGrid'
+import { GridAdd, GridRemove } from '@/types/grid'
 
 import { useApplicationStore } from '@/store/application'
 import { useGridStore } from '@/store/grid'
@@ -23,6 +24,6 @@ const application = useApplicationStore()
 const grid = useGridStore()
 
 const onChange = (change: WidgetsGridChange) => grid.updateWidgetsPosition(change)
-const onAddNewCell = (newCell: WidgetsGridAddNewCell) => grid.addNewWidgetsCell(newCell)
-const onRemoveCell = (removeCell: WidgetsGridRemoveCell) => grid.removeWidgetsCell(removeCell)
+const onAddNewCell = (newCell: GridAdd) => grid.addNewWidgetsCell(newCell)
+const onRemoveCell = (removeCell: GridRemove) => grid.removeWidgetsCell(removeCell)
 </script>
