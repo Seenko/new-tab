@@ -1,6 +1,6 @@
 <template>
   <button
-    :class="['button', `button--${variant}`, { 'button--disabled': disabled }]"
+    :class="['button', `button--${variant}`, { 'button--animated': animated }, { 'button--disabled': disabled }]"
     :disabled="disabled"
   >
     <slot />
@@ -11,11 +11,13 @@
 interface Props {
   variant?: 'default' | 'icon' | 'red',
   disabled?: boolean,
+  animated?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
-  disabled: false
+  disabled: false,
+  animated: true
 })
 </script>
 
@@ -23,12 +25,14 @@ const props = withDefaults(defineProps<Props>(), {
 .button {
   @apply block rounded drop-shadow dark:drop-shadow-none p-2 transition;
 
-  &:hover:not(.button--disabled) {
-    @apply scale-105;
-  }
+  &--animated {
+    &:hover:not(.button--disabled) {
+      @apply scale-105;
+    }
 
-  &:active:not(.button--disabled) {
-    @apply scale-100;
+    &:active:not(.button--disabled) {
+      @apply scale-100;
+    }
   }
 
   &--disabled {
