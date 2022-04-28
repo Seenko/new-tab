@@ -145,7 +145,7 @@ const onGridRemove = (removeCell: GridRemove) => {
     @apply max-h-full;
 
     &--editing {
-      @apply bg-gray-200 dark:bg-gray-900;
+      @apply bg-gray-200/75 dark:bg-gray-900/75;
       @apply mx-2 rounded-xl shadow;
     }
   }
@@ -155,7 +155,7 @@ const onGridRemove = (removeCell: GridRemove) => {
   }
 
   &__tray {
-    @apply bg-gray-200 dark:bg-gray-900 rounded-l-xl shadow overflow-hidden;
+    @apply bg-gray-200/75 dark:bg-gray-900/75 rounded-l-xl shadow overflow-hidden;
     @apply flex flex-col justify-between max-w-xs w-full;
 
     .tray {
@@ -165,7 +165,7 @@ const onGridRemove = (removeCell: GridRemove) => {
       }
 
       &__trash {
-        @apply bg-red-500 h-24 py-2 overflow-hidden;
+        @apply bg-red-500/75 h-24 py-2 overflow-hidden;
         @apply flex flex-col justify-center items-center;
         @apply fill-white;
 
