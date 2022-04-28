@@ -6,6 +6,25 @@
 @import '@/styles/__typography.scss';
 @import '@/styles/__tooltip.scss';
 
+* {
+  &::-webkit-scrollbar {
+    @apply w-4;
+  }
+  
+  &::-webkit-scrollbar-track {
+    @apply bg-black/20 dark:bg-black/25 rounded-full;
+  }
+
+  &::-webkit-scrollbar-corner {
+    @apply bg-transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    @apply bg-gray-200/50 dark:bg-white/10 rounded-full;
+    @apply border-4 border-solid border-transparent bg-clip-content;
+  }
+}
+
 html {
   @apply select-none;
 }
