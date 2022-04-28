@@ -1,5 +1,5 @@
 <template>
-  <widget v-show="settings.getShowNewsArticles">
+  <widget>
     <v-news-widget
       :is-loading="news.isLoading"
       :articles="articles"

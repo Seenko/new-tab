@@ -1,5 +1,5 @@
 <template>
-  <widget v-show="settings.showClock">
+  <widget>
     <v-clock-widget
       :now="now"
       :show-clock-seconds="settings.showClockSeconds"

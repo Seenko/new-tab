@@ -17,18 +17,6 @@
         Clock
       </template>
       <template #content>
-        <v-setting-entry label-id="showClock">
-          <template #label>
-            Show Clock
-          </template>
-          <template #control>
-            <v-toggle
-              id="showClock"
-              :toggled="showClock"
-              @click="$emit('toggle-show-clock')"
-            />
-          </template>
-        </v-setting-entry>
         <v-setting-entry label-id="show24HourClock">
           <template #label>
             Show 24 Hour Clock
@@ -60,18 +48,6 @@
         Quick Access
       </template>
       <template #content>
-        <v-setting-entry label-id="showQuickAccess">
-          <template #label>
-            Show Quick Access
-          </template>
-          <template #control>
-            <v-toggle
-              id="showQuickAccess"
-              :toggled="showQuickAccess"
-              @click="$emit('toggle-show-quick-access')"
-            />
-          </template>
-        </v-setting-entry>
         <v-setting-entry label-id="autoQuickAccessEntries" is-sub-setting>
           <template #label>
             Automatic Entries
@@ -103,22 +79,6 @@
         News
       </template>
       <template #content>
-        <v-setting-entry label-id="showNewsArticles">
-          <template #label>
-            Show News Articles
-          </template>
-          <template #description>
-            Articles powered by mediastack
-          </template>
-          <template #control>
-            <v-toggle
-              id="showNewsArticles"
-              :toggled="showNewsArticles"
-              :disabled="!newsApiKey"
-              @click="$emit('toggle-show-news-articles')"
-            />
-          </template>
-        </v-setting-entry>
         <v-setting-entry label-id="newsSearchTerm">
           <template #label>
             Search Term
@@ -152,22 +112,6 @@
         Weather
       </template>
       <template #content>
-        <v-setting-entry label-id="showWeather">
-          <template #label>
-            Show Weather
-          </template>
-          <template #description>
-            Weather powered by OpenWeather
-          </template>
-          <template #control>
-            <v-toggle
-              id="showWeather"
-              :toggled="showWeather"
-              :disabled="!weatherApiKey"
-              @click="$emit('toggle-show-weather')"
-            />
-          </template>
-        </v-setting-entry>
         <v-setting-entry label-id="weatherApiKey">
           <template #label>
             API Key
@@ -240,18 +184,6 @@
         Miscellaneous
       </template>
       <template #content>
-        <v-setting-entry label-id="showGreeting">
-          <template #label>
-            Show Greeting
-          </template>
-          <template #control>
-            <v-toggle
-              id="showGreeting"
-              :toggled="showGreeting"
-              @click="$emit('toggle-show-greeting')"
-            />
-          </template>
-        </v-setting-entry>
         <v-setting-entry label-id="showNetworkStatus">
           <template #label>
             Show Network Status
