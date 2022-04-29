@@ -39,7 +39,7 @@
         :disabled="!isEditingWidgets"
       >
         <template #item="{ element }">
-          <p class="cursor-pointer">{{ element.name }}</p>
+          <p class="cursor-pointer">{{ element.name.substr(0, element.name.length - 6) }}</p>
         </template>
       </draggable>
 
@@ -53,7 +53,7 @@
         :disabled="!isEditingWidgets"
       >
         <template #header>
-          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2zm-7-10.414l3.293-3.293 1.414 1.414-3.293 3.293 3.293 3.293-1.414 1.414-3.293-3.293-3.293 3.293-1.414-1.414 3.293-3.293-3.293-3.293 1.414-1.414 3.293 3.293zm10-8.586h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-8-3h-4v1h4v-1z"/></svg>
+          <TrashIcon />
         </template>
         <template #item />
       </draggable>
@@ -75,6 +75,7 @@ import QuickAccessWidget from '@/widgets/QuickAccessWidget.vue'
 import NewsWidget from '@/widgets/NewsWidget.vue'
 import WeatherWidget from '@/widgets/WeatherWidget.vue'
 
+import TrashIcon from '@/assets/icons/trash.svg'
 
 defineProps({
   widgets: {
@@ -128,13 +129,8 @@ const onChange = (row: number, column: number, action: WidgetsGridChangeMoved | 
   } as WidgetsGridChange)
 }
 
-const onGridAdd = (newCell: GridAdd) => {
-  emit('addNewCell', newCell)
-}
-
-const onGridRemove = (removeCell: GridRemove) => {
-  emit('removeCell', removeCell)
-}
+const onGridAdd = (newCell: GridAdd) => emit('addNewCell', newCell)
+const onGridRemove = (removeCell: GridRemove) => emit('removeCell', removeCell)
 </script>
 
 <style lang="scss" scoped>

@@ -16,7 +16,7 @@
         :animated="false"
         @click="gridAdd({row, column: null, direction: 1})"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+        <AddIcon />
       </v-button>
       <div
         class="lattice__wrapper"
@@ -35,7 +35,7 @@
             :animated="false"
             @click="gridAdd({row, column, direction: -1})"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+            <AddIcon />
           </v-button>
           <div class="lattice__content">
             <slot name="content" :row="row" :column="column" :data="data[row][column]" />
@@ -46,7 +46,7 @@
             variant="icon"
             @click="gridRemove({row, column})"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z"/></svg>
+            <RemoveIcon />
           </v-button>
           <v-button
             v-if="isEditing"
@@ -55,7 +55,7 @@
             :animated="false"
             @click="gridAdd({row, column, direction: 1})"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+            <AddIcon />
           </v-button>
         </div>
       </div>
@@ -66,7 +66,7 @@
         :animated="false"
         @click="gridAdd({row, column: null, direction: -1})"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+        <AddIcon />
       </v-button>
       <!-- <v-button
         v-if="isEditing && canRemoveRow(row)"
@@ -74,7 +74,7 @@
         variant="icon"
         @click="gridRemove({row, column: null})"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z"/></svg>
+        <RemoveIcon />
       </v-button> -->
     </div>
   </div>
@@ -85,6 +85,9 @@ import { PropType } from 'vue'
 import { GridAdd, GridRemove } from '@/types/grid'
 
 import VButton from '@/components/atoms/VButton.vue'
+
+import AddIcon from '@/assets/icons/add.svg'
+import RemoveIcon from '@/assets/icons/remove.svg'
 
 const props = defineProps({
   data: {
