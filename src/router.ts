@@ -9,7 +9,6 @@ import Home from '@/views/Home.vue'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    alias: '/index.html',
     name: 'home',
     component: Home
   }
