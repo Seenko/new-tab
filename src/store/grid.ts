@@ -1,27 +1,13 @@
-import type { Widget, WidgetsGridChange, WidgetsGridChangeAdded, WidgetsGridChangeMoved, WidgetsGridChangeRemoved } from '@/types/widgetsGrid'
+import type { WidgetsGrid, WidgetsGridChange, WidgetsGridChangeAdded, WidgetsGridChangeMoved, WidgetsGridChangeRemoved } from '@/types/widgetsGrid'
 import type { GridAdd, GridRemove } from '@/types/grid'
 
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 import { moveToArrayIndex } from '@/utils/array'
 
-const defaultGrid: Array<Array<Array<Widget>>> = [[[
-    {
-      name: 'GreetingWidget'
-    },
-    {
-      name: 'ClockWidget'
-    },
-    {
-      name: 'QuickAccessWidget'
-    },
-    {
-      name: 'NewsWidget'
-    },
-    {
-      name: 'WeatherWidget'
-    }
-]]]
+import { defaultWidgets } from '@/widgets/registry'
+
+const defaultGrid: WidgetsGrid = [[[ ...defaultWidgets ]]]
 
 export const useGridStore = defineStore({
   id: 'grid',
@@ -29,7 +15,7 @@ export const useGridStore = defineStore({
     data: useStorage('grid', defaultGrid)
   }),
   actions: {
-    updateWidgetsPosition(change: WidgetsGridChange): Array<Array<Array<Widget>>> {
+    updateWidgetsPosition(change: WidgetsGridChange): WidgetsGrid {
       switch (Object.keys(change.action)[0]) {
         case 'moved':
           const movedAction = (change.action as WidgetsGridChangeMoved).moved

@@ -39,7 +39,7 @@
         :disabled="!isEditingWidgets"
       >
         <template #item="{ element }">
-          <p class="cursor-pointer">{{ element.name.substr(0, element.name.length - 6) }}</p>
+          <p class="cursor-pointer">{{ (element as Widget).name }}</p>
         </template>
       </draggable>
 
@@ -62,8 +62,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Widget, WidgetsGridChange } from '@/types/widgetsGrid'
+import type { Widget, WidgetsGrid, WidgetsGridChange } from '@/types/widgetsGrid'
 import type { GridAdd, GridRemove } from '@/types/grid'
+
+import { widgetsComponents, registeredWidgets } from '@/widgets/registry'
 
 import { unreactify } from '@/utils/reactivity'
 import { PropType, markRaw } from 'vue'
@@ -71,43 +73,18 @@ import draggable from 'vuedraggable'
 
 import VEditableGrid from '@/components/molecules/VEditableGrid.vue'
 
-import GreetingWidget from '@/widgets/GreetingWidget.vue'
-import ClockWidget from '@/widgets/ClockWidget.vue'
-import QuickAccessWidget from '@/widgets/QuickAccessWidget.vue'
-import NewsWidget from '@/widgets/NewsWidget.vue'
-import WeatherWidget from '@/widgets/WeatherWidget.vue'
-
 import TrashIcon from '@/assets/icons/trash.svg'
 
 defineProps({
   widgets: {
-    type: Array as PropType<Array<Array<Array<Widget>>>>,
+    type: Array as PropType<WidgetsGrid>,
     required: true
   },
   isEditingWidgets: Boolean
 })
 
-const getComponentForWidget = (element: Widget) => {
-  const widgets = {
-    GreetingWidget,
-    ClockWidget,
-    QuickAccessWidget,
-    NewsWidget,
-    WeatherWidget
-  }
-
-  return (element && element.name) ? markRaw((widgets as any)[element.name]) : null
-}
-
-const getWidgetsTrayData = (): Array<Widget> => {
-  return unreactify([
-    { name: 'GreetingWidget' },
-    { name: 'ClockWidget' },
-    { name: 'QuickAccessWidget' },
-    { name: 'NewsWidget' },
-    { name: 'WeatherWidget' }
-  ])
-}
+const getComponentForWidget = (widget: Widget) => markRaw(widgetsComponents[widget.id])
+const getWidgetsTrayData = (): Array<Widget> => unreactify(registeredWidgets)
 
 const emit = defineEmits([ 'change', 'addNewCell', 'removeCell' ])
 

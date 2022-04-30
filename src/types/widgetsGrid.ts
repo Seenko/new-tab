@@ -29,16 +29,9 @@ export interface WidgetsGridChange {
 }
 
 export interface Widget {
+  id: string;
   name: string;
+  default?: boolean;
 }
 
-export interface WidgetsGridAddNewCell {
-  row: number;
-  column: number | null;
-  direction: -1 | 1;
-}
-
-export interface WidgetsGridRemoveCell {
-  row: number;
-  column: number | null;
-}
+export type WidgetsGrid = Array<Array<Array<Widget>>>

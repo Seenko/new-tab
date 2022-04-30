@@ -1,6 +1,7 @@
+import type { WeatherRequest } from '@/services/weather/types/WeatherRequest'
+import type { WeatherResponse } from '@/services/weather/types/WeatherResponse'
+
 import axios, { AxiosInstance } from 'axios'
-import { WeatherRequest } from '@/services/weather/types/WeatherRequest'
-import { WeatherResponse } from '@/services/weather/types/WeatherResponse'
 
 const BASE_URL = import.meta.env.PUBLIC_WEATHER_API_ENDPOINT as string
 const BASE_TOKEN = import.meta.env.PUBLIC_WEATHER_API_TOKEN as string

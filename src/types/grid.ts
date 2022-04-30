@@ -1,3 +1,5 @@
+export type GridArray = Array<Array<any>>
+
 export interface GridAdd {
   row: number;
   column: number | null;

@@ -81,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import type { GridAdd, GridRemove } from '@/types/grid'
+import type { GridArray, GridAdd, GridRemove } from '@/types/grid'
 
 import { PropType } from 'vue'
 
@@ -92,16 +92,11 @@ import RemoveIcon from '@/assets/icons/remove.svg'
 
 const props = defineProps({
   data: {
-    type: Array as PropType<Array<Array<any>>>,
+    type: Array as PropType<GridArray>,
     required: true
   },
   isEditing: Boolean
 })
-
-const emit = defineEmits([
-  'gridAdd',
-  'gridRemove'
-])
 
 const canRemoveCell = (row: number, column: number) => {
   return props.data.length > 1 || props.data[row].length > 1
@@ -111,13 +106,13 @@ const canRemoveRow = (row: number) => {
   return props.data.length > 1
 }
 
-const gridAdd = (data: GridAdd) => {
-  emit('gridAdd', data)
-}
+const emit = defineEmits([
+  'gridAdd',
+  'gridRemove'
+])
 
-const gridRemove = (data: GridRemove) => {
-  emit('gridRemove', data)
-}
+const gridAdd = (data: GridAdd) => emit('gridAdd', data)
+const gridRemove = (data: GridRemove) => emit('gridRemove', data)
 </script>
 
 <style lang="scss" scoped>
