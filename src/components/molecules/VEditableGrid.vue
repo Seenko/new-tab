@@ -2,7 +2,7 @@
   <div
     :class="['lattice', { 'lattice--editing': isEditing }]"
     :style="{
-      gridTemplateRows: `repeat(${data.length}, 1fr)`,
+      gridTemplateRows: `repeat(${data.length}, auto)`,
     }"
   >
     <div
@@ -21,7 +21,7 @@
       <div
         class="lattice__wrapper"
         :style="{
-          gridTemplateColumns: `repeat(${data[row].length}, 1fr)`
+          gridTemplateColumns: `repeat(${data[row].length}, auto)`
         }"
       >
         <div
