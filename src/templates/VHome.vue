@@ -35,6 +35,7 @@
         animation=200
         item-key="name"
         :group="{ name: 'widgets', pull: 'clone', put: false }"
+        :sort="false"
         :list="getWidgetsTrayData()"
         :disabled="!isEditingWidgets"
       >
