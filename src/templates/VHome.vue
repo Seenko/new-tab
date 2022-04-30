@@ -49,7 +49,8 @@
             v-if="availableWidgets.length == 0"
             class="tray__nothing"
           >
-            No widgets found!
+            <p>No widgets found!</p>
+            <FrownSmileyIcon />
           </div>
         </template>
         <template #item="{ element }">
@@ -89,6 +90,7 @@ import VEditableGrid from '@/components/molecules/VEditableGrid.vue'
 import VTextInput from '@/components/atoms/VTextInput.vue'
 
 import TrashIcon from '@/assets/icons/trash.svg'
+import FrownSmileyIcon from '@/assets/icons/smiley/frown.svg'
 
 const props = defineProps({
   widgets: {
@@ -153,8 +155,13 @@ const onGridRemove = (removeCell: GridRemove) => emit('removeCell', removeCell)
       }
 
       &__nothing {
-        @apply flex flex-col justify-center items-center text-2xl;
+        @apply flex flex-col justify-center items-center text-2xl gap-6;
         @apply text-gray-500 dark:text-gray-400;
+
+        svg {
+          @apply w-24 h-24;
+          @apply fill-gray-500 dark:fill-gray-400;
+        }
       }
 
       &__trash {
