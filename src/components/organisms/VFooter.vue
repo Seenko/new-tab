@@ -27,10 +27,10 @@ import { useApplicationStore } from '@/store/application'
 
 import VButton from '@/components/atoms/VButton.vue'
 
+import ConnectionStatusWidget from '@/widgets/ConnectionStatusWidget.vue'
+
 import CogIcon from '@/assets/icons/cog.svg'
 import WidgetsIcon from '@/assets/icons/widgets.svg'
-
-import ConnectionStatusWidget from '@/widgets/ConnectionStatusWidget.vue'
 
 const application = useApplicationStore()
 

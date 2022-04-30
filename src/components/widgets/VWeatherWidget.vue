@@ -54,6 +54,7 @@
 
 <script setup lang="ts">
 import type { WeatherResponse } from '@/services/weather/types/WeatherResponse'
+
 import { PropType, computed } from 'vue'
 import { useTimeAgo, breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 

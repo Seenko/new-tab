@@ -1,0 +1,1 @@
+export const unreactify = (object: any) => JSON.parse(JSON.stringify(object))

@@ -48,6 +48,7 @@
 
 <script setup lang="ts">
 import type { Article } from '@/services/news/types/Article'
+
 import { PropType } from 'vue'
 
 import VButton from '@/components/atoms/VButton.vue'

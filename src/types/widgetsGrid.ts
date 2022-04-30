@@ -20,6 +20,8 @@ export interface WidgetsGridChangeRemoved {
   }
 }
 
+export type WidgetsGridChangeAction = WidgetsGridChangeMoved | WidgetsGridChangeAdded | WidgetsGridChangeRemoved;
+
 export interface WidgetsGridChange {
   row: number;
   column: number;

@@ -17,8 +17,8 @@ import { GridAdd, GridRemove } from '@/types/grid'
 import { useApplicationStore } from '@/store/application'
 import { useGridStore } from '@/store/grid'
 
-import VMainLayout from '@/components/layouts/VMainLayout.vue'
-import VHome from '@/components/templates/VHome.vue'
+import VMainLayout from '@/layouts/VMainLayout.vue'
+import VHome from '@/templates/VHome.vue'
 
 const application = useApplicationStore()
 const grid = useGridStore()

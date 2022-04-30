@@ -14,7 +14,7 @@
 <script setup lang="ts">
 defineProps({
   toggled: Boolean,
-  disabled: Boolean,
+  disabled: Boolean
 })
 </script>
 

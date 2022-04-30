@@ -15,9 +15,9 @@
           animation=200
           item-key="name"
           group="widgets"
-          :list="getImmutableData(data)"
+          :list="unreactify(data)"
           :disabled="!isEditingWidgets"
-          @change="onChange(row, column, ($event as any))"
+          @change="onChange({ row, column, action: $event })"
         >
           <template #item="{ element }">
             <component :is="getComponentForWidget(element)" :is-editable="true" />
@@ -49,7 +49,7 @@
         animation=200
         item-key="name"
         :group="{ name: 'widgets', put: true }"
-        :list="getTrashTrayData()"
+        :list="unreactify([])"
         :disabled="!isEditingWidgets"
       >
         <template #header>
@@ -62,13 +62,15 @@
 </template>
 
 <script setup lang="ts">
+import type { Widget, WidgetsGridChange } from '@/types/widgetsGrid'
+import type { GridAdd, GridRemove } from '@/types/grid'
+
+import { unreactify } from '@/utils/reactivity'
 import { PropType, markRaw } from 'vue'
 import draggable from 'vuedraggable'
 
-import { WidgetsGridChange, Widget, WidgetsGridChangeAdded, WidgetsGridChangeMoved, WidgetsGridChangeRemoved } from '@/types/widgetsGrid'
-import { GridAdd, GridRemove } from '@/types/grid'
-
 import VEditableGrid from '@/components/molecules/VEditableGrid.vue'
+
 import GreetingWidget from '@/widgets/GreetingWidget.vue'
 import ClockWidget from '@/widgets/ClockWidget.vue'
 import QuickAccessWidget from '@/widgets/QuickAccessWidget.vue'
@@ -98,37 +100,18 @@ const getComponentForWidget = (element: Widget) => {
 }
 
 const getWidgetsTrayData = (): Array<Widget> => {
-  return JSON.parse(JSON.stringify([
+  return unreactify([
     { name: 'GreetingWidget' },
     { name: 'ClockWidget' },
     { name: 'QuickAccessWidget' },
     { name: 'NewsWidget' },
     { name: 'WeatherWidget' }
-  ]))
+  ])
 }
 
-const getTrashTrayData = (): Array<Widget> => {
-  return JSON.parse(JSON.stringify([]))
-}
+const emit = defineEmits([ 'change', 'addNewCell', 'removeCell' ])
 
-const getImmutableData = (data: any): any => {
-  return JSON.parse(JSON.stringify(data))
-}
-
-const emit = defineEmits([
-  'change',
-  'addNewCell',
-  'removeCell'
-])
-
-const onChange = (row: number, column: number, action: WidgetsGridChangeMoved | WidgetsGridChangeAdded | WidgetsGridChangeRemoved) => {
-  emit('change', {
-    row,
-    column,
-    action
-  } as WidgetsGridChange)
-}
-
+const onChange = (widgetsGridChange: WidgetsGridChange) => emit('change', widgetsGridChange)
 const onGridAdd = (newCell: GridAdd) => emit('addNewCell', newCell)
 const onGridRemove = (removeCell: GridRemove) => emit('removeCell', removeCell)
 </script>

@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 defineProps({
-  isOnline: Boolean,
+  isOnline: Boolean
 })
 </script>
 

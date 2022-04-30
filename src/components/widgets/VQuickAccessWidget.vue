@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import type { quickAccessEntry } from '@/types/quickAccessEntry'
+
 import { PropType } from 'vue'
 
 import VQuickAccessEntry from '@/components/atoms/VQuickAccessEntry.vue'

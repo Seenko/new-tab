@@ -81,8 +81,9 @@
 </template>
 
 <script setup lang="ts">
+import type { GridAdd, GridRemove } from '@/types/grid'
+
 import { PropType } from 'vue'
-import { GridAdd, GridRemove } from '@/types/grid'
 
 import VButton from '@/components/atoms/VButton.vue'
 

@@ -1,6 +1,7 @@
+import type { quickAccessEntry } from '@/types/quickAccessEntry'
+
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-import { quickAccessEntry } from '@/types/quickAccessEntry'
 
 // These are just arbitrary default values
 const defaultQuickAccessEntries: quickAccessEntry[] = [

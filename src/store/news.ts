@@ -1,6 +1,5 @@
 import type { Article } from '@/services/news/types/Article'
 import type { SearchRequest } from '@/services/news/types/SearchRequest'
-import type { SearchResponse } from '@/services/news/types/SearchResponse'
 
 import { defineStore } from 'pinia'
 import { useStorage, useNow, useOnline } from '@vueuse/core'

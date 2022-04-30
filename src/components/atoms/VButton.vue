@@ -14,7 +14,7 @@ interface Props {
   animated?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   variant: 'default',
   disabled: false,
   animated: true

@@ -302,9 +302,7 @@ const props = defineProps({
   isRunningAsExtension: Boolean
 })
 
-const hasColorAndImageSet = computed(() => {
-  return !!(props.backgroundColor && props.backgroundImage)
-})
+const hasColorAndImageSet = computed(() => !!(props.backgroundColor && props.backgroundImage))
 </script>
 
 <style lang="scss" scoped>

@@ -23,7 +23,7 @@ import { useSlots } from 'vue'
 
 const slots = useSlots()
 
-const props = defineProps({
+defineProps({
   labelId: String,
   isSubSetting: Boolean,
   isStacked: Boolean
