@@ -45,7 +45,12 @@
         :disabled="!isEditingWidgets"
       >
         <template #header>
-          <p v-if="availableWidgets.length == 0">No widgets found!</p>
+          <div
+            v-if="availableWidgets.length == 0"
+            class="tray__nothing"
+          >
+            No widgets found!
+          </div>
         </template>
         <template #item="{ element }">
           <p class="cursor-pointer">{{ (element as Widget).name }}</p>
@@ -145,6 +150,11 @@ const onGridRemove = (removeCell: GridRemove) => emit('removeCell', removeCell)
 
       &__search {
         @apply rounded-tl-xl rounded-b-none rounded-r-none;
+      }
+
+      &__nothing {
+        @apply flex flex-col justify-center items-center text-2xl;
+        @apply text-gray-500 dark:text-gray-400;
       }
 
       &__trash {
