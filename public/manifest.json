@@ -1,7 +1,7 @@
 {
-  "name": "Seenko's New Tab",
+  "name": "New Tab",
   "description": "New Tab extension since I couldn't find a better one for how I want it to behave.",
-  "version": "0.1",
+  "version": "0.0.1",
   "manifest_version": 2,
   "chrome_url_overrides" : {
     "newtab": "index.html"
