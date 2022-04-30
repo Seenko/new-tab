@@ -87,8 +87,7 @@
             <v-text-input
               id="newsSearchTerm"
               placeholder="Tesla"
-              :value="newsSearchTerm"
-              @change="$emit('set-news-search-term', ($event.target as HTMLInputElement).value)"
+              v-model="newsSearchTermModel"
             />
           </template>
         </v-setting-entry>
@@ -100,8 +99,7 @@
             <v-text-input
               id="newsApiKey"
               placeholder="News API Key"
-              :value="newsApiKey"
-              @change="$emit('set-news-api-key', ($event.target as HTMLInputElement).value)"
+              v-model="newsApiKeyModel"
             />
           </template>
         </v-setting-entry>
@@ -120,8 +118,7 @@
             <v-text-input
               id="weatherApiKey"
               placeholder="Weather API Key"
-              :value="weatherApiKey"
-              @change="$emit('set-weather-api-key', ($event.target as HTMLInputElement).value)"
+              v-model="weatherApiKeyModel"
             />
           </template>
         </v-setting-entry>
@@ -164,8 +161,7 @@
             <v-text-input
               id="backgroundImage"
               placeholder="Image URL (Remote or dataURL)"
-              :value="backgroundImage"
-              @change="$emit('set-background-image', ($event.target as HTMLInputElement).value)"
+              v-model="backgroundImageModel"
             />
             <v-button
               v-if="backgroundImage"
@@ -300,6 +296,42 @@ const props = defineProps({
   backgroundColor: String,
   backgroundImage: String,
   isRunningAsExtension: Boolean
+})
+
+const emit = defineEmits([
+  'toggle-dark',
+  'toggle-show-24-hour-clock',
+  'toggle-show-clock-seconds',
+  'toggle-auto-quick-access-entries',
+  'set-news-search-term',
+  'set-news-api-key',
+  'set-weather-api-key',
+  'set-background-color',
+  'set-background-image',
+  'toggle-show-network-status',
+  'import-settings',
+  'export-settings',
+  'reset-settings'
+])
+
+const newsSearchTermModel = computed({ 
+  get: () => props.newsSearchTerm, 
+  set: (value) => emit('set-news-search-term', value)
+})
+
+const newsApiKeyModel = computed({ 
+  get: () => props.newsApiKey, 
+  set: (value) => emit('set-news-api-key', value)
+})
+
+const weatherApiKeyModel = computed({ 
+  get: () => props.weatherApiKey, 
+  set: (value) => emit('set-weather-api-key', value)
+})
+
+const backgroundImageModel = computed({ 
+  get: () => props.backgroundImage, 
+  set: (value) => emit('set-background-image', value)
 })
 
 const hasColorAndImageSet = computed(() => !!(props.backgroundColor && props.backgroundImage))

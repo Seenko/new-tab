@@ -29,6 +29,11 @@
       v-if="isEditingWidgets"
       :class="['home__tray', { 'home__tray--open': isEditingWidgets }]"
     >
+      <v-text-input
+        class="tray__search"
+        v-model="widgetSearchQuery"
+        placeholder="Search widgets..."
+      />
       <draggable
         class="tray__widgets"
         ghost-class="widget--ghost"
@@ -36,9 +41,12 @@
         item-key="name"
         :group="{ name: 'widgets', pull: 'clone', put: false }"
         :sort="false"
-        :list="getWidgetsTrayData()"
+        :list="availableWidgets"
         :disabled="!isEditingWidgets"
       >
+        <template #header>
+          <p v-if="availableWidgets.length == 0">No widgets found!</p>
+        </template>
         <template #item="{ element }">
           <p class="cursor-pointer">{{ (element as Widget).name }}</p>
         </template>
@@ -69,14 +77,15 @@ import type { GridAdd, GridRemove } from '@/types/grid'
 import { widgetsComponents, registeredWidgets } from '@/widgets/registry'
 
 import { unreactify } from '@/utils/reactivity'
-import { PropType, markRaw } from 'vue'
+import { ref, watch, computed, PropType, markRaw } from 'vue'
 import draggable from 'vuedraggable'
 
 import VEditableGrid from '@/components/molecules/VEditableGrid.vue'
+import VTextInput from '@/components/atoms/VTextInput.vue'
 
 import TrashIcon from '@/assets/icons/trash.svg'
 
-defineProps({
+const props = defineProps({
   widgets: {
     type: Array as PropType<WidgetsGrid>,
     required: true
@@ -84,8 +93,21 @@ defineProps({
   isEditingWidgets: Boolean
 })
 
+const widgetSearchQuery = ref<string>('')
+
 const getComponentForWidget = (widget: Widget) => markRaw(widgetsComponents[widget.id])
-const getWidgetsTrayData = (): Array<Widget> => unreactify(registeredWidgets)
+
+const availableWidgets = computed(() => {
+  const widgets: Array<Widget> = unreactify(registeredWidgets)
+
+  if (!widgetSearchQuery.value) return widgets
+
+  return widgets.filter(widget => widget.name.toLowerCase().includes(widgetSearchQuery.value.toLowerCase()))
+})
+
+watch(() => props.isEditingWidgets, async (to) => {
+  if (to === false) widgetSearchQuery.value = ''
+})
 
 const emit = defineEmits([ 'change', 'addNewCell', 'removeCell' ])
 
@@ -118,12 +140,16 @@ const onGridRemove = (removeCell: GridRemove) => emit('removeCell', removeCell)
     .tray {
       &__widgets {
         @apply overflow-auto;
-        @apply flex flex-col grow justify-center items-center gap-4;
+        @apply flex flex-col grow items-center gap-4 py-2 overflow-auto;
+      }
+
+      &__search {
+        @apply rounded-tl-xl rounded-b-none rounded-r-none;
       }
 
       &__trash {
         @apply bg-red-500/75 h-24 py-2 overflow-hidden;
-        @apply flex flex-col justify-center items-center;
+        @apply flex flex-col shrink-0 justify-center items-center;
         @apply fill-white;
 
         & > ::v-deep(.widget--ghost) {
