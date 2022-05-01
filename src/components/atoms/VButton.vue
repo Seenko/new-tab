@@ -1,20 +1,23 @@
 <template>
-  <button
+  <component
+    :is="tag"
     :class="['button', `button--${variant}`, { 'button--animated': animated }, { 'button--disabled': disabled }]"
     :disabled="disabled"
   >
     <slot />
-  </button>
+  </component>
 </template>
 
 <script setup lang="ts">
 interface Props {
+  tag?: 'button' | 'a',
   variant?: 'default' | 'icon' | 'red',
   disabled?: boolean,
   animated?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
+  tag: 'button',
   variant: 'default',
   disabled: false,
   animated: true

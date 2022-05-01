@@ -1,23 +1,35 @@
 <template>
-  <a
+  <v-button
+    class="entry"
+    tag="a"
     :href="href"
     rel="noreferrer"
   >
     <img
+      class="entry__icon"
       :src="iconURL"
       alt=""
     >
-    <slot />
-  </a>
+    <p class="entry__name">
+      {{ parsedName }}
+    </p>
+  </v-button>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import { isRunningAsExtension } from '@/utils/browser'
 
+import VButton from '@/components/atoms/VButton.vue'
+
 const props = defineProps({
+  name: String,
   icon: String,
   href: String
+})
+
+const parsedName = computed(() => {
+  return new URL(props.href as string).hostname.replace(/^www\./, '')
 })
 
 const iconURL = computed(() => {
@@ -34,15 +46,15 @@ const iconURL = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-a {
-  @apply flex flex-row align-middle items-center gap-1 transition;
-
-  img {
-    @apply w-4 h-4;
-  }
-
+.entry {
+  @apply flex flex-row align-middle items-center gap-2 transition;
+  
   &:hover {
     @apply scale-105;
+  }
+
+  &__icon {
+    @apply w-4 h-4;
   }
 }
 </style>

@@ -16,6 +16,14 @@ const defaultQuickAccessEntries: quickAccessEntry[] = [
   {
     name: 'GitHub',
     href: 'https://github.com'
+  },
+  {
+    name: 'Twitter',
+    href: 'https://twitter.com'
+  },
+  {
+    name: 'Reddit',
+    href: 'https://reddit.com'
   }
 ]
 
