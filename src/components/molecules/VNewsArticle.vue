@@ -29,9 +29,6 @@ import { computed } from 'vue';
 
 interface Props {
   title: string,
-  description: string,
-  publishedAt: Date,
-  author: string,
   source: string,
   link: string,
   category: string,
@@ -40,9 +37,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(),{
   title: '',
-  description: '',
-  publishedAt: () => new Date(),
-  author: '',
   source: '',
   link: '',
   category: '',
