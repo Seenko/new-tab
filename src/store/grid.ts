@@ -1,4 +1,4 @@
-import type { WidgetsGrid, WidgetsGridChange, WidgetsGridChangeAdded, WidgetsGridChangeMoved, WidgetsGridChangeRemoved } from '@/types/widgetsGrid'
+import type { WidgetsGrid, WidgetsGridChange } from '@/types/widgetsGrid'
 import type { GridAdd, GridRemove } from '@/types/grid'
 
 import { defineStore } from 'pinia'
@@ -16,19 +16,14 @@ export const useGridStore = defineStore({
   }),
   actions: {
     updateWidgetsPosition(change: WidgetsGridChange): WidgetsGrid {
-      switch (Object.keys(change.action)[0]) {
-        case 'moved':
-          const movedAction = (change.action as WidgetsGridChangeMoved).moved
-          moveToArrayIndex(this.data[change.row][change.column], movedAction.oldIndex, movedAction.newIndex)
-          break;
-        case 'added':
-          const addedAction = (change.action as WidgetsGridChangeAdded).added
-          this.data[change.row][change.column].splice(addedAction.newIndex, 0, addedAction.element);
-          break;
-        case 'removed':
-          const removedAction = (change.action as WidgetsGridChangeRemoved).removed
-          this.data[change.row][change.column].splice(removedAction.oldIndex, 1);
-          break;
+      const widgetsList = this.data[change.row][change.column]
+
+      if (change.action.moved) {
+        moveToArrayIndex(widgetsList, change.action.moved.oldIndex, change.action.moved.newIndex)
+      } else if (change.action.added) {
+        widgetsList.splice(change.action.added.newIndex, 0, change.action.added.element);
+      } else if (change.action.removed) {
+        widgetsList.splice(change.action.removed.oldIndex, 1);
       }
 
       return this.data

@@ -1,31 +1,31 @@
-export interface WidgetsGridChangeMoved {
-  moved: {
-    element: any;
-    newIndex: number;
-    oldIndex: number;
-  }
+export type WidgetsGrid = Array<Array<Array<Widget>>>
+
+export interface WidgetsGridChangeActionMovedContent {
+  element: any;
+  newIndex: number;
+  oldIndex: number;
 }
 
-export interface WidgetsGridChangeAdded {
-  added: {
-    element: any;
-    newIndex: number;
-  }
+export interface WidgetsGridChangeActionAddedContent {
+  element: any;
+  newIndex: number;
 }
 
-export interface WidgetsGridChangeRemoved {
-  removed: {
-    element: any;
-    oldIndex: number;
-  }
+export interface WidgetsGridChangeActionRemovedContent {
+  element: any;
+  oldIndex: number;
 }
 
-export type WidgetsGridChangeAction = WidgetsGridChangeMoved | WidgetsGridChangeAdded | WidgetsGridChangeRemoved;
+export interface WidgetsGridChangeAction {
+  moved?: WidgetsGridChangeActionMovedContent;
+  added?: WidgetsGridChangeActionAddedContent;
+  removed?: WidgetsGridChangeActionRemovedContent;
+}
 
 export interface WidgetsGridChange {
   row: number;
   column: number;
-  action: WidgetsGridChangeMoved | WidgetsGridChangeAdded | WidgetsGridChangeRemoved;
+  action: WidgetsGridChangeAction;
 }
 
 export interface Widget {
@@ -33,5 +33,3 @@ export interface Widget {
   name: string;
   default?: boolean;
 }
-
-export type WidgetsGrid = Array<Array<Array<Widget>>>
