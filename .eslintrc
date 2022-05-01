@@ -25,6 +25,7 @@
   "plugins": [
   ],
   "rules": {
-    "semi": "error"
+    "semi": "error",
+    "quotes": ["error", "single"]
   }
 }

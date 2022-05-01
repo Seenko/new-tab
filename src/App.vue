@@ -121,7 +121,7 @@ const manifestVersion = computed(() => {
     return `v${version} (m${manifest_version})`;
   }
   
-  return `DEBUG`;
+  return 'DEBUG';
 });
 </script>
 
