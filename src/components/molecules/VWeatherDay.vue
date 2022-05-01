@@ -7,12 +7,12 @@
       class="weather__icon"
       :src="iconImagePath"
       alt=""
-    />
+    >
     <p class="weather__forecast">
       {{ forecast }}
     </p>
     <div v-if="date">
-      <hr class="mb-2" />
+      <hr class="mb-2">
       <p
         class="weather__date"
       >
@@ -35,7 +35,7 @@ interface Props {
   date?: Date | number,
   sunrise: Date | number,
   sunset: Date | number,
-  temperature_unit: 'kelvin' | 'celsius' | 'fahrenheit'
+  temperatureUnit: 'kelvin' | 'celsius' | 'fahrenheit'
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<Props>(), {
   date: 0,
   sunrise: 0,
   sunset: 0,
-  temperature_unit: 'kelvin'
+  temperatureUnit: 'kelvin'
 })
 
 const iconImagePath = computed(() => {
@@ -53,7 +53,7 @@ const iconImagePath = computed(() => {
 })
 
 const displayTemperatue = computed(() => {
-  switch (props.temperature_unit) {
+  switch (props.temperatureUnit) {
     case 'kelvin':
       return Math.round(props.temperature)
     case 'celsius':
@@ -61,6 +61,8 @@ const displayTemperatue = computed(() => {
     case 'fahrenheit':
       return `${Math.round(kelvinToFahrenheit(props.temperature))} °F`
   }
+
+  return ''
 })
 
 const dateDay = computed(() => {

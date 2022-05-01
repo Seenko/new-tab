@@ -1,18 +1,18 @@
 export type WidgetsGrid = Array<Array<Array<Widget>>>
 
 export interface WidgetsGridChangeActionMovedContent {
-  element: any;
+  element: Widget;
   newIndex: number;
   oldIndex: number;
 }
 
 export interface WidgetsGridChangeActionAddedContent {
-  element: any;
+  element: Widget;
   newIndex: number;
 }
 
 export interface WidgetsGridChangeActionRemovedContent {
-  element: any;
+  element: Widget;
   oldIndex: number;
 }
 

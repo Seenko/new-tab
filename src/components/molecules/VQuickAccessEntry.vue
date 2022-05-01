@@ -22,10 +22,16 @@ import { isRunningAsExtension } from '@/utils/browser'
 
 import VButton from '@/components/atoms/VButton.vue'
 
-const props = defineProps({
-  name: String,
-  icon: String,
-  href: String
+interface Props {
+  name: string,
+  icon: string,
+  href: string
+}
+
+const props = withDefaults(defineProps<Props>(),{
+  name: '',
+  icon: '',
+  href: ''
 })
 
 const parsedName = computed(() => {

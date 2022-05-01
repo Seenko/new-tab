@@ -1,15 +1,15 @@
 <template>
-  <widget>
+  <base-widget>
     <v-greeting-widget
       :now="now"
     />
-  </widget>
+  </base-widget>
 </template>
 
 <script setup lang="ts">
 import { useNow } from '@vueuse/core'
 
-import Widget from '@/widgets/Widget.vue'
+import BaseWidget from '@/widgets/BaseWidget.vue'
 import VGreetingWidget from '@/components/widgets/VGreetingWidget.vue'
 
 const now = useNow()

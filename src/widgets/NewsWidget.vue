@@ -1,5 +1,5 @@
 <template>
-  <widget>
+  <base-widget>
     <v-news-widget
       :is-loading="news.isLoading"
       :articles="articles"
@@ -8,7 +8,7 @@
       @fetch-news-articles="doFetchNewsArticles()"
       @shuffle-news-articles="doShuffleArticles()"
     />
-  </widget>
+  </base-widget>
 </template>
 
 <script setup lang="ts">
@@ -17,7 +17,7 @@ import { onMounted, computed, ref } from 'vue'
 import { useNewsStore } from '@/store/news'
 import { useSettingsStore } from '@/store/settings'
 
-import Widget from '@/widgets/Widget.vue'
+import BaseWidget from '@/widgets/BaseWidget.vue'
 import VNewsWidget from '@/components/widgets/VNewsWidget.vue'
 import { SearchRequest } from '@/services/news/types/SearchRequest'
 

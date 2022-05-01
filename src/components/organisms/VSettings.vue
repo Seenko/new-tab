@@ -48,7 +48,10 @@
         Quick Access
       </template>
       <template #content>
-        <v-setting-entry label-id="autoQuickAccessEntries" is-sub-setting>
+        <v-setting-entry
+          label-id="autoQuickAccessEntries"
+          is-sub-setting
+        >
           <template #label>
             Automatic Entries
             <span
@@ -86,8 +89,8 @@
           <template #control>
             <v-text-input
               id="newsSearchTerm"
-              placeholder="Tesla"
               v-model="newsSearchTermModel"
+              placeholder="Tesla"
             />
           </template>
         </v-setting-entry>
@@ -98,8 +101,8 @@
           <template #control>
             <v-text-input
               id="newsApiKey"
-              placeholder="News API Key"
               v-model="newsApiKeyModel"
+              placeholder="News API Key"
             />
           </template>
         </v-setting-entry>
@@ -117,8 +120,8 @@
           <template #control>
             <v-text-input
               id="weatherApiKey"
-              placeholder="Weather API Key"
               v-model="weatherApiKeyModel"
+              placeholder="Weather API Key"
             />
           </template>
         </v-setting-entry>
@@ -129,11 +132,17 @@
         Background
       </template>
       <template #content>
-        <v-setting-entry label-id="backgroundColor" is-stacked>
+        <v-setting-entry
+          label-id="backgroundColor"
+          is-stacked
+        >
           <template #label>
             Color
           </template>
-          <template #description v-if="hasColorAndImageSet">
+          <template
+            v-if="hasColorAndImageSet"
+            #description
+          >
             The color will only show up if the background image is not opaque.
           </template>
           <template #control>
@@ -153,15 +162,18 @@
             </v-button>
           </template>
         </v-setting-entry>
-        <v-setting-entry label-id="backgroundImage" is-stacked>
+        <v-setting-entry
+          label-id="backgroundImage"
+          is-stacked
+        >
           <template #label>
             Image
           </template>
           <template #control>
             <v-text-input
               id="backgroundImage"
-              placeholder="Image URL (Remote or dataURL)"
               v-model="backgroundImageModel"
+              placeholder="Image URL (Remote or dataURL)"
             />
             <v-button
               v-if="backgroundImage"
@@ -288,13 +300,13 @@ const props = defineProps({
   showQuickAccess: Boolean,
   autoQuickAccessEntries: Boolean,
   showNewsArticles: Boolean,
-  newsSearchTerm: String,
-  newsApiKey: String,
+  newsSearchTerm: { type: String, required: true },
+  newsApiKey: { type: String, required: true },
   showWeather: Boolean,
-  weatherApiKey: String,
+  weatherApiKey: { type: String, required: true },
   showNetworkStatus: Boolean,
-  backgroundColor: String,
-  backgroundImage: String,
+  backgroundColor: { type: String, required: true },
+  backgroundImage: { type: String, required: true },
   isRunningAsExtension: Boolean
 })
 

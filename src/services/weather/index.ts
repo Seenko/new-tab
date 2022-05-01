@@ -6,7 +6,7 @@ import axios, { AxiosInstance } from 'axios'
 const BASE_URL = import.meta.env.PUBLIC_WEATHER_API_ENDPOINT as string
 const BASE_TOKEN = import.meta.env.PUBLIC_WEATHER_API_TOKEN as string
 
-let instance: AxiosInstance | null = null
+let instance: AxiosInstance
 
 const WeatherService = {
   init: (token?: string) => {
@@ -19,7 +19,7 @@ const WeatherService = {
     })
   },
   getWeather: (request: WeatherRequest): Promise<WeatherResponse> => {
-    return instance!.get('/onecall', {
+    return instance.get('/onecall', {
       params: {
         lat: request.lat,
         lon: request.lon,

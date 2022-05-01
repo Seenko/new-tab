@@ -1,9 +1,9 @@
 <template>
-  <widget>
+  <base-widget>
     <v-quick-access-widget
       :entries="quickAccessEntries"
     />
-  </widget>
+  </base-widget>
 </template>
 
 <script setup lang="ts">
@@ -14,7 +14,7 @@ import { useQuickAccessStore } from '@/store/quickAccess'
 import { useSettingsStore } from '@/store/settings'
 import { getBrowserInstance, isRunningAsExtension } from '@/utils/browser'
 
-import Widget from '@/widgets/Widget.vue'
+import BaseWidget from '@/widgets/BaseWidget.vue'
 import VQuickAccessWidget from '@/components/widgets/VQuickAccessWidget.vue'
 
 const quickAccess = useQuickAccessStore()

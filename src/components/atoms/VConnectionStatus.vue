@@ -1,6 +1,6 @@
 <template>
   <div :class="isOnline ? 'online' : 'offline'">
-    <span aria-hidden="true"></span>
+    <span aria-hidden="true" />
     <span v-if="isOnline">Online</span>
     <span v-else>No Network</span>
   </div>

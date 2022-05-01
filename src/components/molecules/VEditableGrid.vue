@@ -7,6 +7,7 @@
   >
     <div
       v-for="(_, row) in data"
+      :key="row"
       class="lattice__row"
     >
       <v-button
@@ -25,7 +26,8 @@
         }"
       >
         <div
-          v-for="(_, column) in data[row]"
+          v-for="(__, column) in data[row]"
+          :key="column"
           class="lattice__column"
         >
           <v-button
@@ -38,10 +40,15 @@
             <AddIcon />
           </v-button>
           <div class="lattice__content">
-            <slot name="content" :row="row" :column="column" :data="data[row][column]" />
+            <slot
+              name="content"
+              :row="row"
+              :column="column"
+              :data="data[row][column]"
+            />
           </div>
           <v-button
-            v-if="isEditing && canRemoveCell(row, column)"
+            v-if="isEditing && canRemoveCell(row)"
             class="lattice__remove lattice__remove--column"
             variant="icon"
             @click="gridRemove({row, column})"
@@ -98,13 +105,13 @@ const props = defineProps({
   isEditing: Boolean
 })
 
-const canRemoveCell = (row: number, column: number) => {
+const canRemoveCell = (row: number) => {
   return props.data.length > 1 || props.data[row].length > 1
 }
 
-const canRemoveRow = (row: number) => {
-  return props.data.length > 1
-}
+// const canRemoveRow = (row: number) => {
+//   return props.data.length > 1
+// }
 
 const emit = defineEmits([
   'gridAdd',

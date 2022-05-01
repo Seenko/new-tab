@@ -23,7 +23,7 @@ export const useGridStore = defineStore({
       } else if (change.action.added) {
         widgetsList.splice(change.action.added.newIndex, 0, change.action.added.element);
       } else if (change.action.removed) {
-        widgetsList.splice(change.action.removed.oldIndex, 1);
+        widgetsList.splice(change.action.removed.oldIndex, 1)
       }
 
       return this.data
@@ -31,7 +31,7 @@ export const useGridStore = defineStore({
     addNewWidgetsCell(newCell: GridAdd) {
       if (newCell.direction > 0) {
         if (newCell.column === null) {
-          this.data.splice(newCell.row, 0, [[]]);
+          this.data.splice(newCell.row, 0, [[]])
         } else {
           this.data[newCell.row].splice(newCell.column + 1, 0, []);
         }

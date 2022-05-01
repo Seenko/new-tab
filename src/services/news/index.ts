@@ -6,7 +6,7 @@ import axios, { AxiosInstance } from 'axios'
 const BASE_URL = import.meta.env.PUBLIC_NEWS_API_ENDPOINT as string
 const BASE_TOKEN = import.meta.env.PUBLIC_NEWS_API_TOKEN as string
 
-let instance: AxiosInstance | null = null
+let instance: AxiosInstance
 
 const NewsService = {
   init: (token?: string) => {
@@ -19,7 +19,7 @@ const NewsService = {
     })
   },
   getArticles: (request: SearchRequest): Promise<SearchResponse> => {
-    return instance!.get('/news',
+    return instance.get('/news',
       {
         params: {
           sources: request.sources ? request.sources.join(',') : null,

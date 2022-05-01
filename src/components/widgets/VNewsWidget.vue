@@ -7,6 +7,7 @@
       />
       <v-news-article
         v-for="article in articles"
+        :key="article.title"
         class="news__article"
         :title="article.title"
         :description="article.description"
@@ -24,7 +25,7 @@
         class="action action--fetch"
         aria-label="Fetch Articles"
         variant="icon"
-        @click="$emit('fetch-news-articles')"
+        @click="emit('fetch-news-articles')"
       >
         <ReloadIcon />
       </v-button>
@@ -32,7 +33,7 @@
         class="action action--shuffle"
         aria-label="Shuffle Articles"
         variant="icon"
-        @click="$emit('shuffle-news-articles')"
+        @click="emit('shuffle-news-articles')"
       >
         <ShuffleIcon />
       </v-button>
@@ -49,8 +50,6 @@
 <script setup lang="ts">
 import type { Article } from '@/services/news/types/Article'
 
-import { PropType } from 'vue'
-
 import VButton from '@/components/atoms/VButton.vue'
 import VSpinnerMask from '@/components/molecules/VSpinnerMask.vue'
 import VNewsArticle from '@/components/molecules/VNewsArticle.vue'
@@ -58,12 +57,21 @@ import VNewsArticle from '@/components/molecules/VNewsArticle.vue'
 import ReloadIcon from '@/assets/icons/reload.svg'
 import ShuffleIcon from '@/assets/icons/shuffle.svg'
 
-defineProps({
-  isLoading: Boolean,
-  articles: Array as PropType<Array<Article>>,
-  canFetchArticles: Boolean,
-  error: Error
+interface Props {
+  isLoading: boolean,
+  articles: Article[],
+  canFetchArticles: boolean,
+  error: Error | null
+}
+
+withDefaults(defineProps<Props>(),{
+  isLoading: true,
+  articles: () => [],
+  canFetchArticles: true,
+  error: null
 })
+
+const emit = defineEmits(['fetch-news-articles', 'shuffle-news-articles'])
 </script>
 
 <style lang="scss" scoped>

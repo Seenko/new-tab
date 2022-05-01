@@ -16,7 +16,8 @@
         :sunset="weather.current.sunset"
       />
       <v-weather-day
-        v-for="day in dailyWeatherArray"
+        v-for="(day, index) in dailyWeatherArray"
+        :key="index"
         class="weather__daily"
         temperature_unit="celsius"
         :icon="day.weather[0].icon"
@@ -33,7 +34,7 @@
         class="action action--fetch"
         aria-label="Fetch Weather"
         variant="icon"
-        @click="$emit('fetch-weather')"
+        @click="emit('fetch-weather')"
       >
         <ReloadIcon />
       </v-button>
@@ -55,7 +56,7 @@
 <script setup lang="ts">
 import type { WeatherResponse } from '@/services/weather/types/WeatherResponse'
 
-import { PropType, computed } from 'vue'
+import { computed } from 'vue'
 import { useTimeAgo, breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 import VButton from '@/components/atoms/VButton.vue'
@@ -64,16 +65,24 @@ import VWeatherDay from '@/components/molecules/VWeatherDay.vue'
 
 import ReloadIcon from '@/assets/icons/reload.svg'
 
-const props = defineProps({
-  isLoading: Boolean,
-  lastUpdated: Number,
-  weather: Object as PropType<WeatherResponse>,
-  canFetchWeather: Boolean,
-  error: Error
+interface Props {
+  isLoading: boolean,
+  lastUpdated: number,
+  weather: WeatherResponse | null,
+  canFetchWeather: boolean,
+  error: Error | null
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isLoading: true,
+  lastUpdated: 0,
+  weather: null,
+  canFetchWeather: true,
+  error: null
 })
 
 const weatherLastUpdated = computed(() => {
-  return useTimeAgo(new Date(props.lastUpdated!)).value
+  return useTimeAgo(new Date(props.lastUpdated)).value
 })
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
@@ -87,6 +96,8 @@ const dailyWeatherArray = computed(() => {
     return props.weather.daily.slice(0, 3)
   }
 })
+
+const emit = defineEmits(['fetch-weather'])
 </script>
 
 <style lang="scss" scoped>

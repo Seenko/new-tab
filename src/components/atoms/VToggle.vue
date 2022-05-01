@@ -5,9 +5,8 @@
     :disabled="disabled"
   >
     <span
-      class="inline-block w-4 h-4 transform duration-300 bg-white rounded-full translate-x-1"
-      :class="toggled ? 'translate-x-6 ' : 'translate-x-1'"
-    ></span>
+      :class="['toggle__ball', toggled ? 'translate-x-6 ' : 'translate-x-1']"
+    />
   </button>
 </template>
 
@@ -31,6 +30,10 @@ defineProps({
 
   &:disabled, &--disabled {
     @apply opacity-50;
+  }
+
+  &__ball {
+    @apply inline-block w-4 h-4 transform duration-300 bg-white rounded-full translate-x-1;
   }
 }
 </style>

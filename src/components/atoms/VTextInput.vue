@@ -1,12 +1,19 @@
 <template>
-  <input type="text" v-model="message">
+  <input
+    v-model="message"
+    type="text"
+  >
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps({
-  'modelValue': String
+interface Props {
+  'modelValue': string
+}
+
+const props = withDefaults(defineProps<Props>(),{
+  'modelValue': ''
 })
 
 const emit = defineEmits(['update:modelValue'])

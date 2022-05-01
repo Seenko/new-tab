@@ -1,17 +1,21 @@
 <template>
   <input
-    type="color"
     v-model="currentColor"
-    @input="$emit('input-color', currentColor)"
-    @change="$emit('selected-color', currentColor)"
+    type="color"
+    @input="emit('input-color', currentColor)"
+    @change="emit('selected-color', currentColor)"
   >
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
-const props = defineProps({
-  color: String
+interface Props {
+  color: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  color: '#000'
 })
 
 const color = ref(props.color)
@@ -25,6 +29,7 @@ const currentColor = computed({
   }
 })
 
+const emit = defineEmits(['input-color', 'selected-color'])
 
 </script>
 

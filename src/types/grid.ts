@@ -1,4 +1,4 @@
-export type GridArray = Array<Array<any>>
+export type GridArray = Array<Array<unknown>>
 
 export interface GridAdd {
   row: number;

@@ -17,7 +17,7 @@
         class="article__image"
         :src="media"
         alt=""
-      />
+      >
     </article>
   </a>
 </template>
@@ -27,15 +27,26 @@ import unescape from 'lodash/unescape'
 import truncate from 'lodash/truncate'
 import { computed } from 'vue'
 
-const props = defineProps({
-  title: String,
-  description: String,
-  published_at: Date,
-  author: String,
-  source: String,
-  link: String,
-  category: String,
-  media: String
+interface Props {
+  title: string,
+  description: string,
+  publishedAt: Date,
+  author: string,
+  source: string,
+  link: string,
+  category: string,
+  media: string
+}
+
+const props = withDefaults(defineProps<Props>(),{
+  title: '',
+  description: '',
+  publishedAt: () => new Date(),
+  author: '',
+  source: '',
+  link: '',
+  category: '',
+  media: ''
 })
 
 const truncatedTitle = computed(() => {

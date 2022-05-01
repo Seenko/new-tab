@@ -1,18 +1,18 @@
 <template>
   <details
-    class="accordion"
     ref="detailsElement"
+    class="accordion"
   >
     <summary
-      class="accordion__title"
       ref="summaryElement"
+      class="accordion__title"
       @click.prevent="onClick"
     >
       <slot name="summary" />
     </summary>
     <div
-      class="accordion__content"
       ref="contentElement"
+      class="accordion__content"
     >
       <slot name="content" />
     </div>

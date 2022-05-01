@@ -1,5 +1,5 @@
 <template>
-    <SpinnerIcon />
+  <SpinnerIcon />
 </template>
 
 <script setup lang="ts">

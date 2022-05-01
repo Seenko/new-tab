@@ -12,7 +12,7 @@
         <draggable
           :class="['home__widgets', { 'home__widgets--editing': isEditingWidgets }]"
           ghost-class="widget--ghost"
-          animation=200
+          animation="200"
           item-key="name"
           group="widgets"
           :list="unreactify(data)"
@@ -20,7 +20,10 @@
           @change="onChange({ row, column, action: $event })"
         >
           <template #item="{ element }">
-            <component :is="getComponentForWidget(element)" :is-editable="true" />
+            <component
+              :is="getComponentForWidget(element)"
+              :is-editable="true"
+            />
           </template>
         </draggable>
       </template>
@@ -30,14 +33,14 @@
       :class="['home__tray', { 'home__tray--open': isEditingWidgets }]"
     >
       <v-text-input
-        class="tray__search"
         v-model="widgetSearchQuery"
+        class="tray__search"
         placeholder="Search widgets..."
       />
       <draggable
         class="tray__widgets"
         ghost-class="widget--ghost"
-        animation=200
+        animation="200"
         item-key="name"
         :group="{ name: 'widgets', pull: 'clone', put: false }"
         :sort="false"
@@ -54,14 +57,16 @@
           </div>
         </template>
         <template #item="{ element }">
-          <p class="cursor-pointer">{{ (element as Widget).name }}</p>
+          <p class="cursor-pointer">
+            {{ (element as Widget).name }}
+          </p>
         </template>
       </draggable>
 
       <draggable
         class="tray__trash"
         ghost-class="widget--ghost"
-        animation=200
+        animation="200"
         item-key="name"
         :group="{ name: 'widgets', put: true }"
         :list="unreactify([])"

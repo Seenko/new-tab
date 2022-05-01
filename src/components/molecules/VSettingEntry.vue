@@ -5,15 +5,15 @@
     <div class="setting__text">
       <label :for="labelId">
         <span>
-          <slot name="label"></slot>
+          <slot name="label" />
         </span>
         <small v-if="slots.description">
-          <slot name="description"></slot>
+          <slot name="description" />
         </small>
       </label>
     </div>
     <div class="setting__control">
-      <slot name="control"></slot>
+      <slot name="control" />
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ import { useSlots } from 'vue'
 const slots = useSlots()
 
 defineProps({
-  labelId: String,
+  labelId: { type: String, required: true },
   isSubSetting: Boolean,
   isStacked: Boolean
 })

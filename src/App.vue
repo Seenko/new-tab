@@ -7,11 +7,13 @@
     }"
   >
     <v-sidebar-menu
-      :is-open="application.isSettingsPanelOpen"
       ref="sidebar"
+      :is-open="application.isSettingsPanelOpen"
     >
       <template #header>
-        <h1 class="sidebar__title">Settings</h1>
+        <h1 class="sidebar__title">
+          Settings
+        </h1>
         <v-button
           class="sidebar__close"
           aria-label="Close settings"
@@ -52,7 +54,10 @@
       </template>
     </v-sidebar-menu>
     <router-view v-slot="{ Component }">
-      <transition mode="out-in" name="fade">
+      <transition
+        mode="out-in"
+        name="fade"
+      >
         <component :is="Component" />
       </transition>
     </router-view>
@@ -111,6 +116,7 @@ const updateWeatherApiKey = (newToken: string) => {
 
 const manifestVersion = computed(() => {
   if (isRunningAsExtension) {
+    // eslint-disable-next-line no-undef
     const { version, manifest_version } = chrome.runtime.getManifest()
     return `v${version} (m${manifest_version})`
   }

@@ -1,5 +1,7 @@
 <template>
-  <h1 class="greeting">{{ greeting }}</h1>
+  <h1 class="greeting">
+    {{ greeting }}
+  </h1>
 </template>
 
 <script setup lang="ts">
@@ -10,7 +12,7 @@ const props = defineProps({
 })
 
 const greeting = computed(() => {
-  const currentHour = props.now!.getHours()
+  const currentHour = props.now?.getHours() ?? 0
 
   if (currentHour < 12) {
     return 'Good Morning'
