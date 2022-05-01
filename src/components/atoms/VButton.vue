@@ -44,6 +44,7 @@ withDefaults(defineProps<Props>(), {
 
   &--default {
     @apply bg-white dark:bg-gray-800;
+    @apply border border-slate-300 dark:border-slate-700;
   }
 
   &--icon {
@@ -52,6 +53,7 @@ withDefaults(defineProps<Props>(), {
 
   &--red {
     @apply bg-red-500 dark:bg-red-600;
+    @apply border border-red-600 dark:border-red-900;
     @apply text-white;
   }
 }
