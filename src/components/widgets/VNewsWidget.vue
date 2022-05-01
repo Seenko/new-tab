@@ -11,7 +11,7 @@
         class="news__article"
         :title="article.title"
         :description="article.description"
-        :published_at="new Date(article.published_at)"
+        :published-at="new Date(article.published_at)"
         :author="article.author"
         :source="article.source"
         :link="article.url"

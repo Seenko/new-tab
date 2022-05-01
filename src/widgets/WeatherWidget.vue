@@ -1,5 +1,5 @@
 <template>
-  <widget>
+  <base-widget>
     <v-weather-widget
       :is-loading="weather.isLoading"
       :last-updated="weather.data.lastUpdated"
@@ -8,7 +8,7 @@
       :error="weather.error"
       @fetch-weather="doFetchWeather"
     />
-  </widget>
+  </base-widget>
 </template>
 
 <script setup lang="ts">
@@ -16,7 +16,7 @@ import type { WeatherRequest } from '@/services/weather/types/WeatherRequest';
 
 import { onMounted } from 'vue';
 
-import Widget from '@/widgets/Widget.vue';
+import BaseWidget from '@/widgets/BaseWidget.vue';
 import VWeatherWidget from '@/components/widgets/VWeatherWidget.vue';
 
 import { useWeatherStore } from '@/store/weather';

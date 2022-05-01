@@ -8,7 +8,7 @@
       <v-weather-day
         v-if="weather?.current"
         class="weather__current"
-        temperature_unit="celsius"
+        temperature-unit="celsius"
         :icon="weather.current.weather[0].icon"
         :temperature="weather.current.temp"
         :forecast="weather.current.weather[0].main"
@@ -19,7 +19,7 @@
         v-for="(day, index) in dailyWeatherArray"
         :key="index"
         class="weather__daily"
-        temperature_unit="celsius"
+        temperature-unit="celsius"
         :icon="day.weather[0].icon"
         :temperature="day.temp.day"
         :forecast="day.weather[0].main"

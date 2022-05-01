@@ -9,11 +9,11 @@
 import { computed } from 'vue';
 
 interface Props {
-  'modelValue': string
+  modelValue: string
 }
 
-const props = withDefaults(defineProps<Props>(),{
-  'modelValue': ''
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: ''
 });
 
 const emit = defineEmits(['update:modelValue']);
