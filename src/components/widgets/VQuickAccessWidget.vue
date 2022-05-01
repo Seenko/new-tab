@@ -13,9 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import type { quickAccessEntry } from '@/types/quickAccessEntry'
+import type { quickAccessEntry } from '@/types/quickAccessEntry';
 
-import VQuickAccessEntry from '@/components/molecules/VQuickAccessEntry.vue'
+import VQuickAccessEntry from '@/components/molecules/VQuickAccessEntry.vue';
 
 interface Props {
   entries: quickAccessEntry[]
@@ -23,7 +23,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(),{
   entries: () => []
-})
+});
 </script>
 
 <style lang="scss" scoped>

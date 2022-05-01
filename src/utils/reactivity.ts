@@ -1,1 +1,1 @@
-export const unreactify = (object: unknown) => JSON.parse(JSON.stringify(object))
+export const unreactify = (object: unknown) => JSON.parse(JSON.stringify(object));

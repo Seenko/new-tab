@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import VBaseLayout from '@/layouts/VBaseLayout.vue'
+import VBaseLayout from '@/layouts/VBaseLayout.vue';
 </script>

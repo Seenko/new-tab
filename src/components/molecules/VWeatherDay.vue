@@ -25,8 +25,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { kelvinToCelsius, kelvinToFahrenheit } from '@/utils/weather'
+import { computed } from 'vue';
+import { kelvinToCelsius, kelvinToFahrenheit } from '@/utils/weather';
 
 interface Props {
   icon: string,
@@ -46,33 +46,33 @@ const props = withDefaults(defineProps<Props>(), {
   sunrise: 0,
   sunset: 0,
   temperatureUnit: 'kelvin'
-})
+});
 
 const iconImagePath = computed(() => {
-  return `/assets/weather/icons/${props.icon}.png`
-})
+  return `/assets/weather/icons/${props.icon}.png`;
+});
 
 const displayTemperatue = computed(() => {
   switch (props.temperatureUnit) {
     case 'kelvin':
-      return Math.round(props.temperature)
+      return Math.round(props.temperature);
     case 'celsius':
-      return `${Math.round(kelvinToCelsius(props.temperature))} °C`
+      return `${Math.round(kelvinToCelsius(props.temperature))} °C`;
     case 'fahrenheit':
-      return `${Math.round(kelvinToFahrenheit(props.temperature))} °F`
+      return `${Math.round(kelvinToFahrenheit(props.temperature))} °F`;
   }
 
-  return ''
-})
+  return '';
+});
 
 const dateDay = computed(() => {
   let options: Intl.DateTimeFormatOptions = {
     // dateStyle: 'short',
     weekday: 'short'
-  }
+  };
 
-  return new Date(props.date).toLocaleString(undefined, options)
-})
+  return new Date(props.date).toLocaleString(undefined, options);
+});
 </script>
 
 <style lang="scss" scoped>

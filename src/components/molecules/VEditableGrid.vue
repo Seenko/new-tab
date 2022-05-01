@@ -88,14 +88,14 @@
 </template>
 
 <script setup lang="ts">
-import type { GridArray, GridAdd, GridRemove } from '@/types/grid'
+import type { GridArray, GridAdd, GridRemove } from '@/types/grid';
 
-import { PropType } from 'vue'
+import { PropType } from 'vue';
 
-import VButton from '@/components/atoms/VButton.vue'
+import VButton from '@/components/atoms/VButton.vue';
 
-import AddIcon from '@/assets/icons/add.svg'
-import RemoveIcon from '@/assets/icons/remove.svg'
+import AddIcon from '@/assets/icons/add.svg';
+import RemoveIcon from '@/assets/icons/remove.svg';
 
 const props = defineProps({
   data: {
@@ -103,11 +103,11 @@ const props = defineProps({
     required: true
   },
   isEditing: Boolean
-})
+});
 
 const canRemoveCell = (row: number) => {
-  return props.data.length > 1 || props.data[row].length > 1
-}
+  return props.data.length > 1 || props.data[row].length > 1;
+};
 
 // const canRemoveRow = (row: number) => {
 //   return props.data.length > 1
@@ -116,10 +116,10 @@ const canRemoveCell = (row: number) => {
 const emit = defineEmits([
   'gridAdd',
   'gridRemove'
-])
+]);
 
-const gridAdd = (data: GridAdd) => emit('gridAdd', data)
-const gridRemove = (data: GridRemove) => emit('gridRemove', data)
+const gridAdd = (data: GridAdd) => emit('gridAdd', data);
+const gridRemove = (data: GridRemove) => emit('gridRemove', data);
 </script>
 
 <style lang="scss" scoped>

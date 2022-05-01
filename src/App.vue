@@ -65,64 +65,64 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import { useDark, useToggle, onClickOutside } from '@vueuse/core'
-import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
-import { isRunningAsExtension } from '@/utils/browser'
+import { ref, computed, watch } from 'vue';
+import { useDark, useToggle, onClickOutside } from '@vueuse/core';
+import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
+import { isRunningAsExtension } from '@/utils/browser';
 
-import NewsService from '@/services/news'
-import WeatherService from '@/services/weather'
+import NewsService from '@/services/news';
+import WeatherService from '@/services/weather';
 
-import { useApplicationStore } from '@/store/application'
-import { useSettingsStore } from '@/store/settings'
+import { useApplicationStore } from '@/store/application';
+import { useSettingsStore } from '@/store/settings';
 
-import VButton from '@/components/atoms/VButton.vue'
-import VSidebarMenu from '@/components/molecules/VSidebarMenu.vue'
-import VSettings from '@/components/organisms/VSettings.vue'
+import VButton from '@/components/atoms/VButton.vue';
+import VSidebarMenu from '@/components/molecules/VSidebarMenu.vue';
+import VSettings from '@/components/organisms/VSettings.vue';
 
-import CloseIcon from '@/assets/icons/close.svg'
+import CloseIcon from '@/assets/icons/close.svg';
 
-const settings = useSettingsStore()
-const application = useApplicationStore()
+const settings = useSettingsStore();
+const application = useApplicationStore();
 
-const darkMode = useDark()
-const toggleDarkMode = useToggle(darkMode)
+const darkMode = useDark();
+const toggleDarkMode = useToggle(darkMode);
 
-const sidebar = ref()
+const sidebar = ref();
 const {
   activate: sidebarFocus,
   deactivate: sidebarUnfocus
-} = useFocusTrap(sidebar)
+} = useFocusTrap(sidebar);
 
 watch(() => application.isSettingsPanelOpen, async (to) => {
-  to ? sidebarFocus() : sidebarUnfocus()
-})
+  to ? sidebarFocus() : sidebarUnfocus();
+});
 
 onClickOutside(sidebar, () => {
   if (application.isSettingsPanelOpen) {
-    application.toggleIsSettingsPanelOpen()
+    application.toggleIsSettingsPanelOpen();
   }
-})
+});
 
 const updateNewsApiKey = (newToken: string) => {
-  settings.setNewsApiKey(newToken)
-  NewsService.init(newToken)
-}
+  settings.setNewsApiKey(newToken);
+  NewsService.init(newToken);
+};
 
 const updateWeatherApiKey = (newToken: string) => {
-  settings.setWeatherApiKey(newToken)
-  WeatherService.init(newToken)
-}
+  settings.setWeatherApiKey(newToken);
+  WeatherService.init(newToken);
+};
 
 const manifestVersion = computed(() => {
   if (isRunningAsExtension) {
     // eslint-disable-next-line no-undef
-    const { version, manifest_version } = chrome.runtime.getManifest()
-    return `v${version} (m${manifest_version})`
+    const { version, manifest_version } = chrome.runtime.getManifest();
+    return `v${version} (m${manifest_version})`;
   }
   
-  return `DEBUG`
-})
+  return `DEBUG`;
+});
 </script>
 
 <style lang="scss" scoped>

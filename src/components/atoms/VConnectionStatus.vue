@@ -9,7 +9,7 @@
 <script setup lang="ts">
 defineProps({
   isOnline: Boolean
-})
+});
 </script>
 
 <style lang="scss" scoped>

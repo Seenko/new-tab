@@ -23,20 +23,20 @@
 </template>
 
 <script setup lang="ts">
-import { useApplicationStore } from '@/store/application'
+import { useApplicationStore } from '@/store/application';
 
-import VButton from '@/components/atoms/VButton.vue'
+import VButton from '@/components/atoms/VButton.vue';
 
-import ConnectionStatusWidget from '@/widgets/ConnectionStatusWidget.vue'
+import ConnectionStatusWidget from '@/widgets/ConnectionStatusWidget.vue';
 
-import CogIcon from '@/assets/icons/cog.svg'
-import WidgetsIcon from '@/assets/icons/widgets.svg'
+import CogIcon from '@/assets/icons/cog.svg';
+import WidgetsIcon from '@/assets/icons/widgets.svg';
 
-const application = useApplicationStore()
+const application = useApplicationStore();
 
 defineProps({
   showNetworkStatus: Boolean
-})
+});
 </script>
 
 <style lang="scss" scoped>

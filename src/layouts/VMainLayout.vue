@@ -11,13 +11,13 @@
 </template>
 
 <script setup lang="ts">
-import { useSettingsStore } from '@/store/settings'
+import { useSettingsStore } from '@/store/settings';
 
-import VBaseLayout from '@/layouts/VBaseLayout.vue'
-import VHeader from '@/components/organisms/VHeader.vue'
-import VFooter from '@/components/organisms/VFooter.vue'
+import VBaseLayout from '@/layouts/VBaseLayout.vue';
+import VHeader from '@/components/organisms/VHeader.vue';
+import VFooter from '@/components/organisms/VFooter.vue';
 
-const settings = useSettingsStore()
+const settings = useSettingsStore();
 </script>
 
 <style lang="scss" scoped>

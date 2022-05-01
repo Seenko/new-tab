@@ -12,29 +12,29 @@
 </template>
 
 <script setup lang="ts">
-import type { WeatherRequest } from '@/services/weather/types/WeatherRequest'
+import type { WeatherRequest } from '@/services/weather/types/WeatherRequest';
 
-import { onMounted } from 'vue'
+import { onMounted } from 'vue';
 
-import Widget from '@/widgets/Widget.vue'
-import VWeatherWidget from '@/components/widgets/VWeatherWidget.vue'
+import Widget from '@/widgets/Widget.vue';
+import VWeatherWidget from '@/components/widgets/VWeatherWidget.vue';
 
-import { useWeatherStore } from '@/store/weather'
+import { useWeatherStore } from '@/store/weather';
 
-const weather = useWeatherStore()
+const weather = useWeatherStore();
 
 const doFetchWeather = () => {
   navigator.geolocation.getCurrentPosition((position) => {
     weather.loadWeather({
       lat: position.coords.latitude,
       lon: position.coords.longitude
-    } as WeatherRequest)
+    } as WeatherRequest);
   });
-}
+};
 
 onMounted(() => {
   if (weather.getCanFetchWeather) {
-    doFetchWeather()
+    doFetchWeather();
   }
-})
+});
 </script>

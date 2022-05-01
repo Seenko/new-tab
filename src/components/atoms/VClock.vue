@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 const props = defineProps({
   now: {
@@ -12,7 +12,7 @@ const props = defineProps({
   },
   showClockSeconds: Boolean,
   show24HourClock: Boolean
-})
+});
 
 const currentHour = computed(() => {
   let options: Intl.DateTimeFormatOptions = {
@@ -20,10 +20,10 @@ const currentHour = computed(() => {
     minute: 'numeric',
     second: props.showClockSeconds ? 'numeric' : undefined,
     hourCycle: props.show24HourClock ? 'h24' : 'h12'
-  }
+  };
 
-  return props.now.toLocaleString(undefined, options)
-})
+  return props.now.toLocaleString(undefined, options);
+});
 </script>
 
 <style lang="scss" scoped>

@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, useSlots } from 'vue'
+import { ref, watch, useSlots } from 'vue';
 
 interface Props {
   position?: 'left' | 'right',
@@ -31,16 +31,16 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   position: 'left',
   isOpen: false
-})
+});
 
-const slots = useSlots()
-const isAnimated = ref(false)
+const slots = useSlots();
+const isAnimated = ref(false);
 
 // Only apply animation if the sidebar has been interacted with,
 // solves a bug with animation playing on page load unnecessarily
 watch(() => props.isOpen, () => {
-  isAnimated.value = true
-})
+  isAnimated.value = true;
+});
 
 </script>
 

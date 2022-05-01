@@ -21,7 +21,7 @@ withDefaults(defineProps<Props>(), {
   variant: 'default',
   disabled: false,
   animated: true
-})
+});
 </script>
 
 <style lang="scss" scoped>

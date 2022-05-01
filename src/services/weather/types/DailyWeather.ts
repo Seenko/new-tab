@@ -1,4 +1,4 @@
-import { WeatherDescriptor } from '@/services/weather/types/WeatherDescriptor'
+import { WeatherDescriptor } from '@/services/weather/types/WeatherDescriptor';
 
 export interface DailyWeather {
   dt: number;

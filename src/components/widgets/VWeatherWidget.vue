@@ -54,16 +54,16 @@
 </template>
 
 <script setup lang="ts">
-import type { WeatherResponse } from '@/services/weather/types/WeatherResponse'
+import type { WeatherResponse } from '@/services/weather/types/WeatherResponse';
 
-import { computed } from 'vue'
-import { useTimeAgo, breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+import { computed } from 'vue';
+import { useTimeAgo, breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
-import VButton from '@/components/atoms/VButton.vue'
-import VSpinnerMask from '@/components/molecules/VSpinnerMask.vue'
-import VWeatherDay from '@/components/molecules/VWeatherDay.vue'
+import VButton from '@/components/atoms/VButton.vue';
+import VSpinnerMask from '@/components/molecules/VSpinnerMask.vue';
+import VWeatherDay from '@/components/molecules/VWeatherDay.vue';
 
-import ReloadIcon from '@/assets/icons/reload.svg'
+import ReloadIcon from '@/assets/icons/reload.svg';
 
 interface Props {
   isLoading: boolean,
@@ -79,25 +79,25 @@ const props = withDefaults(defineProps<Props>(), {
   weather: null,
   canFetchWeather: true,
   error: null
-})
+});
 
 const weatherLastUpdated = computed(() => {
-  return useTimeAgo(new Date(props.lastUpdated)).value
-})
+  return useTimeAgo(new Date(props.lastUpdated)).value;
+});
 
-const breakpoints = useBreakpoints(breakpointsTailwind)
+const breakpoints = useBreakpoints(breakpointsTailwind);
 
 const dailyWeatherArray = computed(() => {
-  if (!props.weather || !props.weather.daily) return []
+  if (!props.weather || !props.weather.daily) return [];
 
   if (breakpoints.md.value) {
-    return props.weather.daily
+    return props.weather.daily;
   } else {
-    return props.weather.daily.slice(0, 3)
+    return props.weather.daily.slice(0, 3);
   }
-})
+});
 
-const emit = defineEmits(['fetch-weather'])
+const emit = defineEmits(['fetch-weather']);
 </script>
 
 <style lang="scss" scoped>

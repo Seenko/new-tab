@@ -12,27 +12,27 @@
 </template>
 
 <script setup lang="ts">
-import shuffle from 'lodash/shuffle'
-import { onMounted, computed, ref } from 'vue'
-import { useNewsStore } from '@/store/news'
-import { useSettingsStore } from '@/store/settings'
+import shuffle from 'lodash/shuffle';
+import { onMounted, computed, ref } from 'vue';
+import { useNewsStore } from '@/store/news';
+import { useSettingsStore } from '@/store/settings';
 
-import BaseWidget from '@/widgets/BaseWidget.vue'
-import VNewsWidget from '@/components/widgets/VNewsWidget.vue'
-import { SearchRequest } from '@/services/news/types/SearchRequest'
+import BaseWidget from '@/widgets/BaseWidget.vue';
+import VNewsWidget from '@/components/widgets/VNewsWidget.vue';
+import { SearchRequest } from '@/services/news/types/SearchRequest';
 
-const news = useNewsStore()
-const settings = useSettingsStore()
+const news = useNewsStore();
+const settings = useSettingsStore();
 
-const shuffledArticles = ref(shuffle(news.data.articles))
+const shuffledArticles = ref(shuffle(news.data.articles));
 
 const articles = computed(() => {
-  return shuffledArticles.value ? shuffledArticles.value.slice(0, 4) : []
-})
+  return shuffledArticles.value ? shuffledArticles.value.slice(0, 4) : [];
+});
 
 const doShuffleArticles = () => {
-  shuffledArticles.value = shuffle(news.data.articles)
-}
+  shuffledArticles.value = shuffle(news.data.articles);
+};
 
 const doFetchNewsArticles = async () => {
   await news.loadNewArticles({
@@ -40,14 +40,14 @@ const doFetchNewsArticles = async () => {
     limit: 100,
     sort: 'popularity',
     languages: ['en']
-  } as SearchRequest)
+  } as SearchRequest);
 
-  doShuffleArticles()
-}
+  doShuffleArticles();
+};
 
 onMounted(() => {
   if (news.getCanFetchArticles) {
-    doFetchNewsArticles()
+    doFetchNewsArticles();
   }
-})
+});
 </script>

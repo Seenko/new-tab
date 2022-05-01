@@ -2,9 +2,9 @@ import {
   createRouter,
   createWebHashHistory,
   RouteRecordRaw
-} from 'vue-router'
+} from 'vue-router';
 
-import Home from '@/views/Home.vue'
+import Home from '@/views/Home.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -12,9 +12,9 @@ const routes: RouteRecordRaw[] = [
     name: 'home',
     component: Home
   }
-]
+];
 
 export const router = createRouter({
   history: createWebHashHistory(),
   routes,
-})
+});

@@ -1,4 +1,4 @@
-import { Weather } from '@/services/weather/types/Weather'
+import { Weather } from '@/services/weather/types/Weather';
 
 export interface CurrentWeather extends Weather {
   sunrise: number;

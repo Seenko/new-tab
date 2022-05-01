@@ -1,12 +1,12 @@
-import type { WeatherRequest } from '@/services/weather/types/WeatherRequest'
-import type { WeatherResponse } from '@/services/weather/types/WeatherResponse'
+import type { WeatherRequest } from '@/services/weather/types/WeatherRequest';
+import type { WeatherResponse } from '@/services/weather/types/WeatherResponse';
 
-import axios, { AxiosInstance } from 'axios'
+import axios, { AxiosInstance } from 'axios';
 
-const BASE_URL = import.meta.env.PUBLIC_WEATHER_API_ENDPOINT as string
-const BASE_TOKEN = import.meta.env.PUBLIC_WEATHER_API_TOKEN as string
+const BASE_URL = import.meta.env.PUBLIC_WEATHER_API_ENDPOINT as string;
+const BASE_TOKEN = import.meta.env.PUBLIC_WEATHER_API_TOKEN as string;
 
-let instance: AxiosInstance
+let instance: AxiosInstance;
 
 const WeatherService = {
   init: (token?: string) => {
@@ -16,7 +16,7 @@ const WeatherService = {
       params: {
         'appid':  token ? token : BASE_TOKEN
       }
-    })
+    });
   },
   getWeather: (request: WeatherRequest): Promise<WeatherResponse> => {
     return instance.get('/onecall', {
@@ -27,8 +27,8 @@ const WeatherService = {
         units: request.units,
         lang: request.lang
       }
-    }).then(response => response.data)
+    }).then(response => response.data);
   }
-}
+};
 
-export default WeatherService
+export default WeatherService;

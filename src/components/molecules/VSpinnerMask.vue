@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import VSpinner from '@/components/atoms/VSpinner.vue'
+import VSpinner from '@/components/atoms/VSpinner.vue';
 </script>
 
 <style lang="scss" scoped>

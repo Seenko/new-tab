@@ -11,7 +11,7 @@
 <script setup lang="ts">
 defineProps({
   isDark: Boolean
-})
+});
 </script>
 
 <style lang="scss" scoped>

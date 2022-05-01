@@ -1,7 +1,7 @@
-import type { quickAccessEntry } from '@/types/quickAccessEntry'
+import type { quickAccessEntry } from '@/types/quickAccessEntry';
 
-import { defineStore } from 'pinia'
-import { useStorage } from '@vueuse/core'
+import { defineStore } from 'pinia';
+import { useStorage } from '@vueuse/core';
 
 // These are just arbitrary default values
 const defaultQuickAccessEntries: quickAccessEntry[] = [
@@ -25,7 +25,7 @@ const defaultQuickAccessEntries: quickAccessEntry[] = [
     name: 'Reddit',
     href: 'https://reddit.com'
   }
-]
+];
 
 export const useQuickAccessStore = defineStore({
   id: 'quickAccess',
@@ -34,15 +34,15 @@ export const useQuickAccessStore = defineStore({
   }),
   getters: {
     getQuickAccessEntries(state): quickAccessEntry[] {
-      return state.entries
+      return state.entries;
     }
   },
   actions: {
     addQuickAccessEntry(entry: quickAccessEntry) {
-      this.entries.push(entry)
+      this.entries.push(entry);
     },
     removeQuickAccessEntry(entry: quickAccessEntry) {
-      this.entries = this.entries.filter(e => e !== entry)
+      this.entries = this.entries.filter(e => e !== entry);
     }
   },
-})
+});

@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
-import { useStorage } from '@vueuse/core'
-import { isRunningAsExtension } from '@/utils/browser'
+import { defineStore } from 'pinia';
+import { useStorage } from '@vueuse/core';
+import { isRunningAsExtension } from '@/utils/browser';
 
 // Vue Use already scaffolds dark mode for us, no need to do it manually
 
@@ -27,52 +27,52 @@ const defaultSettings: Settings = {
   showNetworkStatus: true,
   backgroundColor: '',
   backgroundImage: ''
-}
+};
 
 export const useSettingsStore = defineStore({
   id: 'settings',
   state: () => useStorage('settings', defaultSettings),
   getters: {
     getAutoQuickAccessEntries(): boolean {
-      return isRunningAsExtension ? this.autoQuickAccessEntries : false
+      return isRunningAsExtension ? this.autoQuickAccessEntries : false;
     },
     getShowNewsArticles(): boolean {
-      return this.newsApiKey ? true : false
+      return this.newsApiKey ? true : false;
     },
     getShowWeather(): boolean {
-      return this.weatherApiKey ? true : false
+      return this.weatherApiKey ? true : false;
     }
   },
   actions: {
     resetSettings() {
-      Object.assign(this, defaultSettings)
+      Object.assign(this, defaultSettings);
     },
     toggleShowClockSeconds(value?: boolean): boolean {
-      return (this.showClockSeconds = typeof value === 'boolean' ? value : !this.showClockSeconds)
+      return (this.showClockSeconds = typeof value === 'boolean' ? value : !this.showClockSeconds);
     },
     toggleShow24HourClock(value?: boolean): boolean {
-      return (this.show24HourClock = typeof value === 'boolean' ? value : !this.show24HourClock)
+      return (this.show24HourClock = typeof value === 'boolean' ? value : !this.show24HourClock);
     },
     toggleAutoQuickAccessEntries(value?: boolean): boolean {
-      return (this.autoQuickAccessEntries = typeof value === 'boolean' ? value : !this.autoQuickAccessEntries)
+      return (this.autoQuickAccessEntries = typeof value === 'boolean' ? value : !this.autoQuickAccessEntries);
     },
     setNewsSearchTerm(value: string): string {
-      return (this.newsSearchTerm = value)
+      return (this.newsSearchTerm = value);
     },
     setNewsApiKey(value: string): string {
-      return (this.newsApiKey = value)
+      return (this.newsApiKey = value);
     },
     setWeatherApiKey(value: string): string {
-      return (this.weatherApiKey = value)
+      return (this.weatherApiKey = value);
     },
     toggleShowNetworkStatus(value?: boolean): boolean {
-      return (this.showNetworkStatus = typeof value === 'boolean' ? value : !this.showNetworkStatus)
+      return (this.showNetworkStatus = typeof value === 'boolean' ? value : !this.showNetworkStatus);
     },
     setBackgroundColor(value: string): string {
-      return (this.backgroundColor = value)
+      return (this.backgroundColor = value);
     },
     setBackgroundImage(value: string): string {
-      return (this.backgroundImage = value)
+      return (this.backgroundImage = value);
     }
   },
-})
+});

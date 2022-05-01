@@ -20,89 +20,89 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const animationSpeedInMs = 150
+const animationSpeedInMs = 150;
 
-const detailsElement = ref()
-const summaryElement = ref()
-const contentElement = ref()
+const detailsElement = ref();
+const summaryElement = ref();
+const contentElement = ref();
 
-const isClosing = ref(false)
-const isOpening = ref(false)
-const isExpanding = ref(false)
+const isClosing = ref(false);
+const isOpening = ref(false);
+const isExpanding = ref(false);
 
-const currentAnimation = ref()
+const currentAnimation = ref();
 
 const onClick = () => { 
-  detailsElement.value.style.overflow = 'hidden'
+  detailsElement.value.style.overflow = 'hidden';
 
   if (isClosing.value || !detailsElement.value.open) {
-    doOpen()
+    doOpen();
   } else if (isOpening.value || detailsElement.value.open) {
-    doClose()
+    doClose();
   }
-}
+};
 
 const onAnimationFinish = (isOpen: boolean) => {
-  detailsElement.value.open = isOpen
-  currentAnimation.value = null
-  isClosing.value = false
-  isExpanding.value = false
-  detailsElement.value.style.height = detailsElement.value.style.overflow = ''
-}
+  detailsElement.value.open = isOpen;
+  currentAnimation.value = null;
+  isClosing.value = false;
+  isExpanding.value = false;
+  detailsElement.value.style.height = detailsElement.value.style.overflow = '';
+};
 
 const doOpen = () => {
-  detailsElement.value.style.height = `${detailsElement.value.offsetHeight}px`
+  detailsElement.value.style.height = `${detailsElement.value.offsetHeight}px`;
 
-  detailsElement.value.open = true
-  window.requestAnimationFrame(() => doExpand())
-}
+  detailsElement.value.open = true;
+  window.requestAnimationFrame(() => doExpand());
+};
 
 const doExpand = () => {
-  isExpanding.value = true
+  isExpanding.value = true;
 
-  const startHeight = `${detailsElement.value.offsetHeight}px`
-  const endHeight = `${detailsElement.value.offsetHeight + getFullElementHeight(contentElement.value)}px`
+  const startHeight = `${detailsElement.value.offsetHeight}px`;
+  const endHeight = `${detailsElement.value.offsetHeight + getFullElementHeight(contentElement.value)}px`;
 
   if (currentAnimation.value) {
-    currentAnimation.value.cancel()
+    currentAnimation.value.cancel();
   }
 
   currentAnimation.value = detailsElement.value.animate(
     { height: [startHeight, endHeight] },
     { duration: animationSpeedInMs, easing: 'ease-out' }
-  )
+  );
 
-  currentAnimation.value.onfinish = () => onAnimationFinish(true)
-  currentAnimation.value.oncancel = () => isExpanding.value = false
-}
+  currentAnimation.value.onfinish = () => onAnimationFinish(true);
+  currentAnimation.value.oncancel = () => isExpanding.value = false;
+};
 
 const doClose = () => {
-  isClosing.value = true
+  isClosing.value = true;
 
-  const startHeight = `${detailsElement.value.offsetHeight}px`
-  const endHeight = `${getFullElementHeight(detailsElement.value) - getFullElementHeight(contentElement.value)}px`
+  const startHeight = `${detailsElement.value.offsetHeight}px`;
+  const endHeight = `${getFullElementHeight(detailsElement.value) - getFullElementHeight(contentElement.value)}px`;
 
   if (currentAnimation.value) {
-    currentAnimation.value.cancel()
+    currentAnimation.value.cancel();
   }
 
   currentAnimation.value = detailsElement.value.animate(
     { height: [startHeight, endHeight] },
     { duration: animationSpeedInMs, easing: 'ease-out' }
-  )
+  );
 
-  currentAnimation.value.onfinish = () => onAnimationFinish(false)
-  currentAnimation.value.oncancel = () => isClosing.value = false
-}
+  currentAnimation.value.onfinish = () => onAnimationFinish(false);
+  currentAnimation.value.oncancel = () => isClosing.value = false;
+};
 
 const getFullElementHeight = (element: HTMLElement) => {
-  const elementComputedStyle = getComputedStyle(element)
+  const elementComputedStyle = getComputedStyle(element);
   return element.offsetHeight +
           parseInt(elementComputedStyle.marginTop) +
-          parseInt(elementComputedStyle.marginBottom)
-}
+          parseInt(elementComputedStyle.marginBottom);
+};
 </script>
 
 <style lang="scss" scoped>

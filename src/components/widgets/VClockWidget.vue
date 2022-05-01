@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import VClock from '@/components/atoms/VClock.vue'
+import VClock from '@/components/atoms/VClock.vue';
 
 defineProps({
   now: {
@@ -16,5 +16,5 @@ defineProps({
   },
   showClockSeconds: Boolean,
   show24HourClock: Boolean
-})
+});
 </script>

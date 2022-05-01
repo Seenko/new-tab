@@ -14,7 +14,7 @@
 defineProps({
   toggled: Boolean,
   disabled: Boolean
-})
+});
 </script>
 
 <style lang="scss" scoped>

@@ -5,23 +5,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 const props = defineProps({
   now: Date
-})
+});
 
 const greeting = computed(() => {
-  const currentHour = props.now?.getHours() ?? 0
+  const currentHour = props.now?.getHours() ?? 0;
 
   if (currentHour < 12) {
-    return 'Good Morning'
+    return 'Good Morning';
   } else if (currentHour < 17) {
-    return 'Good Afternoon'
+    return 'Good Afternoon';
   } else {
-    return 'Good Evening'
+    return 'Good Evening';
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>

@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
 interface Props {
   color: string
@@ -16,20 +16,20 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   color: '#000'
-})
+});
 
-const color = ref(props.color)
+const color = ref(props.color);
 
 const currentColor = computed({
   get() {
-    return props.color ? (color.value ? color.value : '#000000') : '#000000'
+    return props.color ? (color.value ? color.value : '#000000') : '#000000';
   },
   set(newColor: string) {
-    color.value = newColor
+    color.value = newColor;
   }
-})
+});
 
-const emit = defineEmits(['input-color', 'selected-color'])
+const emit = defineEmits(['input-color', 'selected-color']);
 
 </script>
 

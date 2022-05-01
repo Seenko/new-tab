@@ -23,9 +23,9 @@
 </template>
 
 <script setup lang="ts">
-import unescape from 'lodash/unescape'
-import truncate from 'lodash/truncate'
-import { computed } from 'vue'
+import unescape from 'lodash/unescape';
+import truncate from 'lodash/truncate';
+import { computed } from 'vue';
 
 interface Props {
   title: string,
@@ -47,15 +47,15 @@ const props = withDefaults(defineProps<Props>(),{
   link: '',
   category: '',
   media: ''
-})
+});
 
 const truncatedTitle = computed(() => {
   return truncate(unescape(props.title), {
     length: 50,
     separator: /,? +/,
     omission: '...'
-  })
-})
+  });
+});
 </script>
 
 <style lang="scss" scoped>

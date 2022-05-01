@@ -1,21 +1,21 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import { router } from '@/router'
-import App from '@/App.vue'
-import '@/styles/main.scss'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import { router } from '@/router';
+import App from '@/App.vue';
+import '@/styles/main.scss';
 
-import NewsService from '@/services/news'
-import WeatherService from '@/services/weather'
-import { useSettingsStore } from '@/store/settings'
+import NewsService from '@/services/news';
+import WeatherService from '@/services/weather';
+import { useSettingsStore } from '@/store/settings';
 
-const app = createApp(App)
-const pinia = createPinia()
+const app = createApp(App);
+const pinia = createPinia();
 
-app.use(pinia)
-app.use(router)
-app.mount('#app')
+app.use(pinia);
+app.use(router);
+app.mount('#app');
 
-const settings = useSettingsStore()
+const settings = useSettingsStore();
 
-NewsService.init(settings.newsApiKey)
-WeatherService.init(settings.weatherApiKey)
+NewsService.init(settings.newsApiKey);
+WeatherService.init(settings.weatherApiKey);

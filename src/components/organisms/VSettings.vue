@@ -282,14 +282,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
-import VToggle from '@/components/atoms/VToggle.vue'
-import VButton from '@/components/atoms/VButton.vue'
-import VColorPicker from '@/components/atoms/VColorPicker.vue'
-import VTextInput from '@/components/atoms/VTextInput.vue'
-import VAccordion from '@/components/atoms/VAccordion.vue'
-import VSettingEntry from '@/components/molecules/VSettingEntry.vue'
+import VToggle from '@/components/atoms/VToggle.vue';
+import VButton from '@/components/atoms/VButton.vue';
+import VColorPicker from '@/components/atoms/VColorPicker.vue';
+import VTextInput from '@/components/atoms/VTextInput.vue';
+import VAccordion from '@/components/atoms/VAccordion.vue';
+import VSettingEntry from '@/components/molecules/VSettingEntry.vue';
 
 const props = defineProps({
   isDark: Boolean,
@@ -308,7 +308,7 @@ const props = defineProps({
   backgroundColor: { type: String, required: true },
   backgroundImage: { type: String, required: true },
   isRunningAsExtension: Boolean
-})
+});
 
 const emit = defineEmits([
   'toggle-dark',
@@ -324,29 +324,29 @@ const emit = defineEmits([
   'import-settings',
   'export-settings',
   'reset-settings'
-])
+]);
 
 const newsSearchTermModel = computed({ 
   get: () => props.newsSearchTerm, 
   set: (value) => emit('set-news-search-term', value)
-})
+});
 
 const newsApiKeyModel = computed({ 
   get: () => props.newsApiKey, 
   set: (value) => emit('set-news-api-key', value)
-})
+});
 
 const weatherApiKeyModel = computed({ 
   get: () => props.weatherApiKey, 
   set: (value) => emit('set-weather-api-key', value)
-})
+});
 
 const backgroundImageModel = computed({ 
   get: () => props.backgroundImage, 
   set: (value) => emit('set-background-image', value)
-})
+});
 
-const hasColorAndImageSet = computed(() => !!(props.backgroundColor && props.backgroundImage))
+const hasColorAndImageSet = computed(() => !!(props.backgroundColor && props.backgroundImage));
 </script>
 
 <style lang="scss" scoped>

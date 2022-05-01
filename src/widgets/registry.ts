@@ -1,12 +1,12 @@
-import type { Widget } from '@/types/widgetsGrid'
-import type { Component } from 'vue'
+import type { Widget } from '@/types/widgetsGrid';
+import type { Component } from 'vue';
 
-import GreetingWidget from '@/widgets/GreetingWidget.vue'
-import ClockWidget from '@/widgets/ClockWidget.vue'
-import QuickAccessWidget from '@/widgets/QuickAccessWidget.vue'
-import NewsWidget from '@/widgets/NewsWidget.vue'
-import WeatherWidget from '@/widgets/WeatherWidget.vue'
-import ConnectionStatusWidget from '@/widgets/ConnectionStatusWidget.vue'
+import GreetingWidget from '@/widgets/GreetingWidget.vue';
+import ClockWidget from '@/widgets/ClockWidget.vue';
+import QuickAccessWidget from '@/widgets/QuickAccessWidget.vue';
+import NewsWidget from '@/widgets/NewsWidget.vue';
+import WeatherWidget from '@/widgets/WeatherWidget.vue';
+import ConnectionStatusWidget from '@/widgets/ConnectionStatusWidget.vue';
 
 export const widgetsComponents: { [name: string]: Component } = {
   GreetingWidget,
@@ -15,7 +15,7 @@ export const widgetsComponents: { [name: string]: Component } = {
   NewsWidget,
   WeatherWidget,
   ConnectionStatusWidget
-}
+};
 
 export const registeredWidgets: Array<Widget> = [
   {
@@ -47,6 +47,6 @@ export const registeredWidgets: Array<Widget> = [
     id: 'ConnectionStatusWidget',
     name: 'Connection Status'
   }
-]
+];
 
-export const defaultWidgets = registeredWidgets.filter(widget => widget.default)
+export const defaultWidgets = registeredWidgets.filter(widget => widget.default);

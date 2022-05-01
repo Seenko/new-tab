@@ -19,15 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots } from 'vue'
+import { useSlots } from 'vue';
 
-const slots = useSlots()
+const slots = useSlots();
 
 defineProps({
   labelId: { type: String, required: true },
   isSubSetting: Boolean,
   isStacked: Boolean
-})
+});
 </script>
 
 <style lang="scss" scoped>

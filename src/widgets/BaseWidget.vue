@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import VWidget from '@/components/widgets/VWidget.vue'
+import VWidget from '@/components/widgets/VWidget.vue';
 
-import { useApplicationStore } from '@/store/application'
+import { useApplicationStore } from '@/store/application';
 
-const application = useApplicationStore()
+const application = useApplicationStore();
 </script>

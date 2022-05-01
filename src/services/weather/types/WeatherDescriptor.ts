@@ -1,4 +1,4 @@
-import { WeatherIcon } from '@/services/weather/types/WeatherIcon'
+import { WeatherIcon } from '@/services/weather/types/WeatherIcon';
 
 export interface WeatherDescriptor {
   id: number;

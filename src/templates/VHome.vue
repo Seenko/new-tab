@@ -82,20 +82,20 @@
 </template>
 
 <script setup lang="ts">
-import type { Widget, WidgetsGrid, WidgetsGridChange } from '@/types/widgetsGrid'
-import type { GridAdd, GridRemove } from '@/types/grid'
+import type { Widget, WidgetsGrid, WidgetsGridChange } from '@/types/widgetsGrid';
+import type { GridAdd, GridRemove } from '@/types/grid';
 
-import { widgetsComponents, registeredWidgets } from '@/widgets/registry'
+import { widgetsComponents, registeredWidgets } from '@/widgets/registry';
 
-import { unreactify } from '@/utils/reactivity'
-import { ref, watch, computed, PropType, markRaw } from 'vue'
-import draggable from 'vuedraggable'
+import { unreactify } from '@/utils/reactivity';
+import { ref, watch, computed, PropType, markRaw } from 'vue';
+import draggable from 'vuedraggable';
 
-import VEditableGrid from '@/components/molecules/VEditableGrid.vue'
-import VTextInput from '@/components/atoms/VTextInput.vue'
+import VEditableGrid from '@/components/molecules/VEditableGrid.vue';
+import VTextInput from '@/components/atoms/VTextInput.vue';
 
-import TrashIcon from '@/assets/icons/trash.svg'
-import FrownSmileyIcon from '@/assets/icons/smiley/frown.svg'
+import TrashIcon from '@/assets/icons/trash.svg';
+import FrownSmileyIcon from '@/assets/icons/smiley/frown.svg';
 
 const props = defineProps({
   widgets: {
@@ -103,29 +103,29 @@ const props = defineProps({
     required: true
   },
   isEditingWidgets: Boolean
-})
+});
 
-const widgetSearchQuery = ref<string>('')
+const widgetSearchQuery = ref<string>('');
 
-const getComponentForWidget = (widget: Widget) => markRaw(widgetsComponents[widget.id])
+const getComponentForWidget = (widget: Widget) => markRaw(widgetsComponents[widget.id]);
 
 const availableWidgets = computed(() => {
-  const widgets: Array<Widget> = unreactify(registeredWidgets)
+  const widgets: Array<Widget> = unreactify(registeredWidgets);
 
-  if (!widgetSearchQuery.value) return widgets
+  if (!widgetSearchQuery.value) return widgets;
 
-  return widgets.filter(widget => widget.name.toLowerCase().includes(widgetSearchQuery.value.toLowerCase()))
-})
+  return widgets.filter(widget => widget.name.toLowerCase().includes(widgetSearchQuery.value.toLowerCase()));
+});
 
 watch(() => props.isEditingWidgets, async (to) => {
-  if (to === false) widgetSearchQuery.value = ''
-})
+  if (to === false) widgetSearchQuery.value = '';
+});
 
-const emit = defineEmits([ 'change', 'addNewCell', 'removeCell' ])
+const emit = defineEmits([ 'change', 'addNewCell', 'removeCell' ]);
 
-const onChange = (widgetsGridChange: WidgetsGridChange) => emit('change', widgetsGridChange)
-const onGridAdd = (newCell: GridAdd) => emit('addNewCell', newCell)
-const onGridRemove = (removeCell: GridRemove) => emit('removeCell', removeCell)
+const onChange = (widgetsGridChange: WidgetsGridChange) => emit('change', widgetsGridChange);
+const onGridAdd = (newCell: GridAdd) => emit('addNewCell', newCell);
+const onGridRemove = (removeCell: GridRemove) => emit('removeCell', removeCell);
 </script>
 
 <style lang="scss" scoped>

@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import VConnectionStatus from '@/components/atoms/VConnectionStatus.vue'
+import VConnectionStatus from '@/components/atoms/VConnectionStatus.vue';
 
 defineProps({
   isOnline: Boolean
-})
+});
 </script>

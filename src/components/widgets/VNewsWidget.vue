@@ -48,14 +48,14 @@
 </template>
 
 <script setup lang="ts">
-import type { Article } from '@/services/news/types/Article'
+import type { Article } from '@/services/news/types/Article';
 
-import VButton from '@/components/atoms/VButton.vue'
-import VSpinnerMask from '@/components/molecules/VSpinnerMask.vue'
-import VNewsArticle from '@/components/molecules/VNewsArticle.vue'
+import VButton from '@/components/atoms/VButton.vue';
+import VSpinnerMask from '@/components/molecules/VSpinnerMask.vue';
+import VNewsArticle from '@/components/molecules/VNewsArticle.vue';
 
-import ReloadIcon from '@/assets/icons/reload.svg'
-import ShuffleIcon from '@/assets/icons/shuffle.svg'
+import ReloadIcon from '@/assets/icons/reload.svg';
+import ShuffleIcon from '@/assets/icons/shuffle.svg';
 
 interface Props {
   isLoading: boolean,
@@ -69,9 +69,9 @@ withDefaults(defineProps<Props>(),{
   articles: () => [],
   canFetchArticles: true,
   error: null
-})
+});
 
-const emit = defineEmits(['fetch-news-articles', 'shuffle-news-articles'])
+const emit = defineEmits(['fetch-news-articles', 'shuffle-news-articles']);
 </script>
 
 <style lang="scss" scoped>

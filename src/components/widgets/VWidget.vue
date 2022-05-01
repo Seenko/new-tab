@@ -15,7 +15,7 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   isEditable: false,
   isEditingWidgets: false
-})
+});
 </script>
 
 <style lang="scss" scoped>

@@ -11,19 +11,19 @@
 </template>
 
 <script setup lang="ts">
-import { WidgetsGridChange } from '@/types/widgetsGrid'
-import { GridAdd, GridRemove } from '@/types/grid'
+import { WidgetsGridChange } from '@/types/widgetsGrid';
+import { GridAdd, GridRemove } from '@/types/grid';
 
-import { useApplicationStore } from '@/store/application'
-import { useGridStore } from '@/store/grid'
+import { useApplicationStore } from '@/store/application';
+import { useGridStore } from '@/store/grid';
 
-import VMainLayout from '@/layouts/VMainLayout.vue'
-import VHome from '@/templates/VHome.vue'
+import VMainLayout from '@/layouts/VMainLayout.vue';
+import VHome from '@/templates/VHome.vue';
 
-const application = useApplicationStore()
-const grid = useGridStore()
+const application = useApplicationStore();
+const grid = useGridStore();
 
-const onChange = (change: WidgetsGridChange) => grid.updateWidgetsPosition(change)
-const onAddNewCell = (newCell: GridAdd) => grid.addNewWidgetsCell(newCell)
-const onRemoveCell = (removeCell: GridRemove) => grid.removeWidgetsCell(removeCell)
+const onChange = (change: WidgetsGridChange) => grid.updateWidgetsPosition(change);
+const onAddNewCell = (newCell: GridAdd) => grid.addNewWidgetsCell(newCell);
+const onRemoveCell = (removeCell: GridRemove) => grid.removeWidgetsCell(removeCell);
 </script>

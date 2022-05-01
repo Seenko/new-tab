@@ -7,10 +7,10 @@
 </template>
 
 <script setup lang="ts">
-import { useOnline } from '@vueuse/core'
+import { useOnline } from '@vueuse/core';
 
-import BaseWidget from '@/widgets/BaseWidget.vue'
-import VConnectionStatusWidget from '@/components/widgets/VConnectionStatusWidget.vue'
+import BaseWidget from '@/widgets/BaseWidget.vue';
+import VConnectionStatusWidget from '@/components/widgets/VConnectionStatusWidget.vue';
 
-const isOnline = useOnline()
+const isOnline = useOnline();
 </script>
