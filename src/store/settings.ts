@@ -13,6 +13,7 @@ interface Settings {
   weatherApiKey: string;
   showNetworkStatus: boolean;
   backgroundColor: string;
+  enableCustomBackgroundImage: boolean;
   backgroundImage: string;
 }
 
@@ -26,6 +27,7 @@ const defaultSettings: Settings = {
   weatherApiKey: '',
   showNetworkStatus: true,
   backgroundColor: '',
+  enableCustomBackgroundImage: false,
   backgroundImage: ''
 };
 
@@ -70,6 +72,10 @@ export const useSettingsStore = defineStore({
     },
     setBackgroundColor(value: string): string {
       return (this.backgroundColor = value);
+    },
+    toggleEnableCustomBackgroundImage(value?: boolean): boolean {
+      this.setBackgroundImage('');
+      return (this.enableCustomBackgroundImage = typeof value === 'boolean' ? value : !this.enableCustomBackgroundImage);
     },
     setBackgroundImage(value: string): string {
       return (this.backgroundImage = value);

@@ -8,7 +8,7 @@
         <v-toggle
           id="enableDarkMode"
           :toggled="isDark"
-          @click="$emit('toggle-dark')"
+          @click="emit('toggle-dark')"
         />
       </template>
     </v-setting-entry>
@@ -25,7 +25,7 @@
             <v-toggle
               id="show24HourClock"
               :toggled="show24HourClock"
-              @click="$emit('toggle-show-24-hour-clock')"
+              @click="emit('toggle-show-24-hour-clock')"
             />
           </template>
         </v-setting-entry>
@@ -37,7 +37,7 @@
             <v-toggle
               id="showClockSeconds"
               :toggled="showClockSeconds"
-              @click="$emit('toggle-show-clock-seconds')"
+              @click="emit('toggle-show-clock-seconds')"
             />
           </template>
         </v-setting-entry>
@@ -71,7 +71,7 @@
               id="autoQuickAccessEntries"
               :toggled="autoQuickAccessEntries"
               :disabled="!isRunningAsExtension"
-              @click="$emit('toggle-auto-quick-access-entries')"
+              @click="emit('toggle-auto-quick-access-entries')"
             />
           </template>
         </v-setting-entry>
@@ -150,19 +150,20 @@
               id="backgroundColor"
               class="w-full"
               :color="backgroundColor"
-              @input-color="$emit('set-background-color', $event)"
+              @input-color="emit('set-background-color', $event)"
             />
             <v-button
               v-if="backgroundColor"
               id="removeBackgroundColor"
               class="w-full"
-              @click="$emit('set-background-color', '')"
+              @click="emit('set-background-color', '')"
             >
               Clear
             </v-button>
           </template>
         </v-setting-entry>
         <v-setting-entry
+          v-if="!enableCustomBackgroundImage"
           label-id="backgroundImage"
           is-stacked
         >
@@ -170,19 +171,65 @@
             Image
           </template>
           <template #control>
-            <v-text-input
-              id="backgroundImage"
-              v-model="backgroundImageModel"
-              placeholder="Image URL (Remote or dataURL)"
+            <div class="grid grid-cols-3 gap-2">
+              <v-button
+                v-for="(image, index) in backgroundImages"
+                :key="index"
+                tight
+                @click="emit('set-background-image', `/assets/backgrounds/${image}.png`)"
+              >
+                <img
+                  class="aspect-video"
+                  loading="lazy"
+                  :src="`/assets/backgrounds/${image}.png`"
+                  alt=""
+                >
+              </v-button>
+            </div>
+          </template>
+        </v-setting-entry>
+        <v-setting-entry
+          label-id="enableCustomBackgroundImage"
+          no-bottom-border
+        >
+          <template #label>
+            Custom Image
+          </template>
+          <template #control>
+            <v-toggle
+              id="enableCustomBackgroundImage"
+              :toggled="enableCustomBackgroundImage"
+              @click="emit('toggle-enable-custom-background-image')"
             />
-            <v-button
-              v-if="backgroundImage"
-              id="removeBackgroundImage"
-              class="w-full"
-              @click="$emit('set-background-image', '')"
-            >
-              Clear
-            </v-button>
+          </template>
+        </v-setting-entry>
+        <v-setting-entry
+          v-if="enableCustomBackgroundImage"
+          label-id="customBackgroundImage"
+          sr-only-label
+          is-stacked
+        >
+          <template #label>
+            Custom Image
+          </template>
+          <template #control>
+            <div class="flex flex-col gap-2">
+              <div class="flex flex-col gap-2">
+                <v-text-input
+                  id="customBackgroundImage"
+                  v-model="customBackgroundImageModel"
+                  placeholder="Image URL (Remote or dataURL)"
+                />
+                <v-button
+                  v-if="customBackgroundImageModel"
+                  id="removeBackgroundImage"
+                  class="w-full"
+                  @click="emit('set-background-image', '')"
+                >
+                  Clear
+                </v-button>
+              </div>
+            </div>
           </template>
         </v-setting-entry>
       </template>
@@ -200,7 +247,7 @@
             <v-toggle
               id="showNetworkStatus"
               :toggled="showNetworkStatus"
-              @click="$emit('toggle-show-network-status')"
+              @click="emit('toggle-show-network-status')"
             />
           </template>
         </v-setting-entry>
@@ -229,7 +276,7 @@
             <v-button
               id="importSettings"
               disabled
-              @click="$emit('import-settings')"
+              @click="emit('import-settings')"
             >
               Import
             </v-button>
@@ -253,7 +300,7 @@
             <v-button
               id="exportSettings"
               disabled
-              @click="$emit('export-settings')"
+              @click="emit('export-settings')"
             >
               Export
             </v-button>
@@ -270,7 +317,7 @@
             <v-button
               id="resetSettings"
               variant="red"
-              @click="$emit('reset-settings')"
+              @click="emit('reset-settings')"
             >
               Reset
             </v-button>
@@ -306,6 +353,7 @@ const props = defineProps({
   weatherApiKey: { type: String, required: true },
   showNetworkStatus: Boolean,
   backgroundColor: { type: String, required: true },
+  enableCustomBackgroundImage: Boolean,
   backgroundImage: { type: String, required: true },
   isRunningAsExtension: Boolean
 });
@@ -319,6 +367,7 @@ const emit = defineEmits([
   'set-news-api-key',
   'set-weather-api-key',
   'set-background-color',
+  'toggle-enable-custom-background-image',
   'set-background-image',
   'toggle-show-network-status',
   'import-settings',
@@ -341,12 +390,21 @@ const weatherApiKeyModel = computed({
   set: (value) => emit('set-weather-api-key', value)
 });
 
-const backgroundImageModel = computed({ 
+const customBackgroundImageModel = computed({ 
   get: () => props.backgroundImage, 
   set: (value) => emit('set-background-image', value)
 });
 
 const hasColorAndImageSet = computed(() => !!(props.backgroundColor && props.backgroundImage));
+
+const backgroundImages = [
+  'chaos',
+  'leaves',
+  'scribble',
+  'spiral',
+  'reflection',
+  'burst'
+];
 </script>
 
 <style lang="scss" scoped>

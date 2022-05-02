@@ -1,6 +1,13 @@
 <template>
   <div
-    :class="['setting', {'setting--descriptive': slots.description}, {'setting--sub': isSubSetting}, {'setting--stacked': isStacked}]"
+    :class="[
+      'setting',
+      {'setting--descriptive': slots.description},
+      {'setting--sub': isSubSetting},
+      {'setting--stacked': isStacked},
+      {'setting--no-border': noBottomBorder},
+      {'setting--sr-only-label': srOnlyLabel}
+    ]"
   >
     <div class="setting__text">
       <label :for="labelId">
@@ -26,7 +33,9 @@ const slots = useSlots();
 defineProps({
   labelId: { type: String, required: true },
   isSubSetting: Boolean,
-  isStacked: Boolean
+  isStacked: Boolean,
+  noBottomBorder: Boolean,
+  srOnlyLabel: Boolean
 });
 </script>
 
@@ -58,6 +67,16 @@ defineProps({
 
   &--sub {
     @apply relative pl-6;
+  }
+
+  &--no-border, &--no-border:not(:last-child) {
+    @apply border-none pb-0;
+  }
+
+  &--sr-only-label {
+    .setting__text {
+      @apply sr-only;
+    }
   }
 
   *:nth-child(2) {

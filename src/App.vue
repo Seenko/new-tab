@@ -33,6 +33,7 @@
         :weather-api-key="settings.weatherApiKey"
         :show-network-status="settings.showNetworkStatus"
         :background-color="settings.backgroundColor"
+        :enable-custom-background-image="settings.enableCustomBackgroundImage"
         :background-image="settings.backgroundImage"
         :is-running-as-extension="isRunningAsExtension"
         @toggle-dark="toggleDarkMode()"
@@ -44,6 +45,7 @@
         @set-weather-api-key="updateWeatherApiKey($event)"
         @toggle-show-network-status="settings.toggleShowNetworkStatus()"
         @set-background-color="settings.setBackgroundColor($event)"
+        @toggle-enable-custom-background-image="settings.toggleEnableCustomBackgroundImage()"
         @set-background-image="settings.setBackgroundImage($event)"
         @reset-settings="settings.resetSettings()"
       />
@@ -128,6 +130,7 @@ const manifestVersion = computed(() => {
 <style lang="scss" scoped>
 .wrapper {
   @apply min-h-screen overflow-hidden;
+  @apply bg-center bg-cover bg-no-repeat;
 
   .sidebar {
     @apply max-w-sm fixed;

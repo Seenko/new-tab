@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tag"
-    :class="['button', `button--${variant}`, { 'button--animated': animated }, { 'button--disabled': disabled }]"
+    :class="['button', `button--${variant}`, { 'button--tight': tight }, { 'button--animated': animated }, { 'button--disabled': disabled }]"
     :disabled="disabled"
   >
     <slot />
@@ -13,14 +13,16 @@ interface Props {
   tag?: 'button' | 'a',
   variant?: 'default' | 'icon' | 'red',
   disabled?: boolean,
-  animated?: boolean
+  animated?: boolean,
+  tight?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
   tag: 'button',
   variant: 'default',
   disabled: false,
-  animated: true
+  animated: true,
+  tight: false
 });
 </script>
 
@@ -49,6 +51,10 @@ withDefaults(defineProps<Props>(), {
 
   &--icon {
     @apply bg-transparent;
+  }
+
+  &--tight {
+    @apply p-0;
   }
 
   &--red {
