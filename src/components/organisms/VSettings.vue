@@ -180,8 +180,7 @@
               >
                 <img
                   class="aspect-video"
-                  loading="lazy"
-                  :src="`/assets/backgrounds/${image}.png`"
+                  :src="`/assets/backgrounds/thumb/${image}.png`"
                   alt=""
                 >
               </v-button>
