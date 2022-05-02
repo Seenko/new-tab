@@ -28,8 +28,26 @@ export interface WidgetsGridChange {
   action: WidgetsGridChangeAction;
 }
 
+export interface WidgetSetting {
+  id: string;
+  name: string;
+  type: 'boolean' | 'string' | 'number';
+  value: unknown;
+}
+
+export interface WidgetSettingUpdate {
+  row: number;
+  column: number;
+  index: number;
+  setting: {
+    id: string;
+    value: unknown;
+  }
+}
+
 export interface Widget {
   id: string;
   name: string;
   default?: boolean;
+  settings?: Array<WidgetSetting>;
 }

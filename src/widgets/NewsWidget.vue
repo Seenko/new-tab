@@ -1,13 +1,16 @@
 <template>
   <base-widget>
-    <v-news-widget
-      :is-loading="news.isLoading"
-      :articles="articles"
-      :can-fetch-articles="news.getCanFetchArticles"
-      :error="news.error"
-      @fetch-news-articles="doFetchNewsArticles()"
-      @shuffle-news-articles="doShuffleArticles()"
-    />
+    <template #default="slotProps">
+      <v-news-widget
+        v-bind="slotProps"
+        :is-loading="news.isLoading"
+        :articles="articles"
+        :can-fetch-articles="news.getCanFetchArticles"
+        :error="news.error"
+        @fetch-news-articles="doFetchNewsArticles()"
+        @shuffle-news-articles="doShuffleArticles()"
+      />
+    </template>
   </base-widget>
 </template>
 
@@ -15,14 +18,20 @@
 import shuffle from 'lodash/shuffle';
 import { onMounted, computed, ref } from 'vue';
 import { useNewsStore } from '@/store/news';
-import { useSettingsStore } from '@/store/settings';
 
 import BaseWidget from '@/widgets/BaseWidget.vue';
 import VNewsWidget from '@/components/widgets/VNewsWidget.vue';
 import { SearchRequest } from '@/services/news/types/SearchRequest';
 
 const news = useNewsStore();
-const settings = useSettingsStore();
+
+interface Props {
+  searchTerm?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  searchTerm: ''
+});
 
 const shuffledArticles = ref(shuffle(news.data.articles));
 
@@ -34,9 +43,13 @@ const doShuffleArticles = () => {
   shuffledArticles.value = shuffle(news.data.articles);
 };
 
+// TODO: create a cache for each instance of this widget
+// right now, if one multiple widget has a search term
+// they will all display the articles from the first widget
+// that is able to shoot a call and get a reply
 const doFetchNewsArticles = async () => {
   await news.loadNewArticles({
-    keywords: settings.newsSearchTerm,
+    keywords: props.searchTerm,
     limit: 100,
     sort: 'popularity',
     languages: ['en']

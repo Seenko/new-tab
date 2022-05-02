@@ -1,8 +1,11 @@
 <template>
   <base-widget>
-    <v-quick-access-widget
-      :entries="quickAccessEntries"
-    />
+    <template #default="slotProps">
+      <v-quick-access-widget
+        v-bind="slotProps"
+        :entries="quickAccessEntries"
+      />
+    </template>
   </base-widget>
 </template>
 

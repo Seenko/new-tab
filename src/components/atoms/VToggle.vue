@@ -9,9 +9,14 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
-  toggled: Boolean,
-  disabled: Boolean
+interface Props {
+  toggled?: boolean;
+  disabled?: boolean;
+}
+
+withDefaults(defineProps<Props>(), {
+  toggled: false,
+  disabled: false
 });
 </script>
 

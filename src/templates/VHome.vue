@@ -19,10 +19,12 @@
           :disabled="!isEditingWidgets"
           @change="onChange({ row, column, action: $event })"
         >
-          <template #item="{ element }">
+          <template #item="{ element, index }">
             <component
               :is="getComponentForWidget(element)"
               :is-editable="true"
+              :settings="element.settings"
+              @set-setting="onSetSetting({ row, column, index, setting: $event })"
             />
           </template>
         </draggable>
@@ -82,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Widget, WidgetsGrid, WidgetsGridChange } from '@/types/widgetsGrid';
+import type { Widget, WidgetSettingUpdate, WidgetsGrid, WidgetsGridChange } from '@/types/widgetsGrid';
 import type { GridAdd, GridRemove } from '@/types/grid';
 
 import { widgetsComponents, registeredWidgets } from '@/widgets/registry';
@@ -121,11 +123,12 @@ watch(() => props.isEditingWidgets, async (to) => {
   if (to === false) widgetSearchQuery.value = '';
 });
 
-const emit = defineEmits([ 'change', 'addNewCell', 'removeCell' ]);
+const emit = defineEmits([ 'change', 'addNewCell', 'removeCell', 'widgetSettingUpdate' ]);
 
 const onChange = (widgetsGridChange: WidgetsGridChange) => emit('change', widgetsGridChange);
 const onGridAdd = (newCell: GridAdd) => emit('addNewCell', newCell);
 const onGridRemove = (removeCell: GridRemove) => emit('removeCell', removeCell);
+const onSetSetting = (widgetSettingUpdate: WidgetSettingUpdate) => emit('widgetSettingUpdate', widgetSettingUpdate);
 </script>
 
 <style lang="scss" scoped>

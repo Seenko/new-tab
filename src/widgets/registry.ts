@@ -26,7 +26,21 @@ export const registeredWidgets: Array<Widget> = [
   {
     id: 'ClockWidget',
     name: 'Clock',
-    default: true
+    default: true,
+    settings: [
+      {
+        id: 'show24HourClock',
+        name: 'Show 24 Hour Clock',
+        type: 'boolean',
+        value: false
+      },
+      {
+        id: 'showClockSeconds',
+        name: 'Show Clock Seconds',
+        type: 'boolean',
+        value: false
+      }
+    ]
   },
   {
     id: 'QuickAccessWidget',
@@ -36,7 +50,15 @@ export const registeredWidgets: Array<Widget> = [
   {
     id: 'NewsWidget',
     name: 'Recent News',
-    default: true
+    default: true,
+    settings: [
+      {
+        id: 'searchTerm',
+        name: 'Search Term',
+        type: 'string',
+        value: ''
+      }
+    ]
   },
   {
     id: 'WeatherWidget',

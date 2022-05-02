@@ -1,9 +1,10 @@
-import type { WidgetsGrid, WidgetsGridChange } from '@/types/widgetsGrid';
+import type { WidgetSettingUpdate, WidgetsGrid, WidgetsGridChange } from '@/types/widgetsGrid';
 import type { GridAdd, GridRemove } from '@/types/grid';
 
 import { defineStore } from 'pinia';
 import { useStorage } from '@vueuse/core';
 import { moveToArrayIndex } from '@/utils/array';
+import { unreactify } from '@/utils/reactivity';
 
 import { defaultWidgets } from '@/widgets/registry';
 
@@ -21,7 +22,7 @@ export const useGridStore = defineStore({
       if (change.action.moved) {
         moveToArrayIndex(widgetsList, change.action.moved.oldIndex, change.action.moved.newIndex);
       } else if (change.action.added) {
-        widgetsList.splice(change.action.added.newIndex, 0, change.action.added.element);
+        widgetsList.splice(change.action.added.newIndex, 0, unreactify(change.action.added.element));
       } else if (change.action.removed) {
         widgetsList.splice(change.action.removed.oldIndex, 1);
       }
@@ -55,6 +56,17 @@ export const useGridStore = defineStore({
           this.data.splice(removeCell.row, 1);
         }
       }
+    },
+    updateWidgetSetting(widgetSettingUpdate: WidgetSettingUpdate) {
+      const widget = this.data[widgetSettingUpdate.row][widgetSettingUpdate.column][widgetSettingUpdate.index];
+
+      if (widget.settings) {
+        const settingToUpdate = widget.settings.find(setting => setting.id === widgetSettingUpdate.setting.id);
+
+        if (settingToUpdate) {
+          settingToUpdate.value = widgetSettingUpdate.setting.value;
+        }
+      }
     }
-  },
+  }
 });

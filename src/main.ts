@@ -6,7 +6,7 @@ import '@/styles/main.scss';
 
 import NewsService from '@/services/news';
 import WeatherService from '@/services/weather';
-import { useSettingsStore } from '@/store/settings';
+import { useApiKeysStore } from '@/store/apiKeys';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -15,7 +15,7 @@ app.use(pinia);
 app.use(router);
 app.mount('#app');
 
-const settings = useSettingsStore();
+const apiKeys = useApiKeysStore();
 
-NewsService.init(settings.newsApiKey);
-WeatherService.init(settings.weatherApiKey);
+NewsService.init(apiKeys.news);
+WeatherService.init(apiKeys.weather);

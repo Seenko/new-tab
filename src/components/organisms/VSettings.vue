@@ -14,37 +14,6 @@
     </v-setting-entry>
     <v-accordion class="settings__group">
       <template #summary>
-        Clock
-      </template>
-      <template #content>
-        <v-setting-entry label-id="show24HourClock">
-          <template #label>
-            Show 24 Hour Clock
-          </template>
-          <template #control>
-            <v-toggle
-              id="show24HourClock"
-              :toggled="show24HourClock"
-              @click="emit('toggle-show-24-hour-clock')"
-            />
-          </template>
-        </v-setting-entry>
-        <v-setting-entry label-id="showClockSeconds">
-          <template #label>
-            Show Seconds in Clock
-          </template>
-          <template #control>
-            <v-toggle
-              id="showClockSeconds"
-              :toggled="showClockSeconds"
-              @click="emit('toggle-show-clock-seconds')"
-            />
-          </template>
-        </v-setting-entry>
-      </template>
-    </v-accordion>
-    <v-accordion class="settings__group">
-      <template #summary>
         Quick Access
       </template>
       <template #content>
@@ -82,18 +51,6 @@
         News
       </template>
       <template #content>
-        <v-setting-entry label-id="newsSearchTerm">
-          <template #label>
-            Search Term
-          </template>
-          <template #control>
-            <v-text-input
-              id="newsSearchTerm"
-              v-model="newsSearchTermModel"
-              placeholder="Tesla"
-            />
-          </template>
-        </v-setting-entry>
         <v-setting-entry label-id="newsApiKey">
           <template #label>
             API Key
@@ -173,6 +130,12 @@
           <template #control>
             <div class="grid grid-cols-2 gap-2">
               <v-button
+                class="col-span-2"
+                @click="emit('set-background-image', '')"
+              >
+                None
+              </v-button>
+              <v-button
                 v-for="(image, index) in backgroundImages"
                 :key="index"
                 tight
@@ -217,16 +180,9 @@
                 <v-text-input
                   id="customBackgroundImage"
                   v-model="customBackgroundImageModel"
-                  placeholder="Image URL (Remote or dataURL)"
+                  placeholder="Custom Image URL"
+                  maxlength="1024"
                 />
-                <v-button
-                  v-if="customBackgroundImageModel"
-                  id="removeBackgroundImage"
-                  class="w-full"
-                  @click="emit('set-background-image', '')"
-                >
-                  Clear
-                </v-button>
               </div>
             </div>
           </template>
@@ -346,7 +302,6 @@ const props = defineProps({
   showQuickAccess: Boolean,
   autoQuickAccessEntries: Boolean,
   showNewsArticles: Boolean,
-  newsSearchTerm: { type: String, required: true },
   newsApiKey: { type: String, required: true },
   showWeather: Boolean,
   weatherApiKey: { type: String, required: true },
@@ -359,10 +314,7 @@ const props = defineProps({
 
 const emit = defineEmits([
   'toggle-dark',
-  'toggle-show-24-hour-clock',
-  'toggle-show-clock-seconds',
   'toggle-auto-quick-access-entries',
-  'set-news-search-term',
   'set-news-api-key',
   'set-weather-api-key',
   'set-background-color',
@@ -373,11 +325,6 @@ const emit = defineEmits([
   'export-settings',
   'reset-settings'
 ]);
-
-const newsSearchTermModel = computed({ 
-  get: () => props.newsSearchTerm, 
-  set: (value) => emit('set-news-search-term', value)
-});
 
 const newsApiKeyModel = computed({ 
   get: () => props.newsApiKey, 

@@ -1,8 +1,11 @@
 <template>
   <base-widget>
-    <v-greeting-widget
-      :now="now"
-    />
+    <template #default="slotProps">
+      <v-greeting-widget
+        v-bind="slotProps"
+        :now="now"
+      />
+    </template>
   </base-widget>
 </template>
 

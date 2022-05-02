@@ -9,7 +9,7 @@
 import { computed } from 'vue';
 
 interface Props {
-  modelValue: string
+  modelValue?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {

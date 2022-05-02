@@ -1,8 +1,11 @@
 <template>
   <base-widget>
-    <v-connection-status-widget
-      :is-online="isOnline"
-    />
+    <template #default="slotProps">
+      <v-connection-status-widget
+        v-bind="slotProps"
+        :is-online="isOnline"
+      />
+    </template>
   </base-widget>
 </template>
 

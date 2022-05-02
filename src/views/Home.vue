@@ -6,12 +6,13 @@
       @change="onChange($event)"
       @add-new-cell="onAddNewCell($event)"
       @remove-cell="onRemoveCell($event)"
+      @widget-setting-update="onWidgetSettingUpdate($event)"
     />
   </v-main-layout>
 </template>
 
 <script setup lang="ts">
-import { WidgetsGridChange } from '@/types/widgetsGrid';
+import { WidgetsGridChange, WidgetSettingUpdate } from '@/types/widgetsGrid';
 import { GridAdd, GridRemove } from '@/types/grid';
 
 import { useApplicationStore } from '@/store/application';
@@ -26,4 +27,5 @@ const grid = useGridStore();
 const onChange = (change: WidgetsGridChange) => grid.updateWidgetsPosition(change);
 const onAddNewCell = (newCell: GridAdd) => grid.addNewWidgetsCell(newCell);
 const onRemoveCell = (removeCell: GridRemove) => grid.removeWidgetsCell(removeCell);
+const onWidgetSettingUpdate = (widgetSettingUpdate: WidgetSettingUpdate) => grid.updateWidgetSetting(widgetSettingUpdate);
 </script>

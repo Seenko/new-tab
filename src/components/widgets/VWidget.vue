@@ -1,20 +1,26 @@
 <template>
   <div
-    :class="['widget', { 'widget--editing': isEditable && isEditingWidgets }]"
+    :class="['widget', { 'widget--editing': isEditing }]"
   >
     <slot />
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 interface Props {
   isEditable?: boolean,
   isEditingWidgets?: boolean
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   isEditable: false,
   isEditingWidgets: false
+});
+
+const isEditing = computed(() => {
+  return props.isEditable && props.isEditingWidgets;
 });
 </script>
 

@@ -25,22 +25,16 @@
       <v-settings
         class="sidebar__settings"
         :is-dark="darkMode"
-        :show-clock-seconds="settings.showClockSeconds"
-        :show-24-hour-clock="settings.show24HourClock"
         :auto-quick-access-entries="settings.getAutoQuickAccessEntries"
-        :news-search-term="settings.newsSearchTerm"
-        :news-api-key="settings.newsApiKey"
-        :weather-api-key="settings.weatherApiKey"
+        :news-api-key="apiKeys.news"
+        :weather-api-key="apiKeys.weather"
         :show-network-status="settings.showNetworkStatus"
         :background-color="settings.backgroundColor"
         :enable-custom-background-image="settings.enableCustomBackgroundImage"
         :background-image="settings.backgroundImage"
         :is-running-as-extension="isRunningAsExtension"
         @toggle-dark="toggleDarkMode()"
-        @toggle-show-24-hour-clock="settings.toggleShow24HourClock()"
-        @toggle-show-clock-seconds="settings.toggleShowClockSeconds()"
         @toggle-auto-quick-access-entries="settings.toggleAutoQuickAccessEntries()"
-        @set-news-search-term="settings.setNewsSearchTerm($event)"
         @set-news-api-key="updateNewsApiKey($event)"
         @set-weather-api-key="updateWeatherApiKey($event)"
         @toggle-show-network-status="settings.toggleShowNetworkStatus()"
@@ -77,6 +71,7 @@ import WeatherService from '@/services/weather';
 
 import { useApplicationStore } from '@/store/application';
 import { useSettingsStore } from '@/store/settings';
+import { useApiKeysStore } from '@/store/apiKeys';
 
 import VButton from '@/components/atoms/VButton.vue';
 import VSidebarMenu from '@/components/molecules/VSidebarMenu.vue';
@@ -85,6 +80,7 @@ import VSettings from '@/components/organisms/VSettings.vue';
 import CloseIcon from '@/assets/icons/close.svg';
 
 const settings = useSettingsStore();
+const apiKeys = useApiKeysStore();
 const application = useApplicationStore();
 
 const darkMode = useDark();
@@ -107,12 +103,12 @@ onClickOutside(sidebar, () => {
 });
 
 const updateNewsApiKey = (newToken: string) => {
-  settings.setNewsApiKey(newToken);
+  apiKeys.setNewsApiKey(newToken);
   NewsService.init(newToken);
 };
 
 const updateWeatherApiKey = (newToken: string) => {
-  settings.setWeatherApiKey(newToken);
+  apiKeys.setWeatherApiKey(newToken);
   WeatherService.init(newToken);
 };
 
@@ -150,9 +146,6 @@ const manifestVersion = computed(() => {
     &__close svg {
       @apply w-4 h-4;
     }
-
-    // &__settings {
-    // }
 
     &__version {
       @apply text-center;
