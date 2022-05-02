@@ -171,7 +171,7 @@
             Image
           </template>
           <template #control>
-            <div class="grid grid-cols-3 gap-2">
+            <div class="grid grid-cols-2 gap-2">
               <v-button
                 v-for="(image, index) in backgroundImages"
                 :key="index"
