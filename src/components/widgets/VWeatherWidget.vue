@@ -1,5 +1,5 @@
 <template>
-  <div class="weather">
+  <div class="wrapper">
     <div class="weather__group">
       <v-spinner-mask
         v-if="isLoading"
@@ -14,7 +14,11 @@
         :forecast="weather.current.weather[0].main"
         :sunrise="weather.current.sunrise"
         :sunset="weather.current.sunset"
-      />
+      >
+        <template #date>
+          Now
+        </template>
+      </v-weather-day>
       <v-weather-day
         v-for="(day, index) in dailyWeatherArray"
         :key="index"
@@ -70,6 +74,7 @@ interface Props {
   lastUpdated: number,
   weather: WeatherResponse | null,
   temperatureUnit: 'kelvin' | 'celsius' | 'fahrenheit',
+  showWeekForecast?: boolean,
   canFetchWeather: boolean,
   error: Error | null
 }
@@ -79,6 +84,7 @@ const props = withDefaults(defineProps<Props>(), {
   lastUpdated: 0,
   weather: null,
   temperatureUnit: 'kelvin',
+  showWeekForecast: false,
   canFetchWeather: true,
   error: null
 });
@@ -90,7 +96,7 @@ const weatherLastUpdated = computed(() => {
 const breakpoints = useBreakpoints(breakpointsTailwind);
 
 const dailyWeatherArray = computed(() => {
-  if (!props.weather || !props.weather.daily) return [];
+  if (!props.weather || !props.weather.daily || !props.showWeekForecast) return [];
 
   if (breakpoints.md.value) {
     return props.weather.daily;
@@ -103,31 +109,37 @@ const emit = defineEmits(['fetch-weather']);
 </script>
 
 <style lang="scss" scoped>
-.weather {
+.wrapper{
   @apply flex flex-col gap-2 max-w-2xl;
 
-  &__group {
-    @apply flex flex-row relative gap-5;
-  }
-
-  &__spinner {
-    @apply rounded-lg;
-  }
-
-  &__status {
-    @apply text-center text-gray-600;
-  }
-
-  &__actions {
-    @apply flex flex-row justify-end gap-2;
-
-    .action svg {
-      @apply h-4;
+  .weather {
+    &__group {
+      @apply flex flex-row relative gap-5 justify-center;
     }
-  }
 
-  &__error {
-    @apply text-center;
+    &__current, &__daily {
+      @apply grow;
+    }
+
+    &__spinner {
+      @apply rounded-lg;
+    }
+
+    &__status {
+      @apply text-center text-gray-600;
+    }
+
+    &__actions {
+      @apply flex flex-row justify-end gap-2;
+
+      .action svg {
+        @apply h-4;
+      }
+    }
+
+    &__error {
+      @apply text-center;
+    }
   }
 }
 </style>

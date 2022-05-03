@@ -48,40 +48,47 @@
     </v-accordion> -->
     <v-accordion class="settings__group">
       <template #summary>
-        News
+        API Keys
       </template>
       <template #content>
-        <v-setting-entry label-id="newsApiKey">
-          <template #label>
-            API Key
+        <v-accordion class="settings__group">
+          <template #summary>
+            News
           </template>
-          <template #control>
-            <v-text-input
-              id="newsApiKey"
-              v-model="newsApiKeyModel"
-              placeholder="News API Key"
-            />
+          <template #content>
+            <v-setting-entry label-id="newsApiKey">
+              <template #label>
+                API Key
+              </template>
+              <template #control>
+                <v-text-input
+                  id="newsApiKey"
+                  v-model="newsApiKeyModel"
+                  placeholder="News API Key"
+                />
+              </template>
+            </v-setting-entry>
           </template>
-        </v-setting-entry>
-      </template>
-    </v-accordion>
-    <v-accordion class="settings__group">
-      <template #summary>
-        Weather
-      </template>
-      <template #content>
-        <v-setting-entry label-id="weatherApiKey">
-          <template #label>
-            API Key
+        </v-accordion>
+        <v-accordion class="settings__group">
+          <template #summary>
+            Weather
           </template>
-          <template #control>
-            <v-text-input
-              id="weatherApiKey"
-              v-model="weatherApiKeyModel"
-              placeholder="Weather API Key"
-            />
+          <template #content>
+            <v-setting-entry label-id="weatherApiKey">
+              <template #label>
+                API Key
+              </template>
+              <template #control>
+                <v-text-input
+                  id="weatherApiKey"
+                  v-model="weatherApiKeyModel"
+                  placeholder="Weather API Key"
+                />
+              </template>
+            </v-setting-entry>
           </template>
-        </v-setting-entry>
+        </v-accordion>
       </template>
     </v-accordion>
     <v-accordion class="settings__group">
@@ -356,6 +363,10 @@ const backgroundImages = [
 
     &:not(:last-child) {
       @apply pb-4 border-b border-gray-300 dark:border-gray-800;
+    }
+
+    & .settings__group {
+      @apply ml-6;
     }
   }
 }

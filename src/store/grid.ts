@@ -1,4 +1,4 @@
-import type { WidgetSettingUpdate, WidgetsGrid, WidgetsGridChange } from '@/types/widgetsGrid';
+import type { WidgetSettingUpdate, WidgetsGrid, WidgetsGridChange, WigetSettingValue } from '@/types/widgetsGrid';
 import type { GridAdd, GridRemove } from '@/types/grid';
 
 import { defineStore } from 'pinia';
@@ -64,7 +64,7 @@ export const useGridStore = defineStore({
         const settingToUpdate = widget.settings.find(setting => setting.id === widgetSettingUpdate.setting.id);
 
         if (settingToUpdate) {
-          settingToUpdate.value = widgetSettingUpdate.setting.value;
+          settingToUpdate.value = (widgetSettingUpdate.setting.value as WigetSettingValue | boolean | string | number);
         }
       }
     }

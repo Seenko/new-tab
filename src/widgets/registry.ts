@@ -52,6 +52,12 @@ export const registeredWidgets: Array<Widget> = [
         name: 'Automatic Top Sites',
         type: 'boolean',
         value: true
+      },
+      {
+        id: 'iconsOnly',
+        name: 'Show Icons Only',
+        type: 'boolean',
+        value: false
       }
     ]
   },
@@ -73,6 +79,12 @@ export const registeredWidgets: Array<Widget> = [
     name: 'Weather',
     default: true,
     settings: [
+      {
+        id: 'showWeekForecast',
+        name: 'Week Forecast',
+        type: 'boolean',
+        value: true
+      },
       {
         id: 'temperatureUnit',
         name: 'Temperature Unit',

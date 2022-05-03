@@ -1,23 +1,24 @@
 <template>
   <div class="weather">
-    <p class="weather__temperature">
-      {{ displayTemperatue }}
-    </p>
     <img
       class="weather__icon"
       :src="iconImagePath"
       alt=""
     >
-    <p class="weather__forecast">
+    <div class="weather__temperature">
+      {{ displayTemperatue }}
+    </div>
+    <div class="weather__forecast">
       {{ forecast }}
-    </p>
-    <div v-if="date">
+    </div>
+    <div v-if="date || slots.date">
       <hr class="mb-2">
-      <p
+      <div
         class="weather__date"
       >
-        {{ dateDay }}
-      </p>
+        <slot name="date" />
+        <span v-if="!slots.date">{{ dateDay }}</span>
+      </div>
     </div>
     <!-- <p>Sunrise: {{ sunrise }}</p>
     <p>Sunset: {{ sunset }}</p> -->
@@ -25,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import { kelvinToCelsius, kelvinToFahrenheit } from '@/utils/weather';
 
 interface Props {
@@ -48,8 +49,10 @@ const props = withDefaults(defineProps<Props>(), {
   temperatureUnit: 'kelvin'
 });
 
+const slots = useSlots();
+
 const iconImagePath = computed(() => {
-  return `/assets/weather/icons/${props.icon}.png`;
+  return `/assets/weather/iconsv2/${props.icon}.svg`;
 });
 
 const displayTemperatue = computed(() => {
@@ -60,9 +63,9 @@ const displayTemperatue = computed(() => {
       return `${Math.round(kelvinToCelsius(props.temperature))} °C`;
     case 'fahrenheit':
       return `${Math.round(kelvinToFahrenheit(props.temperature))} °F`;
+    default:
+      return '';
   }
-
-  return '';
 });
 
 const dateDay = computed(() => {
@@ -77,10 +80,10 @@ const dateDay = computed(() => {
 
 <style lang="scss" scoped>
 .weather {
-  @apply flex flex-col justify-center items-center;
+  @apply grid gap-2 justify-center text-center;
 
   &__icon {
-    @apply w-12 h-12;
+    @apply w-full;
   }
 }
 </style>

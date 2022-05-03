@@ -10,7 +10,10 @@
       :src="iconURL"
       alt=""
     >
-    <p class="entry__name">
+    <p
+      v-if="!iconOnly"
+      class="entry__name"
+    >
       {{ parsedName }}
     </p>
   </v-button>
@@ -25,13 +28,15 @@ import VButton from '@/components/atoms/VButton.vue';
 interface Props {
   name: string,
   icon: string,
-  href: string
+  href: string,
+  iconOnly?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(),{
   name: '',
   icon: '',
-  href: ''
+  href: '',
+  iconOnly: false
 });
 
 const parsedName = computed(() => {

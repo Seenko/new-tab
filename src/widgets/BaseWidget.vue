@@ -51,7 +51,7 @@
                 @update:model-value="emit('set-setting', { id: setting.id, value: $event })"
               >
                 <template #option="{ data }">
-                  {{ data.name }}
+                  {{ (data as WigetSettingValue).name }}
                 </template>
               </v-select>
             </template>
@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Widget } from '@/types/widgetsGrid';
+import type { Widget, WigetSettingValue } from '@/types/widgetsGrid';
 
 import { ref, computed } from 'vue';
 

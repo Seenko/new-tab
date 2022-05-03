@@ -122,7 +122,7 @@ const getFullElementHeight = (element: HTMLElement) => {
   }
 
   &[open] {
-    .accordion__title {
+    & > .accordion__title {
       &:before {
         @apply rotate-90;
       }

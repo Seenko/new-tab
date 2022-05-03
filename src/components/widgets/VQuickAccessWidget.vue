@@ -7,6 +7,7 @@
         :name="entry.name"
         :icon="entry.icon"
         :href="entry.href"
+        :icon-only="iconsOnly"
       />
     </div>
   </div>
@@ -18,11 +19,13 @@ import type { quickAccessEntry } from '@/types/quickAccessEntry';
 import VQuickAccessEntry from '@/components/molecules/VQuickAccessEntry.vue';
 
 interface Props {
-  entries: quickAccessEntry[]
+  entries: quickAccessEntry[],
+  iconsOnly?: boolean
 }
 
 withDefaults(defineProps<Props>(),{
-  entries: () => []
+  entries: () => [],
+  iconsOnly: false
 });
 </script>
 
