@@ -71,7 +71,32 @@ export const registeredWidgets: Array<Widget> = [
   {
     id: 'WeatherWidget',
     name: 'Weather',
-    default: true
+    default: true,
+    settings: [
+      {
+        id: 'temperatureUnit',
+        name: 'Temperature Unit',
+        type: 'select',
+        value: 0,
+        values: [
+          {
+            id: 'celsius',
+            name: 'Celsius',
+            value: 'celsius'
+          },
+          {
+            id: 'fahrenheit',
+            name: 'Fahrenheit',
+            value: 'fahrenheit'
+          },
+          {
+            id: 'kelvin',
+            name: 'Kelvin',
+            value: 'kelvin'
+          }
+        ]
+      }
+    ]
   },
   {
     id: 'ConnectionStatusWidget',

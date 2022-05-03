@@ -60,7 +60,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import { useDark, useToggle, onClickOutside } from '@vueuse/core';
+import { useDark, useToggle, onClickOutside, onKeyStroke } from '@vueuse/core';
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 import { isRunningAsExtension } from '@/utils/browser';
 
@@ -95,6 +95,12 @@ watch(() => application.isSettingsPanelOpen, async (to) => {
 });
 
 onClickOutside(sidebar, () => {
+  if (application.isSettingsPanelOpen) {
+    application.toggleIsSettingsPanelOpen();
+  }
+});
+
+onKeyStroke('Escape', () => {
   if (application.isSettingsPanelOpen) {
     application.toggleIsSettingsPanelOpen();
   }

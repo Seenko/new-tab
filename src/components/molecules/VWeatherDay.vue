@@ -55,7 +55,7 @@ const iconImagePath = computed(() => {
 const displayTemperatue = computed(() => {
   switch (props.temperatureUnit) {
     case 'kelvin':
-      return Math.round(props.temperature);
+      return `${Math.round(props.temperature)} K`;
     case 'celsius':
       return `${Math.round(kelvinToCelsius(props.temperature))} °C`;
     case 'fahrenheit':

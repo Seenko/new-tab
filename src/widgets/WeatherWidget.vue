@@ -3,14 +3,17 @@
     :widget="widget"
     :is-editable="isEditable"
   >
-    <v-weather-widget
-      :is-loading="weather.isLoading"
-      :last-updated="weather.data.lastUpdated"
-      :weather="weather.data.weather"
-      :can-fetch-weather="weather.getCanFetchWeather"
-      :error="weather.error"
-      @fetch-weather="doFetchWeather"
-    />
+    <template #default="slotProps">
+      <v-weather-widget
+        v-bind="slotProps"
+        :is-loading="weather.isLoading"
+        :last-updated="weather.data.lastUpdated"
+        :weather="weather.data.weather"
+        :can-fetch-weather="weather.getCanFetchWeather"
+        :error="weather.error"
+        @fetch-weather="doFetchWeather"
+      />
+    </template>
   </base-widget>
 </template>
 

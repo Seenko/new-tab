@@ -28,11 +28,20 @@ export interface WidgetsGridChange {
   action: WidgetsGridChangeAction;
 }
 
+export type WidgetSettingType = 'boolean' | 'string' | 'select';
+
+export interface WigetSettingValue {
+  id: string;
+  name: string;
+  value: unknown;
+}
+
 export interface WidgetSetting {
   id: string;
   name: string;
-  type: 'boolean' | 'string' | 'number';
-  value: unknown;
+  type: WidgetSettingType;
+  value: WigetSettingValue | boolean | string | number;
+  values?: Array<WigetSettingValue>;
 }
 
 export interface WidgetSettingUpdate {

@@ -5,6 +5,7 @@
       class="blackout"
     >
       <dialog
+        ref="dialog"
         class="modal"
         :open="isOpen"
       >
@@ -33,23 +34,36 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots } from 'vue';
+import { ref, useSlots } from 'vue';
+import { onClickOutside, onKeyStroke } from '@vueuse/core';
 
 import VButton from '@/components/atoms/VButton.vue';
 
 import CloseIcon from '@/assets/icons/close.svg';
 
 interface Props {
-  isOpen: boolean
+  isOpen: boolean,
+  isDismissable?: boolean
 }
 
-withDefaults(defineProps<Props>(), {
-  isOpen: false
+const props = withDefaults(defineProps<Props>(), {
+  isOpen: false,
+  isDismissable: true
 });
 
 const slots = useSlots();
 
 const emit = defineEmits(['close']);
+
+const dismiss = () => {
+  if (props.isDismissable && props.isOpen) {
+    emit('close');
+  }
+};
+
+const dialog = ref();
+onClickOutside(dialog, () => dismiss());
+onKeyStroke('Escape', () => dismiss());
 </script>
 
 <style lang="scss" scoped>
@@ -62,15 +76,17 @@ const emit = defineEmits(['close']);
 }
 
 .modal {
-  @apply text-gray-100;
-  @apply rounded-lg;
+  @apply bg-gray-200 text-gray-800;
+  @apply dark:bg-gray-900 dark:text-gray-100;
   @apply border border-slate-300 dark:border-slate-700;
-  @apply bg-gray-200 dark:bg-gray-900;
+
+  @apply rounded-lg;
   @apply flex flex-col gap-8;
   @apply container max-w-sm;
 
   &__header {
     @apply flex flex-row justify-between items-center;
+    @apply font-serif text-2xl;
   }
 }
 </style>

@@ -44,6 +44,16 @@
                 :model-value="(setting.value as string)"
                 @update:model-value="emit('set-setting', { id: setting.id, value: $event })"
               />
+              <v-select
+                v-else-if="setting.type === 'select'"
+                :options="setting.values"
+                :model-value="(setting.value as number)"
+                @update:model-value="emit('set-setting', { id: setting.id, value: $event })"
+              >
+                <template #option="{ data }">
+                  {{ data.name }}
+                </template>
+              </v-select>
             </template>
           </v-setting-entry>
         </div>
@@ -64,6 +74,7 @@ import VSettingEntry from '@/components/molecules/VSettingEntry.vue';
 
 import VToggle from '@/components/atoms/VToggle.vue';
 import VTextInput from '@/components/atoms/VTextInput.vue';
+import VSelect from '@/components/atoms/VSelect.vue';
 
 import EditIcon from '@/assets/icons/edit.svg';
 
@@ -84,7 +95,11 @@ const widgetSettings = computed(() => {
 
   if (props.widget && props.widget.settings) {
     props.widget.settings.forEach(setting => {
-      settings[setting.id] = setting.value;
+      if (setting.type === 'select' && setting.values) {
+        settings[setting.id] = setting.values[(setting.value as number)].value;
+      } else {
+        settings[setting.id] = setting.value;
+      }
     });
   }
 
