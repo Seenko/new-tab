@@ -80,6 +80,12 @@ export const registeredWidgets: Array<Widget> = [
     default: true,
     settings: [
       {
+        id: 'showCurrentWeather',
+        name: 'Current Weather',
+        type: 'boolean',
+        value: true
+      },
+      {
         id: 'showWeekForecast',
         name: 'Week Forecast',
         type: 'boolean',

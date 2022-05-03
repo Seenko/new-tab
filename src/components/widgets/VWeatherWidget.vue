@@ -6,7 +6,7 @@
         class="weather__spinner"
       />
       <v-weather-day
-        v-if="weather?.current"
+        v-if="showCurrentWeather && weather?.current"
         class="weather__current"
         :temperature-unit="temperatureUnit"
         :icon="weather.current.weather[0].icon"
@@ -77,6 +77,7 @@ interface Props {
   lastUpdated: number,
   weather: WeatherResponse | null,
   temperatureUnit: 'kelvin' | 'celsius' | 'fahrenheit',
+  showCurrentWeather?: boolean,
   showWeekForecast?: boolean,
   showLastUpdated?: boolean,
   canFetchWeather: boolean,
@@ -88,6 +89,7 @@ const props = withDefaults(defineProps<Props>(), {
   lastUpdated: 0,
   weather: null,
   temperatureUnit: 'kelvin',
+  showCurrentWeather: true,
   showWeekForecast: false,
   showLastUpdated: true,
   canFetchWeather: true,
