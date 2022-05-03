@@ -107,7 +107,13 @@ export const registeredWidgets: Array<Widget> = [
             value: 'kelvin'
           }
         ]
-      }
+      },
+      {
+        id: 'showLastUpdated',
+        name: 'Show "Last Updated" Message',
+        type: 'boolean',
+        value: true
+      },
     ]
   },
   {

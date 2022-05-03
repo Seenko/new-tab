@@ -43,7 +43,10 @@
         <ReloadIcon />
       </v-button>
     </div>
-    <div class="weather__status">
+    <div
+      v-if="showLastUpdated"
+      class="weather__status"
+    >
       <small class="weather__lastUpdated">
         last updated {{ weatherLastUpdated }}
       </small>
@@ -75,6 +78,7 @@ interface Props {
   weather: WeatherResponse | null,
   temperatureUnit: 'kelvin' | 'celsius' | 'fahrenheit',
   showWeekForecast?: boolean,
+  showLastUpdated?: boolean,
   canFetchWeather: boolean,
   error: Error | null
 }
@@ -85,6 +89,7 @@ const props = withDefaults(defineProps<Props>(), {
   weather: null,
   temperatureUnit: 'kelvin',
   showWeekForecast: false,
+  showLastUpdated: true,
   canFetchWeather: true,
   error: null
 });
