@@ -1,5 +1,8 @@
 <template>
-  <base-widget>
+  <base-widget
+    :widget="widget"
+    :is-editable="isEditable"
+  >
     <template #default="slotProps">
       <v-news-widget
         v-bind="slotProps"
@@ -15,6 +18,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Widget } from '@/types/widgetsGrid';
+
 import shuffle from 'lodash/shuffle';
 import { onMounted, computed, ref } from 'vue';
 import { useNewsStore } from '@/store/news';
@@ -26,10 +31,14 @@ import { SearchRequest } from '@/services/news/types/SearchRequest';
 const news = useNewsStore();
 
 interface Props {
+  widget?: Widget;
+  isEditable?: boolean;
   searchTerm?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  widget: () => ({} as unknown as Widget),
+  isEditable: false,
   searchTerm: ''
 });
 

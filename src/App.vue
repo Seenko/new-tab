@@ -25,7 +25,6 @@
       <v-settings
         class="sidebar__settings"
         :is-dark="darkMode"
-        :auto-quick-access-entries="settings.getAutoQuickAccessEntries"
         :news-api-key="apiKeys.news"
         :weather-api-key="apiKeys.weather"
         :show-network-status="settings.showNetworkStatus"
@@ -34,7 +33,6 @@
         :background-image="settings.backgroundImage"
         :is-running-as-extension="isRunningAsExtension"
         @toggle-dark="toggleDarkMode()"
-        @toggle-auto-quick-access-entries="settings.toggleAutoQuickAccessEntries()"
         @set-news-api-key="updateNewsApiKey($event)"
         @set-weather-api-key="updateWeatherApiKey($event)"
         @toggle-show-network-status="settings.toggleShowNetworkStatus()"

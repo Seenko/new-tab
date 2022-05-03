@@ -45,7 +45,15 @@ export const registeredWidgets: Array<Widget> = [
   {
     id: 'QuickAccessWidget',
     name: 'Top Sites',
-    default: true
+    default: true,
+    settings: [
+      {
+        id: 'showTopSites',
+        name: 'Automatic Top Sites',
+        type: 'boolean',
+        value: true
+      }
+    ]
   },
   {
     id: 'NewsWidget',

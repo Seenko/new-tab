@@ -12,7 +12,7 @@
         />
       </template>
     </v-setting-entry>
-    <v-accordion class="settings__group">
+    <!-- <v-accordion class="settings__group">
       <template #summary>
         Quick Access
       </template>
@@ -45,7 +45,7 @@
           </template>
         </v-setting-entry>
       </template>
-    </v-accordion>
+    </v-accordion> -->
     <v-accordion class="settings__group">
       <template #summary>
         News
@@ -295,26 +295,16 @@ import VSettingEntry from '@/components/molecules/VSettingEntry.vue';
 
 const props = defineProps({
   isDark: Boolean,
-  showGreeting: Boolean,
-  showClock: Boolean,
-  showClockSeconds: Boolean,
-  show24HourClock: Boolean,
-  showQuickAccess: Boolean,
-  autoQuickAccessEntries: Boolean,
-  showNewsArticles: Boolean,
   newsApiKey: { type: String, required: true },
-  showWeather: Boolean,
   weatherApiKey: { type: String, required: true },
   showNetworkStatus: Boolean,
   backgroundColor: { type: String, required: true },
   enableCustomBackgroundImage: Boolean,
-  backgroundImage: { type: String, required: true },
-  isRunningAsExtension: Boolean
+  backgroundImage: { type: String, required: true }
 });
 
 const emit = defineEmits([
   'toggle-dark',
-  'toggle-auto-quick-access-entries',
   'set-news-api-key',
   'set-weather-api-key',
   'set-background-color',

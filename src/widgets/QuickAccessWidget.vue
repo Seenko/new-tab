@@ -1,5 +1,8 @@
 <template>
-  <base-widget>
+  <base-widget
+    :widget="widget"
+    :is-editable="isEditable"
+  >
     <template #default="slotProps">
       <v-quick-access-widget
         v-bind="slotProps"
@@ -10,29 +13,45 @@
 </template>
 
 <script setup lang="ts">
+import type { Widget } from '@/types/widgetsGrid';
 import type { quickAccessEntry } from '@/types/quickAccessEntry';
 
 import { ref, computed, onMounted } from 'vue';
 import { useQuickAccessStore } from '@/store/quickAccess';
-import { useSettingsStore } from '@/store/settings';
 import { getBrowserInstance, isRunningAsExtension } from '@/utils/browser';
 
 import BaseWidget from '@/widgets/BaseWidget.vue';
 import VQuickAccessWidget from '@/components/widgets/VQuickAccessWidget.vue';
 
 const quickAccess = useQuickAccessStore();
-const settings = useSettingsStore();
+
+interface Props {
+  widget?: Widget;
+  isEditable?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  widget: () => ({} as unknown as Widget),
+  isEditable: false
+});
+
+const widgetSettings = computed(() => {
+  let settings: { [id: string]: unknown } = {};
+
+  if (props.widget && props.widget.settings) {
+    props.widget.settings.forEach(setting => {
+      settings[setting.id] = setting.value;
+    });
+  }
+
+  return settings;
+});
 
 const topSitesArray = ref<quickAccessEntry[]>();
 
 const quickAccessEntries = computed(() => {
-  if (settings.getAutoQuickAccessEntries) {
-    if (isRunningAsExtension) {
-      return (topSitesArray.value && topSitesArray.value.length) ? topSitesArray.value : [];
-    }
-
-    // When not running as an extension, we can't get the top sites from the browser instance
-    return [];
+  if (isRunningAsExtension && widgetSettings.value.showTopSites) {
+    return topSitesArray.value;
   }
   
   return quickAccess.getQuickAccessEntries;

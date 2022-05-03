@@ -67,6 +67,7 @@ const emit = defineEmits(['close']);
   @apply border border-slate-300 dark:border-slate-700;
   @apply bg-gray-200 dark:bg-gray-900;
   @apply flex flex-col gap-8;
+  @apply container max-w-sm;
 
   &__header {
     @apply flex flex-row justify-between items-center;

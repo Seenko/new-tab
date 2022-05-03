@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['widget', { 'widget--editing': isEditing }]"
+    :class="['widget', { 'widget--editing': isEditableAndisEditing }]"
   >
     <slot />
   </div>
@@ -11,16 +11,16 @@ import { computed } from 'vue';
 
 interface Props {
   isEditable?: boolean,
-  isEditingWidgets?: boolean
+  isEditing?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isEditable: false,
-  isEditingWidgets: false
+  isEditing: false
 });
 
-const isEditing = computed(() => {
-  return props.isEditable && props.isEditingWidgets;
+const isEditableAndisEditing = computed(() => {
+  return props.isEditable && props.isEditing;
 });
 </script>
 

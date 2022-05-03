@@ -10,21 +10,21 @@
     </v-button>
     <v-widget
       :is-editable="isEditable"
-      :is-editing-widgets="application.isEditingWidgets"
+      :is-editing="application.isEditingWidgets"
     >
-      <slot v-bind="bindSettings" />
+      <slot v-bind="widgetSettings" />
     </v-widget>
     <v-modal
       :is-open="isWidgetSettingsOpen"
       @close="toggleWidgetSettings()"
     >
       <template #header>
-        Widget Settings
+        {{ widget.name }}
       </template>
       <template #content>
         <div class="flex flex-col gap-4">
           <v-setting-entry
-            v-for="(setting, index) in settings"
+            v-for="(setting, index) in widget.settings"
             :key="index"
             :label-id="setting.id"
           >
@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import type { WidgetSetting } from '@/types/widgetsGrid';
+import type { Widget } from '@/types/widgetsGrid';
 
 import { ref, computed } from 'vue';
 
@@ -71,20 +71,22 @@ import { useApplicationStore } from '@/store/application';
 
 interface Props {
   isEditable?: boolean;
-  settings?: Array<WidgetSetting>;
+  widget?: Widget;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isEditable: false,
-  settings: () => []
+  widget: () => ({} as unknown as Widget),
 });
 
-const bindSettings = computed(() => {
+const widgetSettings = computed(() => {
   let settings: { [id: string]: unknown } = {};
 
-  props.settings.forEach(setting => {
-    settings[setting.id] = setting.value;
-  });
+  if (props.widget && props.widget.settings) {
+    props.widget.settings.forEach(setting => {
+      settings[setting.id] = setting.value;
+    });
+  }
 
   return settings;
 });
@@ -92,7 +94,7 @@ const bindSettings = computed(() => {
 const application = useApplicationStore();
 
 const showEditSettingsButton = computed(() => {
-  return props.isEditable && application.isEditingWidgets && props.settings.length > 0;
+  return props.isEditable && application.isEditingWidgets && Object.keys(widgetSettings.value).length > 0;
 });
 
 const isWidgetSettingsOpen = ref<boolean>(false);

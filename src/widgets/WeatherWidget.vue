@@ -1,5 +1,8 @@
 <template>
-  <base-widget>
+  <base-widget
+    :widget="widget"
+    :is-editable="isEditable"
+  >
     <v-weather-widget
       :is-loading="weather.isLoading"
       :last-updated="weather.data.lastUpdated"
@@ -12,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Widget } from '@/types/widgetsGrid';
 import type { WeatherRequest } from '@/services/weather/types/WeatherRequest';
 
 import { onMounted } from 'vue';
@@ -22,6 +26,16 @@ import VWeatherWidget from '@/components/widgets/VWeatherWidget.vue';
 import { useWeatherStore } from '@/store/weather';
 
 const weather = useWeatherStore();
+
+interface Props {
+  widget?: Widget;
+  isEditable?: boolean;
+}
+
+withDefaults(defineProps<Props>(), {
+  widget: () => ({} as unknown as Widget),
+  isEditable: false
+});
 
 const doFetchWeather = () => {
   navigator.geolocation.getCurrentPosition((position) => {

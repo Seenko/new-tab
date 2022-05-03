@@ -23,7 +23,7 @@
             <component
               :is="getComponentForWidget(element)"
               :is-editable="true"
-              :settings="element.settings"
+              :widget="element"
               @set-setting="onSetSetting({ row, column, index, setting: $event })"
             />
           </template>
