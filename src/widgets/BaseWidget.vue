@@ -8,7 +8,7 @@
     >
       <AlertIcon
         v-if="showMismatchingSignatureAlert"
-        class="absolute w-4 h-4 bottom-0 right-0 fill-red-500"
+        class="base__mismatchingIcon"
       />
       <EditIcon />
     </v-button>
@@ -27,7 +27,10 @@
       </template>
       <template #content>
         <div class="base__modal">
-          <v-alert v-if="showMismatchingSignatureAlert">
+          <v-alert
+            v-if="showMismatchingSignatureAlert"
+            class="base__mismatchingAlert"
+          >
             <template #icon>
               <AlertIcon />
             </template>
@@ -159,6 +162,10 @@ const emit = defineEmits(['set-setting']);
 
   &__modal {
     @apply flex flex-col gap-4;
+  }
+
+  &__mismatchingIcon {
+    @apply absolute w-4 h-4 bottom-0 right-0 fill-red-500;
   }
 }
 </style>

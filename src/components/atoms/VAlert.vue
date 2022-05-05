@@ -30,7 +30,7 @@ const slots = useSlots();
 .alert {
   @apply flex flex-col gap-2;
   @apply rounded p-2;
-  @apply bg-black;
+  @apply bg-gray-300 dark:bg-black;
 
   &__content {
     @apply flex flex-row gap-2;
