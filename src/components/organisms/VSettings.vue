@@ -273,13 +273,30 @@
             Reset Settings
           </template>
           <template #description>
-            Resets most settings to their default values, with the exception of Dark Mode and custom Quick Access entries.
+            Resets most settings to their default values, with the exception of Dark Mode.
           </template>
           <template #control>
             <v-button
               id="resetSettings"
               variant="red"
               @click="emit('reset-settings')"
+            >
+              Reset
+            </v-button>
+          </template>
+        </v-setting-entry>
+        <v-setting-entry label-id="resetGrid">
+          <template #label>
+            Reset Grid
+          </template>
+          <template #description>
+            Resets the grid to the default grid used when the extension is first installed.
+          </template>
+          <template #control>
+            <v-button
+              id="resetGrid"
+              variant="red"
+              @click="emit('reset-grid')"
             >
               Reset
             </v-button>
@@ -320,7 +337,8 @@ const emit = defineEmits([
   'toggle-show-network-status',
   'import-settings',
   'export-settings',
-  'reset-settings'
+  'reset-settings',
+  'reset-grid'
 ]);
 
 const newsApiKeyModel = computed({ 

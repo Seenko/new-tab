@@ -2,6 +2,7 @@ import type { Widget } from '@/types/widgetsGrid';
 import type { Component } from 'vue';
 
 import { timezones } from '@/utils/time';
+import { hashCode } from '@/utils/hash';
 
 import GreetingWidget from '@/widgets/GreetingWidget.vue';
 import ClockWidget from '@/widgets/ClockWidget.vue';
@@ -21,7 +22,7 @@ export const widgetsComponents: { [name: string]: Component } = {
   TextWidget
 };
 
-export const registeredWidgets: Array<Widget> = [
+const widgets: Array<Widget> = [
   {
     id: 'GreetingWidget',
     name: 'Greeting',
@@ -84,7 +85,8 @@ export const registeredWidgets: Array<Widget> = [
         id: 'searchTerm',
         name: 'Search Term',
         type: 'string',
-        value: ''
+        value: '',
+        placeholder: 'electric vehicles, -tesla'
       }
     ]
   },
@@ -163,10 +165,13 @@ export const registeredWidgets: Array<Widget> = [
         id: 'textString',
         name: 'Text',
         type: 'string',
-        value: 'Sample Text'
+        value: 'Sample Text',
+        placeholder: 'Sample Text'
       }
     ]
   }
 ];
+
+export const registeredWidgets = widgets.map(widget => ({ ...widget, signature: hashCode(JSON.stringify(widget)).toString() }) as Widget);
 
 export const defaultWidgets = registeredWidgets.filter(widget => widget.default);

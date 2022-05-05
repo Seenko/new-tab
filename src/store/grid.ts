@@ -16,6 +16,9 @@ export const useGridStore = defineStore({
     data: useStorage('grid', defaultGrid)
   }),
   actions: {
+    resetGrid() {
+      Object.assign(this.data, defaultGrid);
+    },
     updateWidgetsPosition(change: WidgetsGridChange): WidgetsGrid {
       const widgetsList = this.data[change.row][change.column];
 

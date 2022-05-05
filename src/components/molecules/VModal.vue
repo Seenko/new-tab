@@ -72,7 +72,7 @@ onKeyStroke('Escape', () => dismiss());
 }
 
 .blackout {
-  @apply bg-black/70;
+  @apply bg-black/70 z-50;
 }
 
 .modal {

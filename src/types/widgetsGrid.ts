@@ -41,6 +41,7 @@ export interface WidgetSetting {
   name: string;
   type: WidgetSettingType;
   value: WigetSettingValue | boolean | string | number;
+  placeholder?: string;
   values?: Array<WigetSettingValue>;
 }
 
@@ -59,4 +60,5 @@ export interface Widget {
   name: string;
   default?: boolean;
   settings?: Array<WidgetSetting>;
+  signature?: string;
 }

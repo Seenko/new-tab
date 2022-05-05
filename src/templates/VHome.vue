@@ -24,6 +24,7 @@
               :is="getComponentForWidget(element)"
               :is-editable="true"
               :widget="element"
+              :mismatching-signature="!checkIfWidgetSignatureMatches(element)"
               @set-setting="onSetSetting({ row, column, index, setting: $event })"
             />
           </template>
@@ -110,6 +111,15 @@ const props = defineProps({
 const widgetSearchQuery = ref<string>('');
 
 const getComponentForWidget = (widget: Widget) => markRaw(widgetsComponents[widget.id]);
+
+const checkIfWidgetSignatureMatches = (widget: Widget) => {
+  if (widget.signature) {
+    const matchingRegisteredWidget = availableWidgets.value.find((availableWidget: Widget) => availableWidget.id === widget.id);
+    if (matchingRegisteredWidget && (matchingRegisteredWidget.signature === widget.signature)) return true;
+  }
+
+  return false;
+};
 
 const availableWidgets = computed(() => {
   const widgets: Array<Widget> = unreactify(registeredWidgets);

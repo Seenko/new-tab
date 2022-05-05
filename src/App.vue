@@ -40,6 +40,7 @@
         @toggle-enable-custom-background-image="settings.toggleEnableCustomBackgroundImage()"
         @set-background-image="settings.setBackgroundImage($event)"
         @reset-settings="settings.resetSettings()"
+        @reset-grid="grid.resetGrid()"
       />
       <template #footer>
         <div class="sidebar__version">
@@ -70,6 +71,7 @@ import WeatherService from '@/services/weather';
 import { useApplicationStore } from '@/store/application';
 import { useSettingsStore } from '@/store/settings';
 import { useApiKeysStore } from '@/store/apiKeys';
+import { useGridStore } from '@/store/grid';
 
 import VButton from '@/components/atoms/VButton.vue';
 import VSidebarMenu from '@/components/molecules/VSidebarMenu.vue';
@@ -80,6 +82,7 @@ import CloseIcon from '@/assets/icons/close.svg';
 const settings = useSettingsStore();
 const apiKeys = useApiKeysStore();
 const application = useApplicationStore();
+const grid = useGridStore();
 
 const darkMode = useDark();
 const toggleDarkMode = useToggle(darkMode);
