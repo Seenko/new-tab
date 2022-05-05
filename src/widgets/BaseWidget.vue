@@ -136,7 +136,6 @@ const widgetSettings = computed(() => {
 const application = useApplicationStore();
 
 const showMismatchingSignatureAlert = computed(() => {
-  return true;
   return props.isEditable && application.isEditingWidgets && props.mismatchingSignature;
 });
 
