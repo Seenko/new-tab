@@ -5,13 +5,18 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const props = defineProps({
-  now: {
-    type: Date,
-    required: true
-  },
-  showClockSeconds: Boolean,
-  show24HourClock: Boolean
+interface Props {
+  now: Date;
+  showClockSeconds?: boolean;
+  show24HourClock?: boolean;
+  timezone?: string;
+}
+
+const props = withDefaults(defineProps<Props>(),{
+  now: () => new Date(),
+  showClockSeconds: false,
+  show24HourClock: false,
+  timezone: ''
 });
 
 const currentHour = computed(() => {
@@ -19,8 +24,10 @@ const currentHour = computed(() => {
     hour: 'numeric',
     minute: 'numeric',
     second: props.showClockSeconds ? 'numeric' : undefined,
-    hourCycle: props.show24HourClock ? 'h24' : 'h12'
+    hourCycle: props.show24HourClock ? 'h24' : 'h12',
   };
+
+  if (props.timezone) options.timeZone = props.timezone;
 
   return props.now.toLocaleString(undefined, options);
 });

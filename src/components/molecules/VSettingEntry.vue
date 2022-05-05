@@ -80,7 +80,7 @@ defineProps({
   }
 
   *:nth-child(2) {
-    @apply self-start flex-shrink-0;
+    @apply self-start;
   }
 
   &__control {
