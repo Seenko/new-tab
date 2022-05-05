@@ -34,9 +34,10 @@
             <p>Oops, something is off here!</p>
             <template #footer>
               <small class="flex flex-col gap-2">
-                <p>When the widget being used doesn't match it's type in the registry you may not see the correct settings reflected on this page.</p>
-                <p>Therefore, we have hidden them from you to avoid unstable behavior.</p>
-                <p>To fix this issue and be able to adjust this widget's setting, you need to <b>recreate</b> this instance.</p>
+                <p>We have detected that this widget instance does not match its signature in the registry, meaning that it is in a unstable state.</p>
+                <p>This most likely happened because this widget has been updated with new settings.</p>
+                <p>To get rid of this message and be able to adjust this widget's settings again, you need to <b>recreate</b> this instance.</p>
+                <p><i>You can leave this widget as is but that is not advised.</i></p>
               </small>
             </template>
           </v-alert>
