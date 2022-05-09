@@ -1,35 +1,37 @@
 <template>
   <Teleport to="body">
-    <div
-      v-if="isOpen"
-      class="blackout"
-    >
-      <dialog
-        ref="dialog"
-        class="modal"
-        :open="isOpen"
+    <Transition name="fade">
+      <div
+        v-if="isOpen"
+        class="blackout"
       >
-        <div class="modal__header">
-          <slot name="header" />
-          <v-button
-            class="modal__close"
-            aria-label="Close"
-            @click="emit('close')"
-          >
-            <CloseIcon />
-          </v-button>
-        </div>
-        <div class="modal__content">
-          <slot name="content" />
-        </div>
-        <div
-          v-if="slots.footer"
-          class="modal__footer"
+        <dialog
+          ref="dialog"
+          class="modal"
+          :open="isOpen"
         >
-          <slot name="footer" />
-        </div>
-      </dialog>
-    </div>
+          <div class="modal__header">
+            <slot name="header" />
+            <v-button
+              class="modal__close"
+              aria-label="Close"
+              @click="emit('close')"
+            >
+              <CloseIcon />
+            </v-button>
+          </div>
+          <div class="modal__content">
+            <slot name="content" />
+          </div>
+          <div
+            v-if="slots.footer"
+            class="modal__footer"
+          >
+            <slot name="footer" />
+          </div>
+        </dialog>
+      </div>
+    </Transition>
   </Teleport>
 </template>
 
@@ -89,4 +91,14 @@ onKeyStroke('Escape', () => dismiss());
     @apply font-serif text-2xl;
   }
 }
+
+.fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.075s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
 </style>

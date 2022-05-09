@@ -114,7 +114,7 @@ const getComponentForWidget = (widget: Widget) => markRaw(widgetsComponents[widg
 
 const checkIfWidgetSignatureMatches = (widget: Widget) => {
   if (widget.signature) {
-    const matchingRegisteredWidget = availableWidgets.value.find((availableWidget: Widget) => availableWidget.id === widget.id);
+    const matchingRegisteredWidget = registeredWidgets.find((availableWidget: Widget) => availableWidget.id === widget.id);
     if (matchingRegisteredWidget && (matchingRegisteredWidget.signature === widget.signature)) return true;
   }
 
@@ -143,6 +143,10 @@ const onSetSetting = (widgetSettingUpdate: WidgetSettingUpdate) => emit('widgetS
 
 <style lang="scss" scoped>
 .home {
+  > * {
+    @apply transition-all duration-500 ease-in-out;
+  }
+
   @apply flex flex-row grow h-0;
 
   &__grid {
@@ -169,7 +173,7 @@ const onSetSetting = (widgetSettingUpdate: WidgetSettingUpdate) => emit('widgetS
       }
 
       &__search {
-        @apply rounded-tl-xl rounded-b-none rounded-r-none;
+        @apply rounded-tl-xl rounded-b-none rounded-r-none p-5;
       }
 
       &__nothing {
