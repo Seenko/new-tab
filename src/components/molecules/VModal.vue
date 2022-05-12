@@ -13,6 +13,7 @@
           <div class="modal__header">
             <slot name="header" />
             <v-button
+              v-if="isDismissable"
               class="modal__close"
               aria-label="Close"
               @click="emit('close')"
@@ -36,8 +37,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useSlots } from 'vue';
+import { watch, ref, useSlots, nextTick } from 'vue';
 import { onClickOutside, onKeyStroke } from '@vueuse/core';
+import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 
 import VButton from '@/components/atoms/VButton.vue';
 
@@ -64,6 +66,20 @@ const dismiss = () => {
 };
 
 const dialog = ref();
+
+const {
+  activate: dialogFocus,
+  deactivate: dialogUnfocus
+} = useFocusTrap(dialog);
+
+watch(() => props.isOpen, async (to) => {
+
+  // Use nextTick to ensure the dialog is rendered before focusing
+  nextTick(() => {
+    to ? dialogFocus() : dialogUnfocus();
+  });
+});
+
 onClickOutside(dialog, () => dismiss());
 onKeyStroke('Escape', () => dismiss());
 </script>

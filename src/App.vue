@@ -9,6 +9,7 @@
     <v-sidebar-menu
       ref="sidebar"
       :is-open="application.isSettingsPanelOpen"
+      @blackout-click="onBlackoutClick()"
     >
       <template #header>
         <h1 class="sidebar__title">
@@ -60,9 +61,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
-import { useDark, useToggle, onClickOutside, onKeyStroke } from '@vueuse/core';
-import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
+import { ref, computed } from 'vue';
+import { useDark, useToggle, onKeyStroke } from '@vueuse/core';
 import { isRunningAsExtension } from '@/utils/browser';
 
 import NewsService from '@/services/news';
@@ -88,20 +88,12 @@ const darkMode = useDark();
 const toggleDarkMode = useToggle(darkMode);
 
 const sidebar = ref();
-const {
-  activate: sidebarFocus,
-  deactivate: sidebarUnfocus
-} = useFocusTrap(sidebar);
 
-watch(() => application.isSettingsPanelOpen, async (to) => {
-  to ? sidebarFocus() : sidebarUnfocus();
-});
-
-onClickOutside(sidebar, () => {
+const onBlackoutClick = () => {
   if (application.isSettingsPanelOpen) {
     application.toggleIsSettingsPanelOpen();
   }
-});
+};
 
 onKeyStroke('Escape', () => {
   if (application.isSettingsPanelOpen) {
@@ -135,17 +127,19 @@ const manifestVersion = computed(() => {
   @apply min-h-screen overflow-hidden;
   @apply bg-center bg-cover bg-no-repeat;
 
-  .sidebar {
+  ::v-deep(.sidebar) {
     @apply max-w-sm fixed;
 
-    & > ::v-deep(*) {
+    & > * {
       @apply p-5;
     }
 
-    ::v-deep(.sidebar__header) {
+    .sidebar__header {
       @apply flex flex-row justify-between gap-4;
     }
+  }
 
+  .sidebar {
     &__title {
       @apply text-2xl font-serif;
     }
