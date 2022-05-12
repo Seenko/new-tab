@@ -12,6 +12,7 @@ import NewsWidget from '@/widgets/NewsWidget.vue';
 import WeatherWidget from '@/widgets/WeatherWidget.vue';
 import ConnectionStatusWidget from '@/widgets/ConnectionStatusWidget.vue';
 import TextWidget from '@/widgets/TextWidget.vue';
+import ImageWidget from '@/widgets/ImageWidget.vue';
 
 export const widgetsComponents: { [name: string]: Component } = {
   GreetingWidget,
@@ -20,7 +21,8 @@ export const widgetsComponents: { [name: string]: Component } = {
   NewsWidget,
   WeatherWidget,
   ConnectionStatusWidget,
-  TextWidget
+  TextWidget,
+  ImageWidget
 };
 
 export const registeredWidgets: Array<Widget> = [
@@ -168,6 +170,19 @@ export const registeredWidgets: Array<Widget> = [
         type: 'string',
         value: 'Sample Text',
         placeholder: 'Sample Text'
+      }
+    ]
+  },
+  {
+    type: 'ImageWidget',
+    name: 'Custom Image',
+    settings: [
+      {
+        id: 'src',
+        name: 'Image URL',
+        type: 'string',
+        value: '/assets/sample.jpg',
+        placeholder: '/assets/sample.jpg'
       }
     ]
   }
