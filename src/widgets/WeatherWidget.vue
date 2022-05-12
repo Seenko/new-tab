@@ -26,19 +26,20 @@ import { onMounted } from 'vue';
 import BaseWidget from '@/widgets/BaseWidget.vue';
 import VWeatherWidget from '@/components/widgets/VWeatherWidget.vue';
 
-import { useWeatherStore } from '@/store/weather';
-
-const weather = useWeatherStore();
+import { useWeatherStore } from '@/store/widgets/WeatherWidgetStore';
 
 interface Props {
   widget?: Widget;
   isEditable?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   widget: () => ({} as unknown as Widget),
   isEditable: false
 });
+
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const weather = useWeatherStore(props.widget.id!)();
 
 const doFetchWeather = () => {
   navigator.geolocation.getCurrentPosition((position) => {

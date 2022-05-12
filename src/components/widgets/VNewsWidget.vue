@@ -22,7 +22,7 @@
         class="action action--fetch"
         aria-label="Fetch Articles"
         variant="icon"
-        @click="emit('fetch-news-articles')"
+        @click="emit('fetch-news-articles', searchTerm)"
       >
         <ReloadIcon />
       </v-button>
@@ -47,6 +47,8 @@
 <script setup lang="ts">
 import type { Article } from '@/services/news/types/Article';
 
+import { onMounted } from 'vue';
+
 import VButton from '@/components/atoms/VButton.vue';
 import VSpinnerMask from '@/components/molecules/VSpinnerMask.vue';
 import VNewsArticle from '@/components/molecules/VNewsArticle.vue';
@@ -56,19 +58,25 @@ import ShuffleIcon from '@/assets/icons/shuffle.svg';
 
 interface Props {
   isLoading: boolean,
+  searchTerm: string,
   articles: Article[],
   canFetchArticles: boolean,
   error: Error | null
 }
 
-withDefaults(defineProps<Props>(),{
+const props = withDefaults(defineProps<Props>(),{
   isLoading: true,
+  searchTerm: '',
   articles: () => [],
   canFetchArticles: true,
   error: null
 });
 
 const emit = defineEmits(['fetch-news-articles', 'shuffle-news-articles']);
+
+onMounted(() => {
+  emit('fetch-news-articles', props.searchTerm);
+});
 </script>
 
 <style lang="scss" scoped>

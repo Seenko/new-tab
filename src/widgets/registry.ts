@@ -2,7 +2,8 @@ import type { Widget } from '@/types/widgetsGrid';
 import type { Component } from 'vue';
 
 import { timezones } from '@/utils/time';
-import { hashCode } from '@/utils/hash';
+import { SHA256 } from 'crypto-js';
+import { v4 as uuid } from 'uuid';
 
 import GreetingWidget from '@/widgets/GreetingWidget.vue';
 import ClockWidget from '@/widgets/ClockWidget.vue';
@@ -22,14 +23,14 @@ export const widgetsComponents: { [name: string]: Component } = {
   TextWidget
 };
 
-const widgets: Array<Widget> = [
+export const registeredWidgets: Array<Widget> = [
   {
-    id: 'GreetingWidget',
+    type: 'GreetingWidget',
     name: 'Greeting',
     default: true
   },
   {
-    id: 'ClockWidget',
+    type: 'ClockWidget',
     name: 'Clock',
     default: true,
     settings: [
@@ -58,7 +59,7 @@ const widgets: Array<Widget> = [
     ]
   },
   {
-    id: 'QuickAccessWidget',
+    type: 'QuickAccessWidget',
     name: 'Top Sites',
     default: true,
     settings: [
@@ -77,7 +78,7 @@ const widgets: Array<Widget> = [
     ]
   },
   {
-    id: 'NewsWidget',
+    type: 'NewsWidget',
     name: 'Recent News',
     default: true,
     settings: [
@@ -91,7 +92,7 @@ const widgets: Array<Widget> = [
     ]
   },
   {
-    id: 'WeatherWidget',
+    type: 'WeatherWidget',
     name: 'Weather',
     default: true,
     settings: [
@@ -127,11 +128,11 @@ const widgets: Array<Widget> = [
     ]
   },
   {
-    id: 'ConnectionStatusWidget',
+    type: 'ConnectionStatusWidget',
     name: 'Connection Status'
   },
   {
-    id: 'TextWidget',
+    type: 'TextWidget',
     name: 'Custom Text',
     settings: [
       {
@@ -170,8 +171,6 @@ const widgets: Array<Widget> = [
       }
     ]
   }
-];
+].map(widget => ({ ...widget, signature: SHA256(JSON.stringify(widget)).toString() }) as Widget);
 
-export const registeredWidgets = widgets.map(widget => ({ ...widget, signature: hashCode(JSON.stringify(widget)).toString() }) as Widget);
-
-export const defaultWidgets = registeredWidgets.filter(widget => widget.default);
+export const defaultWidgets = registeredWidgets.filter(widget => widget.default).map(widget => ({ ...widget, id: uuid() }) as Widget);

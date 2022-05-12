@@ -110,11 +110,11 @@ const props = defineProps({
 
 const widgetSearchQuery = ref<string>('');
 
-const getComponentForWidget = (widget: Widget) => markRaw(widgetsComponents[widget.id]);
+const getComponentForWidget = (widget: Widget) => markRaw(widgetsComponents[widget.type]);
 
 const checkIfWidgetSignatureMatches = (widget: Widget) => {
   if (widget.signature) {
-    const matchingRegisteredWidget = registeredWidgets.find((availableWidget: Widget) => availableWidget.id === widget.id);
+    const matchingRegisteredWidget = registeredWidgets.find((availableWidget: Widget) => availableWidget.type === widget.type);
     if (matchingRegisteredWidget && (matchingRegisteredWidget.signature === widget.signature)) return true;
   }
 

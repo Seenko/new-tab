@@ -27,10 +27,10 @@ const defaultQuickAccessEntries: quickAccessEntry[] = [
   }
 ];
 
-export const useQuickAccessStore = defineStore({
-  id: 'quickAccess',
+export const useQuickAccessStore = (instanceName: string) => defineStore({
+  id: `quickAccess-${instanceName}`,
   state: () => ({
-    entries: useStorage('quickAccess', defaultQuickAccessEntries)
+    entries: useStorage(`quickAccess-${instanceName}`, defaultQuickAccessEntries)
   }),
   getters: {
     getQuickAccessEntries(state): quickAccessEntry[] {

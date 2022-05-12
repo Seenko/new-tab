@@ -1,6 +1,7 @@
 import type { WidgetSettingUpdate, WidgetsGrid, WidgetsGridChange, WigetSettingValue } from '@/types/widgetsGrid';
 import type { GridAdd, GridRemove } from '@/types/grid';
 
+import { v4 as uuid } from 'uuid';
 import { defineStore } from 'pinia';
 import { useStorage } from '@vueuse/core';
 import { moveToArrayIndex } from '@/utils/array';
@@ -25,6 +26,10 @@ export const useGridStore = defineStore({
       if (change.action.moved) {
         moveToArrayIndex(widgetsList, change.action.moved.oldIndex, change.action.moved.newIndex);
       } else if (change.action.added) {
+        if (!change.action.added.element.id) {
+          change.action.added.element.id = uuid();
+        }
+
         widgetsList.splice(change.action.added.newIndex, 0, unreactify(change.action.added.element));
       } else if (change.action.removed) {
         widgetsList.splice(change.action.removed.oldIndex, 1);

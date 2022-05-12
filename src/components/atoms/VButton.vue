@@ -1,7 +1,13 @@
 <template>
   <component
     :is="tag"
-    :class="['button', `button--${variant}`, { 'button--tight': tight }, { 'button--animated': animated }, { 'button--disabled': disabled }]"
+    :class="[
+      'button',
+      `button--${variant}`,
+      { 'button--tight': tight },
+      { 'button--animated': animated },
+      { 'button--disabled': disabled }
+    ]"
     :disabled="disabled"
   >
     <slot />
@@ -28,7 +34,7 @@ withDefaults(defineProps<Props>(), {
 
 <style lang="scss" scoped>
 .button {
-  @apply block rounded drop-shadow dark:drop-shadow-none p-2 transition;
+  @apply block rounded drop-shadow dark:drop-shadow-none p-2 transition overflow-hidden;
 
   &--animated {
     &:hover:not(.button--disabled) {
@@ -49,18 +55,18 @@ withDefaults(defineProps<Props>(), {
     @apply border border-slate-300 dark:border-slate-700;
   }
 
+  &--red {
+    @apply bg-red-500 dark:bg-red-600;
+    @apply border border-red-600 dark:border-red-900;
+    @apply text-white;
+  }
+
   &--icon {
     @apply bg-transparent;
   }
 
   &--tight {
     @apply p-0;
-  }
-
-  &--red {
-    @apply bg-red-500 dark:bg-red-600;
-    @apply border border-red-600 dark:border-red-900;
-    @apply text-white;
   }
 }
 </style>

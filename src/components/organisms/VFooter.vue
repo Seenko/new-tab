@@ -8,7 +8,7 @@
         <CogIcon class="w-4 h-4" />
       </v-button>
       <v-button
-        aria-label="Toggle widgets reordeing mode"
+        aria-label="Enter Widgets editing mode"
         @click="application.toggleIsEditingWidgets()"
       >
         <WidgetsIcon class="w-4 h-4" />

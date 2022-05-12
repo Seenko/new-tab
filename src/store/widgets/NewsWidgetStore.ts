@@ -17,10 +17,10 @@ const defaultNews: News = {
   lastUpdated: 0
 };
 
-export const useNewsStore = defineStore({
-  id: 'news',
+export const useNewsStore = (instanceName: string) => defineStore({
+  id: `news-${instanceName}`,
   state: () => ({
-    data: useStorage('news', defaultNews),
+    data: useStorage(`news-${instanceName}`, defaultNews),
     isLoading: false,
     error: undefined as Error | undefined
   }),

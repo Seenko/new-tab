@@ -56,9 +56,10 @@ export interface WidgetSettingUpdate {
 }
 
 export interface Widget {
-  id: string;
+  id?: string;
+  type: string;
   name: string;
+  signature: string;
   default?: boolean;
   settings?: Array<WidgetSetting>;
-  signature?: string;
 }

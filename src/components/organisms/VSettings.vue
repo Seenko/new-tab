@@ -12,40 +12,6 @@
         />
       </template>
     </v-setting-entry>
-    <!-- <v-accordion class="settings__group">
-      <template #summary>
-        Quick Access
-      </template>
-      <template #content>
-        <v-setting-entry
-          label-id="autoQuickAccessEntries"
-          is-sub-setting
-        >
-          <template #label>
-            Automatic Entries
-            <span
-              v-if="!isRunningAsExtension"
-              class="tooltip"
-              aria-label="This feature is only available when running as an extension."
-              tabindex="0"
-            >
-              ⚠️
-            </span>
-          </template>
-          <template #description>
-            Pulls data from the top 5 most visited websites from the browser's history.
-          </template>
-          <template #control>
-            <v-toggle
-              id="autoQuickAccessEntries"
-              :toggled="autoQuickAccessEntries"
-              :disabled="!isRunningAsExtension"
-              @click="emit('toggle-auto-quick-access-entries')"
-            />
-          </template>
-        </v-setting-entry>
-      </template>
-    </v-accordion> -->
     <v-accordion class="settings__group">
       <template #summary>
         API Keys
@@ -107,7 +73,12 @@
             v-if="hasColorAndImageSet"
             #description
           >
-            The color will only show up if the background image is not opaque.
+            <span
+              role="alert"
+              aria-live="polite"
+            >
+              The color will only show up if the background image is not opaque.
+            </span>
           </template>
           <template #control>
             <v-color-picker
@@ -138,18 +109,28 @@
             <div class="grid grid-cols-2 gap-2">
               <v-button
                 class="col-span-2"
+                tight
                 @click="emit('set-background-image', '')"
               >
-                None
+                <div
+                  :class="['p-2 border-2 border-transparent', { 'highlighted': backgroundImage === '' }]"
+                  aria-label="Clear background image"
+                >
+                  None
+                </div>
               </v-button>
               <v-button
                 v-for="(image, index) in backgroundImages"
                 :key="index"
                 tight
+                :aria-label="`Set background image to ${image}`"
                 @click="emit('set-background-image', `/assets/backgrounds/${image}.png`)"
               >
                 <img
-                  class="aspect-video"
+                  :class="[
+                    'aspect-video',
+                    { 'highlighted': backgroundImage === `/assets/backgrounds/${image}.png` }
+                  ]"
                   :src="`/assets/backgrounds/thumb/${image}.png`"
                   alt=""
                 >
@@ -387,5 +368,9 @@ const backgroundImages = [
       @apply ml-6;
     }
   }
+}
+
+.highlighted {
+  @apply border-2 border-green-500 rounded-sm;
 }
 </style>

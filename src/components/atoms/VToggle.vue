@@ -3,6 +3,8 @@
     class="toggle"
     :class="{ 'toggle--toggled': toggled, 'toggle--disabled': disabled }"
     :disabled="disabled"
+    :aria-checked="toggled"
+    role="switch"
   >
     <span class="toggle__ball" />
   </button>

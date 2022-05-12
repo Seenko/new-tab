@@ -16,10 +16,10 @@ const defaultWeather: Weather = {
   lastUpdated: 0
 };
 
-export const useWeatherStore = defineStore({
-  id: 'weather',
+export const useWeatherStore = (instanceName: string) => defineStore({
+  id: `weather-${instanceName}`,
   state: () => ({
-    data: useStorage('weather', defaultWeather),
+    data: useStorage(`weather-${instanceName}`, defaultWeather),
     isLoading: false,
     error: undefined as Error | undefined
   }),
