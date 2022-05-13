@@ -10,7 +10,7 @@
         @update:model-value="emit('set-setting', { id: 'tag', value: $event })"
       >
         <template #option="{ data }">
-          {{ data.name }}
+          {{ (data as WigetSettingValue).name }}
         </template>
       </v-select>
     </template>
@@ -26,7 +26,7 @@
         @update:model-value="emit('set-setting', { id: 'textStyle', value: $event })"
       >
         <template #option="{ data }">
-          {{ data.name }}
+          {{ (data as WigetSettingValue).name }}
         </template>
       </v-select>
     </template>
@@ -46,6 +46,8 @@
 </template>
 
 <script setup lang="ts">
+import type { WigetSettingValue } from '@/types/widgetsGrid';
+
 import VSettingEntry from '@/components/molecules/VSettingEntry.vue';
 import VSelect from '@/components/atoms/VSelect.vue';
 import VTextInput from '@/components/atoms/VTextInput.vue';

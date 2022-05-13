@@ -34,7 +34,7 @@
         @update:model-value="emit('set-setting', { id: 'timezone', value: $event })"
       >
         <template #option="{ data }">
-          {{ data.name }}
+          {{ (data as WigetSettingValue).name }}
         </template>
       </v-select>
     </template>
@@ -42,6 +42,8 @@
 </template>
 
 <script setup lang="ts">
+import type { WigetSettingValue } from '@/types/widgetsGrid';
+
 import VSettingEntry from '@/components/molecules/VSettingEntry.vue';
 import VToggle from '@/components/atoms/VToggle.vue';
 import VSelect from '@/components/atoms/VSelect.vue';
