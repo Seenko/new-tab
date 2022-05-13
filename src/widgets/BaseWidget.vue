@@ -16,7 +16,7 @@
       :is-editable="isEditable"
       :is-editing="application.isEditingWidgets"
     >
-      <slot v-bind="widgetSettings" />
+      <slot v-bind="widgetProps" />
     </v-widget>
     <v-modal
       :is-open="isWidgetSettingsOpen"
@@ -36,7 +36,7 @@
             </template>
             <p>Oops, something is off here!</p>
             <template #footer>
-              <small class="flex flex-col gap-2">
+              <small>
                 <p>We have detected that this widget instance does not match its signature in the registry, meaning that it is in a unstable state.</p>
                 <p>This most likely happened because this widget has been updated with new settings.</p>
                 <p>To get rid of this message and be able to adjust this widget's settings again, you need to <b>recreate</b> this instance.</p>
@@ -44,41 +44,10 @@
               </small>
             </template>
           </v-alert>
-          <v-setting-entry
-            v-for="(setting, index) in widget.settings"
+          <slot
             v-else
-            :key="index"
-            :label-id="setting.id"
-          >
-            <template #label>
-              {{ setting.name }}
-            </template>
-            <template #control>
-              <v-toggle
-                v-if="setting.type === 'boolean'"
-                :id="setting.id"
-                :toggled="(setting.value as boolean)"
-                @click="emit('set-setting', { id: setting.id, value: !(setting.value as boolean) })"
-              />
-              <v-text-input
-                v-else-if="setting.type === 'string'"
-                :id="setting.id"
-                :model-value="(setting.value as string)"
-                :placeholder="setting.placeholder"
-                @update:model-value="emit('set-setting', { id: setting.id, value: $event })"
-              />
-              <v-select
-                v-else-if="setting.type === 'select'"
-                :options="setting.values"
-                :model-value="(setting.value as number)"
-                @update:model-value="emit('set-setting', { id: setting.id, value: $event })"
-              >
-                <template #option="{ data }">
-                  {{ (data as WigetSettingValue).name }}
-                </template>
-              </v-select>
-            </template>
-          </v-setting-entry>
+            name="settings"
+          />
         </div>
       </template>
     </v-modal>
@@ -86,19 +55,14 @@
 </template>
 
 <script setup lang="ts">
-import type { Widget, WigetSettingValue } from '@/types/widgetsGrid';
+import type { Widget } from '@/types/widgetsGrid';
 
-import { ref, computed } from 'vue';
+import { ref, computed, useSlots } from 'vue';
 
 import VWidget from '@/components/widgets/VWidget.vue';
 import VButton from '@/components/atoms/VButton.vue';
 import VAlert from '@/components/atoms/VAlert.vue';
 import VModal from '@/components/molecules/VModal.vue';
-import VSettingEntry from '@/components/molecules/VSettingEntry.vue';
-
-import VToggle from '@/components/atoms/VToggle.vue';
-import VTextInput from '@/components/atoms/VTextInput.vue';
-import VSelect from '@/components/atoms/VSelect.vue';
 
 import AlertIcon from '@/assets/icons/alert.svg';
 import EditIcon from '@/assets/icons/edit.svg';
@@ -117,7 +81,7 @@ const props = withDefaults(defineProps<Props>(), {
   widget: () => ({} as unknown as Widget),
 });
 
-const widgetSettings = computed(() => {
+const widgetProps = computed(() => {
   let settings: { [id: string]: unknown } = {};
 
   if (props.widget && props.widget.settings) {
@@ -140,7 +104,7 @@ const showMismatchingSignatureAlert = computed(() => {
 });
 
 const showEditSettingsButton = computed(() => {
-  return props.isEditable && application.isEditingWidgets && Object.keys(widgetSettings.value).length > 0;
+  return props.isEditable && application.isEditingWidgets && Object.keys(widgetProps.value).length > 0 && slots.settings;
 });
 
 const isWidgetSettingsOpen = ref<boolean>(false);
@@ -149,7 +113,7 @@ const toggleWidgetSettings = () => {
   isWidgetSettingsOpen.value = !isWidgetSettingsOpen.value;
 };
 
-const emit = defineEmits(['set-setting']);
+const slots = useSlots();
 </script>
 
 <style lang="scss" scoped>
@@ -166,6 +130,12 @@ const emit = defineEmits(['set-setting']);
 
   &__mismatchingIcon {
     @apply absolute w-4 h-4 bottom-0 right-0 fill-red-500;
+  }
+
+  &__mismatchingAlert {
+    small {
+      @apply flex flex-col gap-2;
+    }
   }
 }
 </style>

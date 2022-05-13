@@ -9,6 +9,13 @@
         :entries="quickAccessEntries"
       />
     </template>
+    <template #settings>
+      <v-quick-access-widget-settings
+        :show-top-sites="(widget.settings!.find(setting => setting.id === 'showTopSites')!.value as unknown as boolean)"
+        :icons-only="(widget.settings!.find(setting => setting.id === 'iconsOnly')!.value as unknown as boolean)"
+        @set-setting="emit('set-setting', $event)"
+      />
+    </template>
   </base-widget>
 </template>
 
@@ -23,6 +30,7 @@ import { useQuickAccessStore } from '@/store/widgets/QuickAccessWidgetStore';
 
 import BaseWidget from '@/widgets/BaseWidget.vue';
 import VQuickAccessWidget from '@/components/widgets/VQuickAccessWidget.vue';
+import VQuickAccessWidgetSettings from '@/components/widgets/settings/VQuickAccessWidgetSettings.vue';
 
 interface Props {
   widget?: Widget;
@@ -73,4 +81,6 @@ onMounted(() => {
     });
   }
 });
+
+const emit = defineEmits(['set-setting']);
 </script>

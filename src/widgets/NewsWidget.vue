@@ -14,10 +14,18 @@
         @shuffle-news-articles="doShuffleArticles()"
       />
     </template>
+    <template #settings>
+      <v-news-widget-settings
+        :search-term="(widget.settings!.find(setting => setting.id === 'searchTerm')!.value as unknown as string)"
+        :search-term-placeholder="(widget.settings!.find(setting => setting.id === 'searchTerm')!.placeholder as unknown as string)"
+        @set-setting="emit('set-setting', $event)"
+      />
+    </template>
   </base-widget>
 </template>
 
 <script setup lang="ts">
+import type { SearchRequest } from '@/services/news/types/SearchRequest';
 import type { Widget } from '@/types/widgetsGrid';
 
 import shuffle from 'lodash/shuffle';
@@ -26,7 +34,7 @@ import { useNewsStore } from '@/store/widgets/NewsWidgetStore';
 
 import BaseWidget from '@/widgets/BaseWidget.vue';
 import VNewsWidget from '@/components/widgets/VNewsWidget.vue';
-import { SearchRequest } from '@/services/news/types/SearchRequest';
+import VNewsWidgetSettings from '@/components/widgets/settings/VNewsWidgetSettings.vue';
 
 interface Props {
   widget: Widget;
@@ -63,4 +71,6 @@ const doFetchNewsArticles = async (keywords: string) => {
 
   doShuffleArticles();
 };
+
+const emit = defineEmits(['set-setting']);
 </script>

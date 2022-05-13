@@ -14,6 +14,16 @@
         @fetch-weather="doFetchWeather"
       />
     </template>
+    <template #settings>
+      <v-weather-widget-settings
+        :show-current-weather="(widget.settings!.find(setting => setting.id === 'showCurrentWeather')!.value as unknown as boolean)"
+        :show-week-forecast="(widget.settings!.find(setting => setting.id === 'showWeekForecast')!.value as unknown as boolean)"
+        :temperature-unit="(widget.settings!.find(setting => setting.id === 'temperatureUnit')!.value as unknown as number)"
+        :temperature-unit-list="(widget.settings!.find(setting => setting.id === 'temperatureUnit')!.values as unknown as string[])"
+        :show-last-updated="(widget.settings!.find(setting => setting.id === 'showLastUpdated')!.value as unknown as boolean)"
+        @set-setting="emit('set-setting', $event)"
+      />
+    </template>
   </base-widget>
 </template>
 
@@ -25,6 +35,7 @@ import { onMounted } from 'vue';
 
 import BaseWidget from '@/widgets/BaseWidget.vue';
 import VWeatherWidget from '@/components/widgets/VWeatherWidget.vue';
+import VWeatherWidgetSettings from '@/components/widgets/settings/VWeatherWidgetSettings.vue';
 
 import { useWeatherStore } from '@/store/widgets/WeatherWidgetStore';
 
@@ -55,4 +66,6 @@ onMounted(() => {
     doFetchWeather();
   }
 });
+
+const emit = defineEmits(['set-setting']);
 </script>
