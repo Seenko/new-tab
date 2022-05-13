@@ -13,7 +13,9 @@
       <v-quick-access-widget-settings
         :show-top-sites="(widget.settings!.find(setting => setting.id === 'showTopSites')!.value as unknown as boolean)"
         :icons-only="(widget.settings!.find(setting => setting.id === 'iconsOnly')!.value as unknown as boolean)"
+        :sites-list="quickAccessEntries"
         @set-setting="emit('set-setting', $event)"
+        @update-sites-list="onUpdateSitesList($event)"
       />
     </template>
   </base-widget>
@@ -21,7 +23,7 @@
 
 <script setup lang="ts">
 import type { Widget } from '@/types/widgetsGrid';
-import type { quickAccessEntry } from '@/types/quickAccessEntry';
+import type { QuickAccessEntry } from '@/types/QuickAccessEntry';
 
 import { ref, computed, onMounted } from 'vue';
 import { getBrowserInstance, isRunningAsExtension } from '@/utils/browser';
@@ -31,6 +33,7 @@ import { useQuickAccessStore } from '@/store/widgets/QuickAccessWidgetStore';
 import BaseWidget from '@/widgets/BaseWidget.vue';
 import VQuickAccessWidget from '@/components/widgets/VQuickAccessWidget.vue';
 import VQuickAccessWidgetSettings from '@/components/widgets/settings/VQuickAccessWidgetSettings.vue';
+import { unreactify } from '@/utils/reactivity';
 
 interface Props {
   widget?: Widget;
@@ -41,6 +44,10 @@ const props = withDefaults(defineProps<Props>(), {
   widget: () => ({} as unknown as Widget),
   isEditable: false
 });
+
+console.log(props.widget);
+console.log(unreactify(props.widget));
+
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const quickAccess = useQuickAccessStore(props.widget.id!)();
@@ -57,7 +64,7 @@ const widgetSettings = computed(() => {
   return settings;
 });
 
-const topSitesArray = ref<quickAccessEntry[]>();
+const topSitesArray = ref<QuickAccessEntry[]>();
 
 const quickAccessEntries = computed(() => {
   if (isRunningAsExtension && widgetSettings.value.showTopSites) {
@@ -67,12 +74,16 @@ const quickAccessEntries = computed(() => {
   return quickAccess.getQuickAccessEntries;
 });
 
+const onUpdateSitesList = (newList: Array<QuickAccessEntry>) => {
+  quickAccess.setQuickAccessEntries(newList);
+};
+
 onMounted(() => {
   const topSites = getBrowserInstance().topSites;
 
   if (topSites) {
     topSites.get((topSites) => {
-      topSitesArray.value = topSites.map((topSite): quickAccessEntry => {
+      topSitesArray.value = topSites.map((topSite): QuickAccessEntry => {
         return {
           name: topSite.title,
           href: topSite.url

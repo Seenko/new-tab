@@ -26,11 +26,15 @@ export const useGridStore = defineStore({
       if (change.action.moved) {
         moveToArrayIndex(widgetsList, change.action.moved.oldIndex, change.action.moved.newIndex);
       } else if (change.action.added) {
-        if (!change.action.added.element.id) {
-          change.action.added.element.id = uuid();
+        const newElement = unreactify(change.action.added.element);
+
+        if (!newElement.id) {
+          console.log('previous id', newElement.id);
+          newElement.id = uuid();
+          console.log('new id', newElement.id);
         }
 
-        widgetsList.splice(change.action.added.newIndex, 0, unreactify(change.action.added.element));
+        widgetsList.splice(change.action.added.newIndex, 0, newElement);
       } else if (change.action.removed) {
         widgetsList.splice(change.action.removed.oldIndex, 1);
       }

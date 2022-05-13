@@ -14,12 +14,12 @@
 </template>
 
 <script setup lang="ts">
-import type { quickAccessEntry } from '@/types/quickAccessEntry';
+import type { QuickAccessEntry } from '@/types/QuickAccessEntry';
 
 import VQuickAccessEntry from '@/components/molecules/VQuickAccessEntry.vue';
 
 interface Props {
-  entries: quickAccessEntry[],
+  entries: QuickAccessEntry[],
   iconsOnly?: boolean
 }
 
