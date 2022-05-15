@@ -47,7 +47,6 @@ withDefaults(defineProps<Props>(), {
 
   &__track, &__ball {
     @apply transform duration-300;
-    transition-timing-function: cubic-bezier(0.680, -0.550, 0.265, 1.550);
   }
 
   &__track {
