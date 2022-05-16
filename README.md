@@ -10,6 +10,8 @@ API Keys can be defined on the Settings panel (for easy hot-swap) or through env
 
 The code here won't be pretty, as this is just a for fun personal project. There is also no Component Stories nor Unit Tests.
 
+This does not use any external pre-made UI libraries, all UI elements are built from the ground up.
+
 ## Installation
 
 Just install the node_modules using [pNpM](https://pnpm.io/) and run the `build` script.
