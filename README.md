@@ -5,7 +5,10 @@ A New Tab page extension for Chrome made with Vue 3 + Vite + Tailwind. Fully mod
 This is a *personal project* and it has not been published to the Chrome Web Store for use, if you want to though, feel free to download, build and load as an unpacked extension. If it isn't obvious, use this application at _your own risk_, if things don't work quite right you may open an issue on this repository, but there's no guarantee that it will be looked over.
 
 API Endpoints need to be set in the environment variables.
+
 API Keys can be defined on the Settings panel (for easy hot-swap) or through environment variables (check .env.example) as a null fallback.
+
+The code here won't be pretty, as this is just a for fun personal project. There is also no Component Stories nor Unit Tests.
 
 ## Installation
 
