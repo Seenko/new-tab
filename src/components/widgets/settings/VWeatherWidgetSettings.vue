@@ -158,9 +158,9 @@ const emit = defineEmits(['set-setting', 'update:weatherLocation', 'select-locat
   &__suggestions {
     @apply absolute top-12 left-0 right-0 z-50;
     @apply flex flex-col gap-2;
-    @apply max-h-32 p-2 rounded shadow overflow-auto;
-    @apply border border-gray-700;
-    @apply bg-gray-800;
+    @apply max-h-32 p-2 rounded overflow-auto;
+    @apply bg-gray-100 dark:bg-gray-800;
+    @apply drop-shadow dark:drop-shadow-none;
   }
 }
 </style>

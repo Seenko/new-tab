@@ -42,7 +42,7 @@ const extra = computed(() => {
 .suggestion {
   @apply flex items-baseline gap-2;
   @apply p-2 rounded text-left;
-  @apply border border-gray-700;
+  @apply border border-gray-300 dark:border-gray-700;
 
   &__name {
     @apply font-semibold;
