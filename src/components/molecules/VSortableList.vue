@@ -1,19 +1,26 @@
 <template>
   <draggable
     v-model="list"
+    class="sortable"
     tag="ul"
-    class="flex flex-col gap-2"
     handle=".handle"
-    item-key="name"
+    animation="200"
+    :item-key="itemKey"
   >
+    <template #header>
+      <div
+        v-if="list.length == 0"
+        class="sortable__empty"
+      >
+        <slot name="empty" />
+      </div>
+    </template>
     <template #item="{ element }">
-      <li class="flex flex-row justify-between grow gap-2">
-        <div v-if="slots.item">
-          <slot
-            name="item"
-            :data="element"
-          />
-        </div>
+      <li class="flex flex-row items-center justify-between grow gap-2">
+        <slot
+          name="item"
+          :data="element"
+        />
         <HamburgerIcon class="handle cursor-ns-resize" />
       </li>
     </template>
@@ -21,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { computed } from 'vue';
 import draggable from 'vuedraggable';
 
 import { unreactify } from '@/utils/reactivity';
@@ -29,14 +36,14 @@ import { unreactify } from '@/utils/reactivity';
 import HamburgerIcon from '@/assets/icons/hamburger.svg';
 
 interface Props {
+  itemKey: string,
   modelValue?: Array<unknown>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  itemKey: '',
   modelValue: () => ([])
 });
-
-const slots = useSlots();
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -45,3 +52,9 @@ const list = computed({
   set: (value: Array<unknown>) => emit('update:modelValue', value) 
 });
 </script>
+
+<style lang="scss" scoped>
+.sortable {
+  @apply flex flex-col gap-2;
+}
+</style>

@@ -13,7 +13,7 @@
           :class="['home__widgets', { 'home__widgets--editing': isEditingWidgets }]"
           ghost-class="widget--ghost"
           animation="200"
-          item-key="name"
+          item-key="id"
           group="widgets"
           :list="unreactify(data)"
           :disabled="!isEditingWidgets"

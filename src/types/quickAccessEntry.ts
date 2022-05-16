@@ -1,5 +1,6 @@
 export interface QuickAccessEntry {
-    name: string,
+    id?: string;
+    name?: string,
     href: string,
     icon?: string
 }

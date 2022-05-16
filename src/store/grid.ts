@@ -29,9 +29,7 @@ export const useGridStore = defineStore({
         const newElement = unreactify(change.action.added.element);
 
         if (!newElement.id) {
-          console.log('previous id', newElement.id);
           newElement.id = uuid();
-          console.log('new id', newElement.id);
         }
 
         widgetsList.splice(change.action.added.newIndex, 0, newElement);

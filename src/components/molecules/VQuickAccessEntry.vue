@@ -39,8 +39,13 @@ const props = withDefaults(defineProps<Props>(),{
   iconOnly: false
 });
 
+
 const parsedName = computed(() => {
-  return new URL(props.href as string).hostname.replace(/^www\./, '');
+  if (props.name) {
+    return props.name;
+  } else {
+    return new URL(props.href as string).hostname.replace(/^www\./, '');
+  }
 });
 
 const iconURL = computed(() => {

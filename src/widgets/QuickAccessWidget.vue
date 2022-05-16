@@ -16,6 +16,9 @@
         :sites-list="quickAccessEntries"
         @set-setting="emit('set-setting', $event)"
         @update-sites-list="onUpdateSitesList($event)"
+        @add-site="onAddSite($event)"
+        @update-site="onUpdateSite($event)"
+        @remove-site="onRemoveSite($event)"
       />
     </template>
   </base-widget>
@@ -27,13 +30,13 @@ import type { QuickAccessEntry } from '@/types/QuickAccessEntry';
 
 import { ref, computed, onMounted } from 'vue';
 import { getBrowserInstance, isRunningAsExtension } from '@/utils/browser';
+import { v4 as uuid } from 'uuid';
 
 import { useQuickAccessStore } from '@/store/widgets/QuickAccessWidgetStore';
 
 import BaseWidget from '@/widgets/BaseWidget.vue';
 import VQuickAccessWidget from '@/components/widgets/VQuickAccessWidget.vue';
 import VQuickAccessWidgetSettings from '@/components/widgets/settings/VQuickAccessWidgetSettings.vue';
-import { unreactify } from '@/utils/reactivity';
 
 interface Props {
   widget?: Widget;
@@ -44,10 +47,6 @@ const props = withDefaults(defineProps<Props>(), {
   widget: () => ({} as unknown as Widget),
   isEditable: false
 });
-
-console.log(props.widget);
-console.log(unreactify(props.widget));
-
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const quickAccess = useQuickAccessStore(props.widget.id!)();
@@ -76,6 +75,21 @@ const quickAccessEntries = computed(() => {
 
 const onUpdateSitesList = (newList: Array<QuickAccessEntry>) => {
   quickAccess.setQuickAccessEntries(newList);
+};
+
+const onAddSite = (newSite: string) => {
+  quickAccess.addQuickAccessEntry({
+    id: uuid(),
+    href: newSite
+  });
+};
+
+const onUpdateSite = (entry: QuickAccessEntry) => {
+  quickAccess.updateQuickAccessEntry(entry);
+};
+
+const onRemoveSite = (entry: QuickAccessEntry) => {
+  quickAccess.removeQuickAccessEntry(entry);
 };
 
 onMounted(() => {
