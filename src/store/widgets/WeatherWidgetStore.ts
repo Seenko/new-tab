@@ -33,8 +33,6 @@ export const useWeatherStore = (instanceName: string) => defineStore({
   },
   actions: {
     async loadWeather(weatherRequest: WeatherRequest) {
-      if (!this.getCanFetchWeather) return;
-
       this.data.lastUpdated = new Date().getTime();
       this.isLoading = true;
       this.error = undefined;

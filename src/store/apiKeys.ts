@@ -4,11 +4,13 @@ import { useStorage } from '@vueuse/core';
 interface ApiKeys {
   news: string;
   weather: string;
+  location: string;
 }
 
 const defaultApiKeys: ApiKeys = {
   news: '',
-  weather: ''
+  weather: '',
+  location: ''
 };
 
 export const useApiKeysStore = defineStore({
@@ -20,6 +22,9 @@ export const useApiKeysStore = defineStore({
     },
     setWeatherApiKey(value: string): string {
       return (this.weather = value);
+    },
+    setLocationApiKey(value: string): string {
+      return (this.location = value);
     }
   },
 });

@@ -55,6 +55,25 @@
             </v-setting-entry>
           </template>
         </v-accordion>
+        <v-accordion class="settings__group">
+          <template #summary>
+            Location
+          </template>
+          <template #content>
+            <v-setting-entry label-id="locationApiKey">
+              <template #label>
+                API Key
+              </template>
+              <template #control>
+                <v-text-input
+                  id="locationApiKey"
+                  v-model="locationApiKeyModel"
+                  placeholder="Location API Key"
+                />
+              </template>
+            </v-setting-entry>
+          </template>
+        </v-accordion>
       </template>
     </v-accordion>
     <v-accordion class="settings__group">
@@ -302,6 +321,7 @@ const props = defineProps({
   isDark: Boolean,
   newsApiKey: { type: String, required: true },
   weatherApiKey: { type: String, required: true },
+  locationApiKey: { type: String, required: true },
   showNetworkStatus: Boolean,
   backgroundColor: { type: String, required: true },
   enableCustomBackgroundImage: Boolean,
@@ -312,6 +332,7 @@ const emit = defineEmits([
   'toggle-dark',
   'set-news-api-key',
   'set-weather-api-key',
+  'set-location-api-key',
   'set-background-color',
   'toggle-enable-custom-background-image',
   'set-background-image',
@@ -330,6 +351,11 @@ const newsApiKeyModel = computed({
 const weatherApiKeyModel = computed({ 
   get: () => props.weatherApiKey, 
   set: (value) => emit('set-weather-api-key', value)
+});
+
+const locationApiKeyModel = computed({ 
+  get: () => props.locationApiKey, 
+  set: (value) => emit('set-location-api-key', value)
 });
 
 const customBackgroundImageModel = computed({ 

@@ -28,6 +28,7 @@
         :is-dark="darkMode"
         :news-api-key="apiKeys.news"
         :weather-api-key="apiKeys.weather"
+        :location-api-key="apiKeys.location"
         :show-network-status="settings.showNetworkStatus"
         :background-color="settings.backgroundColor"
         :enable-custom-background-image="settings.enableCustomBackgroundImage"
@@ -36,6 +37,7 @@
         @toggle-dark="toggleDarkMode()"
         @set-news-api-key="updateNewsApiKey($event)"
         @set-weather-api-key="updateWeatherApiKey($event)"
+        @set-location-api-key="updateLocationApiKey($event)"
         @toggle-show-network-status="settings.toggleShowNetworkStatus()"
         @set-background-color="settings.setBackgroundColor($event)"
         @toggle-enable-custom-background-image="settings.toggleEnableCustomBackgroundImage()"
@@ -109,6 +111,10 @@ const updateNewsApiKey = (newToken: string) => {
 const updateWeatherApiKey = (newToken: string) => {
   apiKeys.setWeatherApiKey(newToken);
   WeatherService.init(newToken);
+};
+
+const updateLocationApiKey = (newToken: string) => {
+  apiKeys.setLocationApiKey(newToken);
 };
 
 const manifestVersion = computed(() => {

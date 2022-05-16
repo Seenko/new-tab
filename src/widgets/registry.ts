@@ -99,6 +99,24 @@ export const registeredWidgets: Array<Widget> = [
     default: true,
     settings: [
       {
+        id: 'locationName',
+        name: 'Location Name',
+        type: 'string',
+        value: ''
+      },
+      {
+        id: 'latitude',
+        name: 'Latitude',
+        type: 'number',
+        value: null
+      },
+      {
+        id: 'longitude',
+        name: 'Longitude',
+        type: 'number',
+        value: null
+      },
+      {
         id: 'showCurrentWeather',
         name: 'Current Weather',
         type: 'boolean',
