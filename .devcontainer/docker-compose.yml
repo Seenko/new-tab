@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  app:
+    container_name: 'new-tab'
+    build:
+      context: ../
+      dockerfile: ./.devcontainer/Dockerfile
+    volumes:
+      - '../:/app'
+      - '/app/node_modules'
+    stdin_open: true
+    tty: true

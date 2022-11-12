@@ -1,0 +1,27 @@
+{
+  "name": "Development Container",
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
+  "service": "app",
+  "workspaceFolder": "/app",
+  "postCreateCommand": "git config --system --add safe.directory ${containerWorkspaceFolder}",
+  "portsAttributes": {
+    "3000": {
+    "label": "Application",
+    "requireLocalPort": true
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "eslint.format.enable": true,
+        "eslint.validate": [
+          "javascript",
+          "typescript",
+        ],
+        "editor.tabSize": 2,
+      },
+    }
+  }
+}
+

@@ -12,9 +12,13 @@ The code here won't be pretty, as this is just a for fun personal project. There
 
 This does not use any external pre-made UI libraries, all UI elements are built from the ground up.
 
+## Development
+
+There's a devcontainer that you can use, so, use it.
+
 ## Installation
 
-Just install the node_modules using [pNpM](https://pnpm.io/) and run the `build` script.
+Just install the node_modules and run the `build` script.
 
 The `build` script will also run the `lint` script.
 
